@@ -19,27 +19,27 @@
 
     ``Switch(config-if)#switchport trunk native vlan vlan-id``
 
-  Trong đó vlan-id là chỉ số của VLAN native.
+    Trong đó vlan-id là chỉ số của VLAN native.
   
-  <img src="Basicnetworkimages/5.png">  
+    <img src="Basicnetworkimages/5.png">  
   
   + Management VLAN Để có thể giám sát từ xa các thiết bị chuyển mạch trong hệ thống mạng của mình, bạn cần phải có một VLAN đặc biệt dùng để thực hiện việc này, đó chính là Management VLAN. Bằng cách gán một địa chỉ IP dùng để telnet từ xa vào hệ thống mạng thông qua địa chỉ IP này, và có thể cấm các người dùng khác truy cập vào thiết bị. Vì đây là một VLAN khá nhạy cảm được cấp một số quyền quản trị nên nó cần phải được tách riêng ra khỏi các VLAN khác để đảm bảo yếu tố an toàn bảo mật. Khi mạng có vấn đề như: hội tụ với STP, broadcast storms thì một Management VLAN cho phép nhà quản trị vẫn có thể truy cập được vào thiết bị và giải quyết vấn đề đó.
 
   Cấu hình địa chỉ IP cho Switch như sau:
 
-  ``Switch#config terminal``
+    ``Switch#config terminal``
 
-  ``Switch(config)#interface vlan vlan-id``
+    ``Switch(config)#interface vlan vlan-id``
+  
+    ``Switch(config-if)#ip address xxx.xxx.xxx.xxx subnet mask``
 
-  ``Switch(config-if)#ip address xxx.xxx.xxx.xxx subnet mask``
-
-  ``Switch(config-if)#end``
+    ``Switch(config-if)#end``
 
   Địa chỉ này sẽ được sử dụng để quản trị Switch từ xa (qua telnet). xxx.xxx.xxx.xxx là địa chỉ IP của VLAN. Ví dụ: 192.168.10.2 Ví dụ subnet mask là 255.255.255.0
 
   + Voice VLAN Voice VLAN là VLAN dành cho lưu lượng thoại. Nó cho phép các cổng Switch mang lưu lượng thoại IP từ một điện thoại IP. Người quản trị mạng cấu hình một Voice VLAN và gán nó để truy cập các cổng. Khi một điện thoại IP được kết nối với các cổng Switch, Switch sẽ gửi gói tin CDP đó hướng dẫn các điện thoại IP đính kèm để gửi lưu lượng thoại được gán nhãn VLAN ID.
 
-  <img src="Basicnetworkimages/6.png"> 
+    <img src="Basicnetworkimages/6.png"> 
 
 ## Thành phần của VLAN
   + Switch hỗ trợ VLAN: Switch là thiết bị trung tâm của mạng VLAN, có khả năng tạo và quản lý các VLAN.
