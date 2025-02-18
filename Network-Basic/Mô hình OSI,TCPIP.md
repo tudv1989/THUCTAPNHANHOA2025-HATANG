@@ -84,3 +84,7 @@
   Các tiêu chuẩn và giao thức đã được xác định trước, những mô hình này không xác định lại chúng, chỉ tham khảo hoặc sử dụng lại chúng. Ví dụ, các tiêu chuẩn Ethernet đã được IEEE xác định trước khi phát triển các mô hình 
   + Cả 2 đều có chức năng tương tự của các lớp Transport và Network
   Chức năng được thực hiện giữa lớp Presentation và lớp Network tương tự như chức năng được thực hiện ở lớp Transport
+### Sự khác biệt giữa mô hình OSI và TCP/IP
+
+  <img src="Basicnetworkimages/4.png">
+
