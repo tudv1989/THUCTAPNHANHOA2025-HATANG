@@ -24,7 +24,8 @@
 + Tầng vật lý (Physical Layer) 
   Bao gồm các thiết bị phần cứng giúp truyền tải dữ liệu như cáp, bộ định tuyến,…. Ở tầng này dữ liệu được truyền tải dưới dạng bit 0 và 1
   
-  <img src="Basicnetworkimages/1.png">
+                  <img src="Basicnetworkimages/1.png">
+
 #### Ưu điểm của mô hình OSI 
 + Mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa
 + Có thể tích hợp trong nhiều mạng lưới khác nhau
