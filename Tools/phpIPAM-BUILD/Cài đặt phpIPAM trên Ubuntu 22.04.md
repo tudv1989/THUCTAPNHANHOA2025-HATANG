@@ -1,5 +1,5 @@
 ## Lời nói đầu về phpIPAM
-  Vì sao tôi lại chọn phpIPAM: Khả năng cao nó dùng LAMP stack hoặc LEMP stack, đây là stack quen thuộc đối với bản thân tôi.
+  Vì sao tôi lại chọn phpIPAM: khả năng cao nó do nó dùng LAMP stack hoặc LEMP stack, đây là stack quen thuộc đối với bản thân tôi.
   
   Mục tiêu của hướng dẫn này là giúp bạn cài đặt và Cấu hình phpIPAM trên Ubuntu 22.04|20.04|18.04 Linux distribution.
   
