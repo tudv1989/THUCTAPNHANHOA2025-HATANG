@@ -3,7 +3,7 @@
 
   <img src="Basicnetworkimages/7.png">  
 
-  Nguyên lý hoạt động của STP:
+#### Nguyên lý hoạt động của STP:
   + Tìm ra cây khung (spanning tree) trong mạng, bao gồm các đường dẫn chính và dự phòng.
   + Tắt các cổng không cần thiết để ngăn chặn vòng lặp.
   + Cho phép chuyển đổi nhanh chóng giữa các đường dẫn dự phòng khi đường chính bị lỗi.
