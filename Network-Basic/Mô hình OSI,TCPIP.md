@@ -84,7 +84,13 @@
   Các tiêu chuẩn và giao thức đã được xác định trước, những mô hình này không xác định lại chúng, chỉ tham khảo hoặc sử dụng lại chúng. Ví dụ, các tiêu chuẩn Ethernet đã được IEEE xác định trước khi phát triển các mô hình 
   + Cả 2 đều có chức năng tương tự của các lớp Transport và Network
   Chức năng được thực hiện giữa lớp Presentation và lớp Network tương tự như chức năng được thực hiện ở lớp Transport
+
 ### Sự khác biệt giữa mô hình OSI và TCP/IP
 
   <img src="Basicnetworkimages/4.png">
+
+## Kết luận
+  Chúng ta có thể kết luận rằng mô hình TCP/IP đáng tin cậy đối với mô hình OSI, TCP/IP được sử dụng cho kết nối đầu cuối để truyền dữ liệu qua Internet. TCP/IP mạnh mẽ, linh hoạt, hữu hình và cũng gợi ý cách dữ liệu nên được gửi qua web. Lớp vận chuyển của Mô hình TCP/IP kiểm tra xem dữ liệu đã đến theo thứ tự chưa, nó có lỗi hay không, các gói bị mất có được gửi hay không, xác nhận có được nhận hay không, v.v…
+
+
 
