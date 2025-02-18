@@ -1,6 +1,6 @@
 ## VPN (Virtual Private Network) và IPsec (IP Security) trong thiết bị Cisco.
 
-    <img src="Basicnetworkimages/7.png"> 
+   <img src="Basicnetworkimages/9.png"> 
 
 ### VPN (Virtual Private Network):
   VPN là một công nghệ cho phép tạo một đường hầm (tunnel) mạng riêng và an toàn qua mạng công cộng như Internet.
