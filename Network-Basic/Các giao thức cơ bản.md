@@ -28,9 +28,9 @@
 
 ### Phân tầng các giao thức:
 
-## Tầng Ứng dụng: HTTPS, DNS, FTP, SMTP, POP3, IMAP
-## Tầng Vận chuyển: TCP, UDP
-## Tầng Mạng: IP
-## Tầng Liên kết dữ liệu: Ethernet, Wi-Fi
-## Tầng Vật lý: Cáp, sóng radio
+#### Tầng Ứng dụng: HTTPS, DNS, FTP, SMTP, POP3, IMAP
+#### Tầng Vận chuyển: TCP, UDP
+#### Tầng Mạng: IP
+#### Tầng Liên kết dữ liệu: Ethernet, Wi-Fi
+#### Tầng Vật lý: Cáp, sóng radio
   Các giao thức này hoạt động ở các tầng khác nhau của mô hình OSI/TCP-IP, cung cấp các chức năng và dịch vụ khác nhau để đáp ứng các yêu cầu của ứng dụng và người dùng trên Internet.
