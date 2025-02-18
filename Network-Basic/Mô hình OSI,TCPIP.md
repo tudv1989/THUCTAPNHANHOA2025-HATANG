@@ -72,7 +72,9 @@
   + Không tách biệt rõ ràng các khái niệm về dịch vụ, giao diện và giao thức. Do đó nó không hiệu quả để mô tả các công nghệ mới trong mạng mới
   + Dễ bị tấn công SYN  - một kiểu tấn công từ chối dịch vụ
 ## So sánh mô hình OSI và TCP/IP
+
   <img src="Basicnetworkimages/3.png">
+
 ### Điểm tương đồng giữa mô hình OSI và TCP/IP
   + Chia sẻ kiến trúc chung
   Cả 2 mô hình đều là mô hình logic và có kiến trúc tương tự vì cả 2 mô hình đều được xây dựng dựa trên các lớp
