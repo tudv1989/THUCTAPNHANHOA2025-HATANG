@@ -23,4 +23,4 @@
   Đáp ứng các nhu cầu của tầng mạng, về cơ bản tầng này giống với tầng mạng nhưng nó hỗ trợ dữ liệu có thể được truyền đi giữa các thiết bị trong cùng một mạng
 + Tầng vật lý (Physical Layer) 
   Bao gồm các thiết bị phần cứng giúp truyền tải dữ liệu như cáp, bộ định tuyến,…. Ở tầng này dữ liệu được truyền tải dưới dạng bit 0 và 1
-<img src="Basicnetworkimages/1.png">
+  <img src="Basicnetworkimages/1.png">
