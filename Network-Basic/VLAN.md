@@ -13,11 +13,11 @@
   + User VLAN (hay Data VLAN): Là VLAN trong đó chứa các tài khoản người dùng thành từng nhóm dựa theo các thuộc tính về đặc thù công việc của từng nhóm làm việc hay theo thuộc tính về vị trí vật lý của các nhóm làm việc này.
   + Native VLAN: Là VLAN dùng để cấu hình Trunking do một số thiết bị không tương thích với nhau, lúc này ta phải sử dụng Native VLAN để chúng có thể giao tiếp với nhau. Khi đó, tất cả các khung dữ liệu (frame) của các VLAN khi giao tiếp qua kết nối Trunking đều sẽ được gắn tag của giao thức 802.1Q hoặc ISL, ngoại trừ các frame của VLAN 1. Native VLAN là VLAN mà frame của nó sẽ không được tag trước khi gửi qua đường trunk. Ngầm định Native VLAN của Switch là VLAN 1. Cấu hình Native VLAN như sau:
 
-  ``Switch#config terminal``
+    ``Switch#config terminal``
 
-  ``Switch(config)#interface fastethernet slot/port_number``
+    ``Switch(config)#interface fastethernet slot/port_number``
 
-  ``Switch(config-if)#switchport trunk native vlan vlan-id``
+    ``Switch(config-if)#switchport trunk native vlan vlan-id``
 
   Trong đó vlan-id là chỉ số của VLAN native.
   
