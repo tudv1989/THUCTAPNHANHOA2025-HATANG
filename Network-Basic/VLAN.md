@@ -19,7 +19,9 @@
 
   ``Switch(config-if)#switchport trunk native vlan vlan-id``
 
-  ``Trong đó vlan-id là chỉ số của VLAN native.``  
+  Trong đó vlan-id là chỉ số của VLAN native.
+  
+  <img src="Basicnetworkimages/5.png">  
   
 ## Thành phần của VLAN
   + Switch hỗ trợ VLAN: Switch là thiết bị trung tâm của mạng VLAN, có khả năng tạo và quản lý các VLAN.
