@@ -24,3 +24,12 @@
 + Tầng vật lý (Physical Layer) 
   Bao gồm các thiết bị phần cứng giúp truyền tải dữ liệu như cáp, bộ định tuyến,…. Ở tầng này dữ liệu được truyền tải dưới dạng bit 0 và 1
   <img src="Basicnetworkimages/1.png">
+- Ưu điểm của mô hình OSI 
++ Mỗi tầng có 1 cấu trúc và chức năng riêng nên dễ dàng xây dựng và sửa chữa
++ Có thể tích hợp trong nhiều mạng lưới khác nhau
++ Hỗ trợ kết nối có liên kết và kết nối phi liên kết
+- Nhược điểm của mô hình OSI
++ Tầng phiên và tầng trình diễn thường không được sử dụng nhiều so với các tầng khác vì chức năng hạn hẹp của nó
++ Không hỗ trợ các giao thức, không định nghĩa bất kì giao thức nào
++ Nhiều dịch vụ trùng lặp tại các tầng, ví dụ tầng mạng và tầng liên kết dữ liệu
++ Các tầng không thể hoạt động song song, tầng dưới phải chờ dữ liệu từ tầng trên
