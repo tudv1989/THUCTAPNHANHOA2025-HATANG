@@ -14,18 +14,13 @@
 
 ## IPsec (IP Security):
    IPsec là một bộ các giao thức mã hóa và xác thực được sử dụng trong VPN.
-
    Các chức năng chính của IPsec: 
-
    + Xác thực người dùng và máy chủ
    + Mã hóa dữ liệu
    + Đảm bảo tính toàn vẹn của dữ liệu
-
-    IPsec hoạt động trong 2 chế độ:
-
-     + Transport mode: Mã hóa phần tải của gói tin IP
-     + Tunnel mode: Mã hóa toàn bộ gói tin IP, tạo đường hầm ảo
-
+   IPsec hoạt động trong 2 chế độ:
+   + Transport mode: Mã hóa phần tải của gói tin IP
+   + Tunnel mode: Mã hóa toàn bộ gói tin IP, tạo đường hầm ảo
 #### Trong thiết bị Cisco, VPN và IPsec được cấu hình và quản lý thông qua các tính năng sau:
   + VPN Concentrator: Thiết bị chuyên dụng để kết nối VPN từ xa.
   + IPsec VPN: Cấu hình các đường hầm IPsec trên router, firewall Cisco.
