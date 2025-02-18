@@ -1,7 +1,7 @@
-## 1. VLAN là gì?
+## 1.VLAN là gì?
   + VLAN (Virtual Local Area Network) là một mạng LAN ảo, cho phép chia một mạng vật lý thành nhiều mạng logic riêng biệt. Mỗi VLAN hoạt động như một mạng LAN độc lập, có thể giao tiếp với nhau hoặc bị cô lập tùy theo cấu hình.
-## 2. Các loại VLAN
-### 2.1 Có nhiều loại VLAN khác nhau, được phân loại dựa trên cách chúng gán các cổng vào VLAN:
+## 2.Các loại VLAN
+### Có nhiều loại VLAN khác nhau, được phân loại dựa trên cách chúng gán các cổng vào VLAN:
   + VLAN dựa trên cổng (Port-based VLAN): Gán các cổng của switch vào một VLAN cụ thể. Các thiết bị kết nối vào cổng đó sẽ thuộc VLAN đó.
   + VLAN dựa trên địa chỉ MAC (MAC address-based VLAN): Gán các thiết bị vào VLAN dựa trên địa chỉ MAC của chúng.
   + VLAN dựa trên giao thức (Protocol-based VLAN): Gán các thiết bị vào VLAN dựa trên giao thức mà chúng sử dụng (ví dụ: IP, IPX).
