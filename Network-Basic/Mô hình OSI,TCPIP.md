@@ -54,3 +54,33 @@
   + Tầng vật lý 
   Tầng vật lý (còn được gọi là tầng liên kết dữ liệu) là tầng thấp nhất trong mô hình TCP/IP. Tầng này chịu trách nhiệm truyền dữ liệu giữa hai thiết bị trong cùng một mạng 
   Tại đây, các gói dữ liệu được đóng vào khung (gọi là Frame) và được định tuyến đi đến đích đã được chỉ định ban đầu
+
+  <img src="Basicnetworkimages/2.png">
+
+#### Ưu điểm của mô hình TCP/IP
+  + Thiết lập kết nối giữa các loại máy tính khác nhau
+  + Hoạt động độc lập với hệ điều hành
+  + Hỗ trợ nhiều giao thức định tuyến
+  + Kiến trúc client - server, khả năng mở rộng cao
+  + Có thể hoạt động độc lập
+  + Hỗ trợ nhiều giao thức định tuyến
+  + Nhẹ, không gây nhiều áp lực với máy tính hay mạng
+#### Nhược điểm của mô hình TCP/IP
+  + Việc cài đặt khá phức tạp, khó để quản lý
+  + Tầng transport không đảm bảo việc phân phối các gói tin
+  + Các giao thức trong TCP/IP không dễ để có thể thay thế
+  + Không tách biệt rõ ràng các khái niệm về dịch vụ, giao diện và giao thức. Do đó nó không hiệu quả để mô tả các công nghệ mới trong mạng mới
+  + Dễ bị tấn công SYN  - một kiểu tấn công từ chối dịch vụ
+## So sánh mô hình OSI và TCP/IP
+  <img src="Basicnetworkimages/3.png">
+### Điểm tương đồng giữa mô hình OSI và TCP/IP
+  + Chia sẻ kiến trúc chung
+  Cả 2 mô hình đều là mô hình logic và có kiến trúc tương tự vì cả 2 mô hình đều được xây dựng dựa trên các lớp
+  + Xác định tiêu chuẩn 
+  Cả 2 lớp đều có các tiêu chuẩn xác định và chúng cũng cung cấp khuôn khổ được sử dụng để thực hiện các tiêu chuẩn và thiết bị
+  + Quy trình khắc phục sự cố được đơn giản hóa
+  Cả 2 mô hình đã đơn giản hóa quá trình khắc phục sự cố bằng cách chia nhỏ chức năng phức tạp thành các thành phần đơn giản hơn
+  + Các tiêu chuẩn được xác định trước
+  Các tiêu chuẩn và giao thức đã được xác định trước, những mô hình này không xác định lại chúng, chỉ tham khảo hoặc sử dụng lại chúng. Ví dụ, các tiêu chuẩn Ethernet đã được IEEE xác định trước khi phát triển các mô hình 
+  + Cả 2 đều có chức năng tương tự của các lớp Transport và Network
+  Chức năng được thực hiện giữa lớp Presentation và lớp Network tương tự như chức năng được thực hiện ở lớp Transport
