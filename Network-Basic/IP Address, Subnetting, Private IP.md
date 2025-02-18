@@ -2,8 +2,8 @@
 ### Định nghĩa: 
   + Địa chỉ IP là một số nhận dạng duy nhất được gán cho mỗi thiết bị trong mạng máy tính sử dụng giao thức Internet Protocol (IP).
 ### Cấu trúc:
-  +IPv4: Gồm 4 số thập phân (mỗi số từ 0 đến 255) phân cách bằng dấu chấm (ví dụ: 192.168.1.100).
-  +IPv6: Gồm 8 nhóm 4 ký tự hexa phân cách bằng dấu hai chấm (ví dụ: 2001:0db8:85a3:0000:0000:8a2e:0370:7334).
+  + IPv4: Gồm 4 số thập phân (mỗi số từ 0 đến 255) phân cách bằng dấu chấm (ví dụ: 192.168.1.100).
+  + IPv6: Gồm 8 nhóm 4 ký tự hexa phân cách bằng dấu hai chấm (ví dụ: 2001:0db8:85a3:0000:0000:8a2e:0370:7334).
 ### Chức năng:
   + Định danh và định vị thiết bị trên mạng.
   + Cho phép thiết bị giao tiếp và trao đổi dữ liệu với các thiết bị khác.
