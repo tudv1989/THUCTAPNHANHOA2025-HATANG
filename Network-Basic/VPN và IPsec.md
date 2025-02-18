@@ -18,6 +18,7 @@
    + Xác thực người dùng và máy chủ
    + Mã hóa dữ liệu
    + Đảm bảo tính toàn vẹn của dữ liệu
+
    IPsec hoạt động trong 2 chế độ:
    + Transport mode: Mã hóa phần tải của gói tin IP
    + Tunnel mode: Mã hóa toàn bộ gói tin IP, tạo đường hầm ảo
