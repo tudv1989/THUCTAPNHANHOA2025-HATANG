@@ -1,6 +1,6 @@
-### Mô hình OSI và TCP/IP
+## Mô hình OSI và TCP/IP
 
-## Mô hình OSI là gì?
+### Mô hình OSI là gì?
   Mô hình OSI hay Open Systems Interconnection có nhiệm vụ thiết lập kết nối giữa các thiết bị giao tiếp trên toàn cầu. OSI được coi là mã nguồn mở vì khả năng phù hợp với mọi hệ thống mạng của nó.
   Mô hình cung cấp một tiêu chuẩn dưới dạng kiến trúc phân tầng cho phép các hệ thống khác nhau có thể giao tiếp được với nhau, trong đó gồm có 7 tầng với những cấu trúc và chức năng riêng đã được định nghĩa sẵn.
   Mỗi tầng có một chức năng riêng và chỉ giao tiếp với các tầng tiếp giáp với nó, mọi sự thay đổi về vị trí các tầng trong kiến trúc trên đều không được chấp nhận:
