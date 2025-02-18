@@ -35,3 +35,5 @@ Tầng mạng còn cung cấp các thuật toán dò đường cho các bộ đ�
 
 + Tầng vật lý (Physical Layer) 
 Bao gồm các thiết bị phần cứng giúp truyền tải dữ liệu như cáp, bộ định tuyến,…. Ở tầng này dữ liệu được truyền tải dưới dạng bit 0 và 1
+
+https://prnt.sc/peqaIuYolk8a
