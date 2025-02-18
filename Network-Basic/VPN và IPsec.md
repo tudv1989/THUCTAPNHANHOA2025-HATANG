@@ -1,4 +1,4 @@
-## VPN (Virtual Private Network) và IPsec (IP Security) trong thiết bị Cisco.
+## VPN (Virtual Private Network) và IPsec (IP Security)
 
    <img src="Basicnetworkimages/9.png"> 
 
