@@ -19,7 +19,8 @@
   + Sử dụng Subnet Mask để chia một mạng thành các mạng con.
   + Subnet Mask xác định phần mạng (network) và phần thiết bị (host) trong địa chỉ IP.
 ## Private IP:
-#### Định nghĩa: Private IP là các dải địa chỉ IP được dự trữ cho sử dụng trong mạng nội bộ, không được định tuyến trên Internet.
+#### Định nghĩa
+  Private IP là các dải địa chỉ IP được dự trữ cho sử dụng trong mạng nội bộ, không được định tuyến trên Internet.
   + Các dải Private IP:
   IPv4: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
   IPv6: fc00::/7
