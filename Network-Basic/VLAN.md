@@ -36,11 +36,11 @@
 
     ``Switch(config-if)#end``
 
-  Địa chỉ này sẽ được sử dụng để quản trị Switch từ xa (qua telnet). xxx.xxx.xxx.xxx là địa chỉ IP của VLAN. Ví dụ: 192.168.10.2 Ví dụ subnet mask là 255.255.255.0
+      Địa chỉ này sẽ được sử dụng để quản trị Switch từ xa (qua telnet). xxx.xxx.xxx.xxx là địa chỉ IP của VLAN. Ví dụ: 192.168.10.2 Ví dụ subnet mask là 255.255.255.0
 
   + Voice VLAN Voice VLAN là VLAN dành cho lưu lượng thoại. Nó cho phép các cổng Switch mang lưu lượng thoại IP từ một điện thoại IP. Người quản trị mạng cấu hình một Voice VLAN và gán nó để truy cập các cổng. Khi một điện thoại IP được kết nối với các cổng Switch, Switch sẽ gửi gói tin CDP đó hướng dẫn các điện thoại IP đính kèm để gửi lưu lượng thoại được gán nhãn VLAN ID.
 
-    <img src="Basicnetworkimages/6.png"> 
+      <img src="Basicnetworkimages/6.png"> 
 
 ## Thành phần của VLAN
   + Switch hỗ trợ VLAN: Switch là thiết bị trung tâm của mạng VLAN, có khả năng tạo và quản lý các VLAN.
