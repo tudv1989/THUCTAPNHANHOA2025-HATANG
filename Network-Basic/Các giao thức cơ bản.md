@@ -1,8 +1,6 @@
 ## Các giao thức Internet cơ bản
-
 #### HTTPS (Hypertext Transfer Protocol Secure):
-## Khái niệm
-  + HTTPS là phiên bản an toàn của giao thức HTTP, được mã hóa để bảo vệ dữ liệu truyền qua Internet.
+  + Khái niệm HTTPS: là phiên bản an toàn của giao thức HTTP, được mã hóa để bảo vệ dữ liệu truyền qua Internet.
   + Tầng: Ứng dụng
 #### DNS (Domain Name System):
   + Khái niệm: DNS là hệ thống phân giải tên miền thành địa chỉ IP, giúp người dùng truy cập website dễ dàng hơn.
