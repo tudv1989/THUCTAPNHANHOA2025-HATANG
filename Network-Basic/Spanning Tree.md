@@ -17,9 +17,9 @@
   + RPVST+
   + MSTP.
 ## EtherChannel:
-  EtherChannel là một kỹ thuật kết hợp nhiều đường truyền Ethernet vật lý thành một kênh逼 logic duy nhất.
+  EtherChannel là một kỹ thuật kết hợp nhiều đường truyền Ethernet vật lý thành một kênh logic duy nhất.
 
-  <img src="Basicnetworkimages/7.png">  
+  <img src="Basicnetworkimages/8.png">  
 
   Các lợi ích của EtherChannel:
   + Tăng băng thông: Tổng băng thông của EtherChannel bằng tổng băng thông của các đường truyền thành viên.
