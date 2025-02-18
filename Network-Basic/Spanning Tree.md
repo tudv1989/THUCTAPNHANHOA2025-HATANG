@@ -21,7 +21,7 @@
 
   <img src="Basicnetworkimages/8.png">  
 
-  Các lợi ích của EtherChannel:
+#### Các lợi ích của EtherChannel:
   + Tăng băng thông: Tổng băng thông của EtherChannel bằng tổng băng thông của các đường truyền thành viên.
   + Tăng khả năng chịu lỗi: Nếu một đường truyền thất bại, các đường truyền khác sẽ tiếp tục hoạt động.
   + Cân bằng tải: Các kết nối có thể được phân phối đều trên các đường truyền thành viên.
