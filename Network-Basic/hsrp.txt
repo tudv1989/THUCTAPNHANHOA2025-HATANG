@@ -169,3 +169,46 @@ swcore2(config-if)#exit
 ## Lưu cấu hình trên cả 2 thiết bị sw core
 
 switch#copy running-config startup-config
+
+
+## Các địa chỉ IP ban đầu được khai báo trên các interface VLAN của swcore1 và swcore2 có ý nghĩa như sau:
+
+Trên swcore1:
+VLAN 10: 192.168.10.1
+VLAN 20: 192.168.20.1
+VLAN 30: 192.168.30.1
+VLAN 100: 192.168.100.1
+Trên swcore2:
+VLAN 10: 192.168.10.2
+VLAN 20: 192.168.20.2
+VLAN 30: 192.168.30.2
+VLAN 100: 192.168.100.2
+Ý nghĩa của các địa chỉ IP này:
+
+Chúng là địa chỉ IP của switch được gán trực tiếp cho các VLAN. Đây không phải là địa chỉ gateway ảo dùng cho HSRP.
+Các địa chỉ IP này được sử dụng cho mục đích quản lý và monitoring switch, chẳng hạn như truy cập vào giao diện web của switch, ssh, telnet, v.v.
+Các PC trong các VLAN sẽ không sử dụng các địa chỉ IP này làm gateway. Thay vào đó, chúng sẽ sử dụng các địa chỉ IP ảo của HSRP như đã được cấu hình trước đó (192.168.10.100, 192.168.20.100, v.v.).
+Việc cấu hình các địa chỉ IP này trên các interface VLAN giúp switch có thể giao tiếp và được quản lý trong mạng, nhưng không ảnh hưởng đến hoạt động của HSRP và việc các PC sử dụng các địa chỉ gateway ảo.
+Tóm lại, các địa chỉ IP này chỉ dành cho mục đích quản lý switch, còn các PC sẽ sử dụng các địa chỉ gateway ảo của HSRP làm gateway mặc định.
+
+## Gateway của các PC trong các VLAN sẽ được đặt như sau:
+
+VLAN 10:
+Gateway: 192.168.10.100
+Đây là địa chỉ IP ảo (virtual IP) được cấu hình cho HSRP trên VLAN 10.
+Các PC trong VLAN 10 sẽ sử dụng 192.168.10.100 làm gateway mặc định.
+VLAN 20:
+Gateway: 192.168.20.100
+Đây là địa chỉ IP ảo được cấu hình cho HSRP trên VLAN 20.
+Các PC trong VLAN 20 sẽ sử dụng 192.168.20.100 làm gateway mặc định.
+VLAN 30:
+Gateway: 192.168.30.100
+Đây là địa chỉ IP ảo được cấu hình cho HSRP trên VLAN 30.
+Các PC trong VLAN 30 sẽ sử dụng 192.168.30.100 làm gateway mặc định.
+VLAN 100:
+Gateway: 192.168.100.100
+Đây là địa chỉ IP ảo được cấu hình cho HSRP trên VLAN 100.
+Các PC trong VLAN 100 sẽ sử dụng 192.168.100.100 làm gateway mặc định.
+Với cấu hình HSRP, khi switch chính (swcore1) hoạt động bình thường, nó sẽ là router chính (active) cho các địa chỉ gateway ảo này. Nếu swcore1 gặp sự cố, switch dự phòng (swcore2) sẽ tự động trở thành router chính và tiếp quản các địa chỉ gateway ảo, đảm bảo tính liên tục của mạng.
+
+Các PC trong các VLAN chỉ cần sử dụng các địa chỉ gateway ảo này, mà không cần quan tâm đến địa chỉ IP của switch chính hay switch dự phòng.
