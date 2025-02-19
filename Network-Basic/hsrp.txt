@@ -1,0 +1,171 @@
+## Swcore1
+
+swcore1>enable 
+swcore1#configure terminal 
+swcore1(config)#hostname swcore1
+
+swcore1(config)#vlan 10
+swcore1(config-vlan)#name VLAN10
+swcore1(config-vlan)#exit
+swcore1(config)#vlan 20
+swcore1(config-vlan)#name VLAN20
+swcore1(config-vlan)#vlan 30
+swcore1(config-vlan)#name VLAN30
+swcore1(config-vlan)#exit
+swcore1(config)#vlan 100
+swcore1(config-vlan)#name VLAN100
+swcore1(config-vlan)#exit
+
+swcore1(config)#interface vlan 10
+swcore1(config-if)#ip address 192.168.10.1 255.255.255.0
+swcore1(config-if)#exit
+swcore1(config)#interface vlan 20
+swcore1(config-if)#ip address 192.168.20.1 255.255.255.0
+swcore1(config-if)#exit
+
+swcore1(config)#interface vlan 30
+swcore1(config-if)#ip address 192.168.30.1 255.255.255.0
+swcore1(config-if)#exit
+
+swcore1(config)#interface vlan 100
+swcore1(config-if)#ip address 192.168.100.1 255.255.255.0
+swcore1(config-if)#exit
+
+
+swcore1(config)#interface vlan 10
+swcore1(config-if)#standby version 2
+swcore1(config-if)#standby 10 ip 192.168.10.100
+swcore1(config-if)#
+%HSRP-6-STATECHANGE: Vlan10 Grp 10 state Init -> Init
+
+swcore1(config-if)#standby 10 priority 150
+swcore1(config-if)#standby 10 preempt
+swcore1(config-if)#exit
+swcore1(config)#
+%HSRP-6-STATECHANGE: Vlan10 Grp 10 state Speak -> Standby
+
+%HSRP-6-STATECHANGE: Vlan10 Grp 10 state Standby -> Active
+
+swcore1(config)#interface vlan 20
+swcore1(config-if)#standby version 2
+swcore1(config-if)#standby 20 ip 192.168.20.100
+swcore1(config-if)#
+%HSRP-6-STATECHANGE: Vlan20 Grp 20 state Init -> Init
+
+swcore1(config-if)#standby 20 priority 150
+swcore1(config-if)#standby 20 preempt
+swcore1(config-if)#
+%HSRP-6-STATECHANGE: Vlan20 Grp 20 state Speak -> Standby
+
+%HSRP-6-STATECHANGE: Vlan20 Grp 20 state Standby -> Active
+
+swcore1(config-if)#exit
+swcore1(config)#interface vlan 30
+swcore1(config-if)#standby version 2
+swcore1(config-if)#standby 30 ip 192.168.30.100
+swcore1(config-if)#
+%HSRP-6-STATECHANGE: Vlan30 Grp 30 state Init -> Init
+
+swcore1(config-if)#standby 30 priority 150
+swcore1(config-if)#standby 30 preempt
+swcore1(config-if)#
+%HSRP-6-STATECHANGE: Vlan30 Grp 30 state Speak -> Standby
+
+%HSRP-6-STATECHANGE: Vlan30 Grp 30 state Standby -> Active
+exit
+swcore1(config)#
+swcore1(config)#interface vlan 100
+swcore1(config-if)#standby version 2
+swcore1(config-if)#standby 100 ip 192.168.100.100
+swcore1(config-if)#
+%HSRP-6-STATECHANGE: Vlan100 Grp 100 state Init -> Init
+
+swcore1(config-if)#standby 100 priority 150
+swcore1(config-if)#standby 100 preempt
+swcore1(config-if)#exit
+swcore1(config)#
+%HSRP-6-STATECHANGE: Vlan100 Grp 100 state Speak -> Standby
+
+%HSRP-6-STATECHANGE: Vlan100 Grp 100 state Standby -> Active
+
+swcore1(config)#
+
+## Swcore2
+
+swcore2(config)#vlan 10
+swcore2(config-vlan)#name VLAN10
+swcore2(config-vlan)#exit
+swcore2(config)#vlan 20
+swcore2(config-vlan)#name VLAN20
+swcore2(config-vlan)#exit
+swcore2(config)#vlan 30
+swcore2(config-vlan)#name VLAN30
+swcore2(config-vlan)#exit
+swcore2(config)#vlan 100
+swcore2(config-vlan)#name VLAN100
+swcore2(config-vlan)#exit
+
+swcore2(config)#interface vlan 10
+swcore2(config-if)#ip address 192.168.10.2 255.255.255.0
+swcore2(config-if)#exit
+swcore2(config)#interface vlan 20
+swcore2(config-if)#ip address 192.168.20.2 255.255.255.0
+swcore2(config-if)#exit
+swcore2(config)#interface vlan 30
+swcore2(config-if)#ip address 192.168.30.2 255.255.255.0
+swcore2(config-if)#exit
+swcore2(config)#interface vlan 100
+swcore2(config-if)#ip address 192.168.100.2 255.255.255.0
+swcore2(config-if)#exit
+
+swcore2(config)#interface vlan 10
+swcore2(config-if)#standby version 2
+swcore2(config-if)#standby 10 ip 192.168.10.100
+swcore2(config-if)#standby 10 priority 100
+swcore2(config-if)#standby 10 preempt
+swcore2(config-if)#exit
+
+swcore2(config)#interface vlan 20
+swcore2(config-if)#standby version 2
+swcore2(config-if)#standby 20 ip 192.168.20.100
+swcore2(config-if)#standby 20 priority 100
+swcore2(config-if)#standby 20 preempt
+swcore2(config-if)#exit
+
+swcore2(config)#interface vlan 30
+swcore2(config-if)#standby version 2
+swcore2(config-if)#standby 30 ip 192.168.30.100
+swcore2(config-if)#standby 30 priority 100
+swcore2(config-if)#standby 30 preempt
+swcore2(config-if)#exit
+
+swcore2(config)#interface vlan 100
+swcore2(config-if)#standby version 2
+swcore2(config-if)#standby 100 ip 192.168.100.100
+swcore2(config-if)#standby 100 priority 100
+swcore2(config-if)#standby 100 preempt
+swcore2(config-if)#exit
+
+## Ether chanel trên swcore1
+
+swcore1(config)#interface range fastethernet 0/10 - 11
+swcore1(config-if-range)#channel-group 1 mode active
+swcore1(config-if-range)#exit
+swcore1(config)#interface port-channel 1
+swcore1(config-if)#switchport trunk encapsulation dot1q
+swcore1(config-if)#switchport mode trunk
+swcore1(config-if)#exit
+
+## Ether chanel trên swcore2
+
+swcore2(config)#interface range fastethernet 0/10 - 11
+swcore2(config-if-range)#channel-group 1 mode active
+swcore2(config-if-range)#exit
+swcore2(config)#interface port-channel 1
+swcore2(config-if)#switchport trunk encapsulation dot1q
+swcore2(config-if)#switchport mode trunk
+swcore2(config-if)#exit
+
+## Lưu cấu hình trên cả 2 thiết bị sw core
+
+switch#copy running-config startup-config
