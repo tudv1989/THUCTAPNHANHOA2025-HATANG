@@ -1,4 +1,5 @@
 ## Lời nói đầu về phpIPAM
+
   Vì sao tôi lại chọn phpIPAM: khả năng cao nó do nó dùng LAMP stack hoặc LEMP stack, đây là stack quen thuộc đối với bản thân tôi.
   
   Mục tiêu của hướng dẫn này là giúp bạn cài đặt và Cấu hình phpIPAM trên Ubuntu 22.04|20.04|18.04 Linux distribution.
@@ -32,10 +33,16 @@
   + Mô-đun yêu cầu IP
   + Giao diện lập trình ứng dụng REST
   + Mô-đun vị trí
-## Cài đặt phpIPAM trên Ubuntu 22.04|20.04|18.04
-  phpIPAM có một số phụ thuộc mà chúng ta cần cài đặt trước khi có thể cài đặt và cấu hình phpIPAM. Đó là:
+## Cài đặt phpIPAM trên Ubuntu 22.04
+
+  phpIPAM có một số phụ thuộc mà chúng ta cần cài đặt trước khi có thể cài đặt và cấu hình phpIPAM:
   + Máy chủ MySQL / MariaDB
   + php / php-fpm cho nginx
-  + mô-đun php
+  + Module php
   + Máy chủ web Apache / nginx
-  + Tên miền phpIPAM –  ipam.example.com  (nên thay thế bằng tên miền của bạn)
+  + Tên miền phpIPAM –  phpipam.dinhtu.xyz (nên thay thế bằng tên miền của bạn)
+
+## 
+
+  IP:xxx.xxx.xxx.204 
+  Root mariadb 123456aA@1
