@@ -19,8 +19,9 @@
 
   BID gồm 2 thành phần: priority (16 bit) và MAC address (48 bit).
 
-  + Switch có BID thấp nhất sẽ trở thành Root Bridge.
-  + Port Cost:Port Cost là một số nguyên được gán cho từng cổng trên switch.
+  Switch có BID thấp nhất sẽ trở thành Root Bridge.
+  
+#### Port Cost:Port Cost là một số nguyên được gán cho từng cổng trên switch.
 
   Cổng có Port Cost thấp hơn sẽ được ưu tiên chọn làm đường dẫn chính.
 
