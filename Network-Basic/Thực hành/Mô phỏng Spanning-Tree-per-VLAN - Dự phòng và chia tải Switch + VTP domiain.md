@@ -54,7 +54,7 @@
 
 Việc điều chỉnh các thông số trên có thể giúp tối ưu hóa việc lựa chọn đường dẫn STP, đáp ứng các yêu cầu về dự phòng và hiệu suất mạng.
 
-## Quá trình tìm Block Port Spanning tree
+## Quá trình tìm Block Port Spanning Tree
 
 #### Root switch:
 
