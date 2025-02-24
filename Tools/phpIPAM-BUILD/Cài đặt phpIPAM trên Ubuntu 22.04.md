@@ -46,3 +46,33 @@
 
   IP:xxx.xxx.xxx.204 
   Root mariadb 123456aA@1
+  service php8.1-fpm start
+  systemctl enable php8.1-fpm
+
+server {
+    listen       80;
+    # root directory
+    server_name phpipam.dinhtu.xyz  www.phpipam.dinhtu.xyz;
+    index        index.php;
+    root   /var/www/html/phpipam;
+
+
+    location / {
+            try_files $uri $uri/ /index.php$is_args$args;
+        }
+
+    location ~ \.php$ {
+            try_files $uri =404;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+             fastcgi_pass   unix:/run/php/php8.1-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_index index.php;
+            include fastcgi_params;
+        }
+
+ }
+
+
+sudo chown -R www-data:www-data /var/www/html
+sudo systemctl restart nginx
+
