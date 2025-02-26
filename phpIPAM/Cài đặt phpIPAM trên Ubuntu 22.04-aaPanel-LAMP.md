@@ -69,4 +69,20 @@
   <img src="ipamimages/3.png">
 
   Docroot của web sẽ là /www/wwwroot/ipam.cloud365.vn/phpipam
+
+#### Cấu hình phpIPAM kết nối với cơ sở dữ liệu trước:
+
+    cd /www/wwwroot/ipam.cloud365.vn/phpipam
+
+    cp config.dist.php config.php
+
+    nano config.php
   
+/**
+ * database connection details
+ ******************************/
+$db['host'] = '127.0.0.1';
+$db['user'] = 'phpipam';
+$db['pass'] = 'At4LRMG1lAyz0Lf';
+$db['name'] = 'phpipam';
+$db['port'] = 3306;
