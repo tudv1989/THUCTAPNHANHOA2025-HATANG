@@ -43,3 +43,11 @@
   + Module php
   + Máy chủ web Apache / nginx
   + Tên miền phpIPAM –  phpipam.dinhtu.xyz (nên thay thế bằng tên miền của bạn)
+
+## Sử dụng aaPanel-LAMP để cài đặt 
+
+#### Thêm tên miền website vào aaPanel
+
+  <img src="ipamimages/2.png">
+
+
