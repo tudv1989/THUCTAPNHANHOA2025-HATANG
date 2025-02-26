@@ -1,14 +1,15 @@
 ## Lời nói đầu về phpIPAM
 
-  Vì sao tôi lại chọn phpIPAM: khả năng cao nó do nó dùng LAMP stack hoặc LEMP stack, đây là stack quen thuộc đối với bản thân tôi.
+  phpIPAM sử dụng code php và chạy trên LAMP stack hoặc LEMP stack, đây là stack quen thuộc đối với bản thân tôi.
   
-  Mục tiêu của hướng dẫn này là giúp bạn cài đặt và Cấu hình phpIPAM trên Ubuntu 22.04|20.04|18.04 Linux distribution.
+  Mục tiêu của hướng dẫn này là giúp bạn cài đặt và Cấu hình phpIPAM trên Ubuntu 22.04 Linux distribution.
   
   phpIPAM là một ứng dụng quản lý địa chỉ IP web (IPAM) mã nguồn mở dựa trên php.
   
   phpIPAM cung cấp khả năng quản lý địa chỉ IP nhẹ, hiện đại và hữu ích. phpIPAM sử dụng cơ sở dữ liệu MySQL và thư viện jQuery, Ajax và các tính năng HTML5/CSS3.
   
   phpIPAM có các tính năng sau:
+
   + Quản lý địa chỉ IP IPv4/IPv6
   + Quản lý phân vùng / mạng con
   + Hiển thị không gian trống tự động cho các mạng con
@@ -33,6 +34,7 @@
   + Mô-đun yêu cầu IP
   + Giao diện lập trình ứng dụng REST
   + Mô-đun vị trí
+
 ## Cài đặt phpIPAM trên Ubuntu 22.04
 
   phpIPAM có một số phụ thuộc mà chúng ta cần cài đặt trước khi có thể cài đặt và cấu hình phpIPAM:
@@ -41,6 +43,29 @@
   + Module php
   + Máy chủ web Apache / nginx
   + Tên miền phpIPAM –  phpipam.dinhtu.xyz (nên thay thế bằng tên miền của bạn)
+
+## Bước 1- Cài đặt MariaDB Server
+
+  Bắt đầu bằng việc cài đặt máy chủ cơ sở dữ liệu MariaDB:
+
+    apt update && apt upgrade -y
+    reboot
+    apt install mariadb-server mariadb-client -y
+
+  Đảm bảo dịch vụ mariadb được khởi động và thiết lập để khởi động khi khởi động:
+    
+    systemctl enable mariadb
+    systemctl start mariadb
+
+  Bảo mật máy chủ cơ sở dữ liệu bằng cách thiết lập mật khẩu gốc(ở đây mình phải dùng mật khẩu rồi):
+  
+    mysql_secure_installation
+
+  Switch to unix_socket authentication [Y/n] Y
+
+  <img src="ipamimages/1.png">
+  
+
 
 ## 
 
