@@ -42,7 +42,7 @@
   + php / php-fpm cho nginx
   + Module php
   + Máy chủ web Apache / nginx
-  + Tên miền phpIPAM –  phpipam.dinhtu.xyz (nên thay thế bằng tên miền của bạn)
+  + Tên miền phpIPAM –  phpipam.ipam.cloud365.vn (nên thay thế bằng tên miền của bạn)
 
 ## Sử dụng aaPanel-LAMP để cài đặt 
 
@@ -50,4 +50,23 @@
 
   <img src="ipamimages/2.png">
 
+  Mở terminal hoặc ssh vào máy chủ
 
+    cd /www/wwwroot/ipam.cloud365.vn
+
+    mkdir phpipam
+
+    cd phpipam
+
+    git clone --recursive https://github.com/phpipam/phpipam.git .
+
+    cd /www/wwwroot/
+
+    chown www:www /www/wwwroot/ -R 
+
+  Đến đây mình cũng sửa lại docroot của website qua giao diện của aaPanel
+
+  <img src="ipamimages/3.png">
+
+  Docroot của web sẽ là /www/wwwroot/ipam.cloud365.vn/phpipam
+  
