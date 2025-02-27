@@ -73,8 +73,8 @@
 
   Mặc định repos OS của mình cài đặt php81 hoặc bạn có thể chủ động cài đặt theo php mong muốn
 
-  service php8.1-fpm start
-  systemctl enable php8.1-fpm
+    service php8.1-fpm start
+    systemctl enable php8.1-fpm
 
 ## Bước 3: Cài đặt phpIPAM trên Ubuntu
 
