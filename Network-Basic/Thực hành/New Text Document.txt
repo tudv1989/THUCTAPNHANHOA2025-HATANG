@@ -1,0 +1,42 @@
+Nêu chi tiết các bước thực hành reset admin switch cisco sau nếu quên mật khẩu admin: 
+
+  1. boot switch and hold button to enable 'Rommon' mode
+
+   2. rename flash:config.text to anything but
+
+   3. boot switch, will come up as blank switch
+
+    4.use command 'more flash:(renamed file)'
+
+   5. use command 'copy flash:(renamed file) running-config'
+
+   6. remove any username/passwords on device
+
+   7. write to memory using 'write mem' or 'copy running-config startup-config'
+
+   8.done
+
+Bạn đã tóm tắt đúng các bước để reset mật khẩu admin trên switch Cisco khi bạn quên mật khẩu. Dưới đây là chi tiết các bước:
+
+Boot switch và giữ nút button để vào chế độ "Rommon" mode:
+Khi switch khởi động, bạn cần nhấn và giữ nút button trên switch để vào chế độ Rommon mode.
+Chế độ này cho phép bạn truy cập và thực hiện các thao tác cấp thấp trên switch.
+Đổi tên file "flash:config.txt" thành bất kỳ tên nào khác:
+Để switch khởi động mà không có file cấu hình, bạn cần đổi tên file cấu hình hiện tại.
+Ví dụ: rename flash:config.txt flash:config.txt.bak
+Khởi động lại switch, nó sẽ khởi động như một switch trắng (blank switch):
+Sau khi đổi tên file cấu hình, bạn khởi động lại switch.
+Switch sẽ khởi động mà không có file cấu hình, trở thành một switch trắng.
+Sử dụng lệnh more flash:(renamed file) để xem nội dung của file đã đổi tên:
+Dùng lệnh more để xem nội dung của file cấu hình đã đổi tên.
+Ví dụ: more flash:config.txt.bak
+Sử dụng lệnh copy flash:(renamed file) running-config để sao chép nội dung vào bộ nhớ hoạt động:
+Lệnh này sẽ sao chép nội dung file cấu hình đã đổi tên vào bộ nhớ hoạt động của switch.
+Ví dụ: copy flash:config.txt.bak running-config
+Xóa bất kỳ username/password nào trên thiết bị:
+Sau khi sao chép nội dung file cấu hình vào bộ nhớ hoạt động, bạn cần xóa bất kỳ username/password nào trên thiết bị.
+Điều này sẽ cho phép bạn đặt lại mật khẩu mới.
+Lưu cấu hình vào bộ nhớ khởi động bằng lệnh write mem hoặc copy running-config startup-config:
+Sau khi thực hiện các bước trên, bạn cần lưu cấu hình vào bộ nhớ khởi động của switch.
+Có thể dùng lệnh write mem hoặc copy running-config startup-config.
+Bạn đã hoàn thành quá trình reset mật khẩu admin trên switch Cisco.
