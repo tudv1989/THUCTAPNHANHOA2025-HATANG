@@ -17,7 +17,20 @@ OEF
 chmod 600 ~/.ssh/config
 
 cat >> /etc/hosts << 'OEF'
-10.10.10.19 ceph-node1.dinhtu.xyz ceph-node1
-10.10.10.27 ceph-node2.dinhtu.xyz ceph-node2
-10.10.10.3 ceph-node3.dinhtu.xyz ceph-node3
+10.10.20.3 ceph-node1.dinhtu.xyz ceph-node1
+10.10.20.22 ceph-node2.dinhtu.xyz ceph-node2
+10.10.20.20 ceph-node3.dinhtu.xyz ceph-node3
 OEF
+
+ssh-copy-id -o StrictHostKeychecking=no ceph-node1
+ssh-copy-id -o StrictHostKeychecking=no ceph-node2
+ssh-copy-id -o StrictHostKeychecking=no ceph-node3
+
+
+for NODE in ceph-node1 ceph-node2 ceph-node3
+do
+    ssh -o StrictHostKeychecking=no $NODE "apt update; apt -y install ceph"
+done 
+
+
+
