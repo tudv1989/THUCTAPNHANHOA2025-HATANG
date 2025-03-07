@@ -1,0 +1,23 @@
+hostnamectl set-hostname ceph-node1.dinhtu.xyz
+hostnamectl set-hostname ceph-node2.dinhtu.xyz
+hostnamectl set-hostname ceph-node3.dinhtu.xyz
+
+cat > ~/.ssh/config << 'OEF'
+Host ceph-node1
+    Hostname ceph-node1.dinhtu.xyz
+    User root
+Host ceph-node2
+    Hostname ceph-node2.dinhtu.xyz
+    User root
+Host ceph-node3
+    Hostname ceph-node3.dinhtu.xyz
+    User root
+OEF
+
+chmod 600 ~/.ssh/config
+
+cat >> /etc/hosts << 'OEF'
+10.10.10.19 ceph-node1.dinhtu.xyz ceph-node1
+10.10.10.27 ceph-node2.dinhtu.xyz ceph-node2
+10.10.10.3 ceph-node3.dinhtu.xyz ceph-node3
+OEF
