@@ -35,4 +35,8 @@ do
 done 
 
 
-
+cat >> ~/.ssh/config << 'OEF'
+Host ceph-client
+    Hostname ceph-client.dinhtu.xyz
+    User root
+OEF
