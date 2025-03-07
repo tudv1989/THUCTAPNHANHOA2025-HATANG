@@ -1,3 +1,5 @@
+STT o cung - STT Server
+
 hostnamectl set-hostname ceph-node1.dinhtu.xyz
 hostnamectl set-hostname ceph-node2.dinhtu.xyz
 hostnamectl set-hostname ceph-node3.dinhtu.xyz
@@ -19,7 +21,7 @@ chmod 600 ~/.ssh/config
 cat >> /etc/hosts << 'OEF'
 10.10.20.3 ceph-node1.dinhtu.xyz ceph-node1
 10.10.20.22 ceph-node2.dinhtu.xyz ceph-node2
-10.10.20.20 ceph-node3.dinhtu.xyz ceph-node3
+10.10.20.4 ceph-node3.dinhtu.xyz ceph-node3
 OEF
 
 ssh-copy-id -o StrictHostKeychecking=no ceph-node1
