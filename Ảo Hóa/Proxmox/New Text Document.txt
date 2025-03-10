@@ -1,0 +1,20 @@
+VM1-test có IP: 172.16.2.36
+
+- Test Live Migrate VM không downtime (Gỡ CD/DVD iso để test):
+
+Ping không thấy mất gói
+
+Stop node Proxmox103 kiểm tra
+
+- Test Node Down: VM tự chuyển sang node khác 
+
+Chỉ có VM1-test chuyển đi thành công, VM3-test do còn mount iso
+
+VM chuyển ko boot được, đây là phần lab lưu ý:
+
+Do máy đang bị full tài nguyên nên quá trình có thể diễn ra chậm
+
+
+
+
+
