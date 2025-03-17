@@ -1,4 +1,4 @@
-+ Cụm 1: 3 node proxmox vật lý IP: 172.16.9.111 172.16.9.112 172.16.9.113 chạy proxmox HA kèm Ceph proxmox
++ Cụm 1: 3 node proxmox vật lý IP: 172.16.9.111 172.16.9.112 172.16.9.113 chạy proxmox HA kèm Ceph proxmox , Mục đích test Ceph chung Compute
 
 https://172.16.9.111:8006/
 
@@ -6,7 +6,7 @@ https://172.16.9.111:8006/
 
 https://172.16.9.221:8006/
 
-+ Cụm 3: 3 node Proxmox ( VM ảo trong cụm 1 ID 224 225 226) kết nối với cụm Ceph ( Cụm 2) trên 172.16.9.224 172.16.9.225 172.16.9.226
++ Cụm 3: 3 node Proxmox ( VM ảo trong cụm 1 ID 224 225 226) kết nối với cụm Ceph ( Cụm 2) trên 172.16.9.224 172.16.9.225 172.16.9.226 , Mục đích test connect Ceph remote
 
 + VM test 172.16.9.227 là VM nằm trong Cụm 3 - test thử iops throughput latency ...
 
