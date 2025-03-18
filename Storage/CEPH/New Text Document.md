@@ -122,7 +122,9 @@ Nếu thấy trạng thái HEALTH_OK hoặc HEALTH_WARN, nghĩa là kết nối 
 Map RBD image vào hệ thống
 
 ✅ Bạn có thể map RBD vào Ceph MON, nhưng không khuyến khích vì nó không được thiết kế để xử lý I/O.
+
 ✅ Nên map RBD trên một Ceph client (Proxmox node, VM, Bare-metal server, hoặc Ceph OSD node).
+
 ✅ Benchmark bằng fio trên /dev/rbdX để đo tốc độ đọc/ghi, độ trễ và IOPS.
 
 Nếu bạn cần test trực tiếp trên MON, cứ làm theo hướng dẫn trên. Nhưng nếu có client bên ngoài thì tốt hơn. 🚀
