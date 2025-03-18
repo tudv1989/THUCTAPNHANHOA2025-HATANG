@@ -149,7 +149,7 @@ Thiết bị /dev/rbd0 sẽ được dùng để benchmark.
 
 #### 4.1. Kiểm tra Pool và tạo Image RBD để benchmark
 
-#### 4.2. Benchmark với fio
+#### 4.2. Benchmark với fio ( Do là máy test qua lớp ảo hóa nên hình ảnh chỉ mang tính chất tượng trưng
 
   + Benchmark tốc độ write throughput:
 
@@ -157,6 +157,8 @@ Thiết bị /dev/rbd0 sẽ được dùng để benchmark.
     --size=10G --time_based --runtime=60s --ramp_time=2s --ioengine=libaio \
     --direct=1 --verify=0 --bs=1M --iodepth=64 --rw=write \
     --group_reporting=1
+
+  <img src="cephimages/Screenshot_52.png">
 
   + Benchmark tốc độ write iops:
 
@@ -170,6 +172,8 @@ Thiết bị /dev/rbd0 sẽ được dùng để benchmark.
     --size=10G --time_based --runtime=60s --ramp_time=2s --ioengine=libaio \
     --direct=1 --verify=0 --bs=1M --iodepth=64 --rw=read \
     --group_reporting=1
+
+  <img src="cephimages/Screenshot_52.png">
 
   + Benchmark tốc độ read iops.
 
