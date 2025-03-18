@@ -95,7 +95,7 @@ Nếu bạn vẫn muốn thử trên MON (hoặc một node bất kỳ trong clu
 
 Nếu node của bạn chưa có Ceph client, hãy cài đặt:
 
-apt update && apt install -y ceph ceph-common
+    apt update && apt install -y ceph ceph-common
 
 (Trên CentOS/RHEL: yum install -y ceph ceph-common)
 
@@ -103,7 +103,7 @@ apt update && apt install -y ceph ceph-common
 
 Chạy lệnh sau để đảm bảo node có thể kết nối với Ceph:
 
-ceph -s
+    ceph -s
 
 Nếu thấy trạng thái HEALTH_OK hoặc HEALTH_WARN, nghĩa là kết nối được.
 
@@ -111,11 +111,11 @@ Nếu thấy trạng thái HEALTH_OK hoặc HEALTH_WARN, nghĩa là kết nối 
 
 📌 Lấy thông tin keyring (nếu cần): Nếu bạn dùng user khác admin, hãy tạo keyring:
 
-ceph auth get-key client.admin | sudo tee /etc/ceph/ceph.client.admin.keyring
+    ceph auth get-key client.admin | sudo tee /etc/ceph/ceph.client.admin.keyring
 
 📌 Map RBD image:
 
-rbd map test-image --pool POOL_LAB
+    rbd map test-image --pool POOL_LAB
 
 Map RBD image vào hệ thống
 
@@ -127,19 +127,19 @@ Nếu bạn cần test trực tiếp trên MON, cứ làm theo hướng dẫn tr
 
 Map RBD image để hệ điều hành nhận diện nó như một block device:
 
-shell> rbd map test-image --pool POOL_LAB
-/dev/rbd0
+    shell> rbd map test-image --pool POOL_LAB
+    /dev/rbd0
 
 Kiểm tra thiết bị được gán:
 
-shell> rbd showmapped
-id  pool           namespace  image       snap  device
-0   POOL_LAB             test-image  -     /dev/rbd0
+    shell> rbd showmapped
+    id  pool           namespace  image       snap  device
+    0   POOL_LAB             test-image  -     /dev/rbd0
 
 Ví dụ đầu ra:
 
-shell> lsblk | grep ^rbd
-rbd0                      252:0    0   100G  0 disk
+    shell> lsblk | grep ^rbd
+    rbd0                      252:0    0   100G  0 disk
 
 Thiết bị /dev/rbd0 sẽ được dùng để benchmark.
 
