@@ -41,6 +41,8 @@ Kết quả mẫu (hình ảnh mang tính chất minh họa do mình dùng ảo 
     Bandwidth (MB/sec): 450.02
     Average latency: 0.055 sec
 
+  <img src="cephimages/Screenshot_51.png">
+
 #### 3.2 Benchmark đọc dữ liệu từ Ceph
 
     rados bench -p testpool 60 seq
