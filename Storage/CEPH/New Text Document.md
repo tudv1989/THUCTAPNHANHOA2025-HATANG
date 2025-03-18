@@ -180,3 +180,8 @@ Thiết bị /dev/rbd0 sẽ được dùng để benchmark.
     fio --name=read_iops --filename=/dev/rbd0 --size=10G \
     --time_based --runtime=60s --ramp_time=2s --ioengine=libaio --direct=1 \
     --verify=0 --bs=4K --iodepth=64 --rw=randread --group_reporting=1
+#### 5. OSD Latency: 
+
+Kiểm tra bằng lệnh:
+
+    ioping -c 10 .
