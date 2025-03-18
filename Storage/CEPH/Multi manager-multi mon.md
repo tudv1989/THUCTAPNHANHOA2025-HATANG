@@ -1,4 +1,4 @@
-Thông thường người ta hay tách các 
+Dưới đây là file config Ceph dùng 3 node Mng và Mon
 
     cat > /etc/ceph/ceph.conf << OEF
     [global]
