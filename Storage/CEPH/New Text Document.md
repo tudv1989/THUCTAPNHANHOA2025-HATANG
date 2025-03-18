@@ -184,4 +184,5 @@ Thiết bị /dev/rbd0 sẽ được dùng để benchmark.
 
 Kiểm tra bằng lệnh:
 
+    apt update && apt install -y ioping
     ioping -c 10 .
