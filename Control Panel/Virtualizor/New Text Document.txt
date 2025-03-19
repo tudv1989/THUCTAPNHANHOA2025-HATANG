@@ -1,0 +1,18 @@
+    network:
+      renderer: networkd
+      ethernets:
+        ens18:
+          addresses:
+            - 172.16.9.108/20
+          nameservers:
+            addresses: [1.1.1.1, 8.8.8.8]
+          routes:
+            - to: default
+              via: 172.16.10.1
+        ens19:
+          addresses:
+            - 10.10.100.108/24
+        ens20:
+          addresses:
+            - 192.168.200.108/24
+      version: 2
