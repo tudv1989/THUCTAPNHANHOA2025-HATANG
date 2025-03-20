@@ -1,0 +1,30 @@
+groups:
+- name: ceph_alerts
+  rules:
+  - alert: OSDDown
+    expr: ceph_osd_up == 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "OSD {{ $labels.osd_id }} is down"
+      description: "OSD {{ $labels.osd_id }} on host {{ $labels.hostname }} has been down for more than 5 minutes."
+
+  - alert: CephClusterHealthWarning
+    expr: ceph_health_status != 0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Ceph cluster is in WARNING state"
+      description: "Ceph cluster has been in WARNING state for more than 5 minutes."
+
+
+  - alert: CephOSDApplyLatencyHigh
+    expr: avg(ceph_osd_apply_latency_ms{}) > 100 # Nguong 100ms ( dieu chinh phu hop )
+    for: 5m # Duy tri 5p truoc khi kich hoat canh bao
+    labels:
+      severity: warning
+    annotations:
+      summary: "High Ceph OSD Apply Latency on {{ $labels.hostname }}"
+      description: "Average Ceph OSD apply latency is above 100ms for 5 minutes."

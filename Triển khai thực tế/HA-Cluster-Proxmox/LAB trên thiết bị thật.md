@@ -2,7 +2,7 @@
 
 Cho mô hình phân hoạch IP 
 
-  <img src="Haproxmoximages/Screenshot_1.png">
+  <img src="Haproxmoximages/Screenshot_57.png">
 
 Mô tả:
 
