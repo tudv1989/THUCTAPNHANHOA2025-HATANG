@@ -6,6 +6,8 @@ https://172.16.9.111:8006/
 
 https://172.16.9.221:8006/
 
+http://172.16.9.221:9283/metrics
+
 + Cụm 3: 3 node Proxmox (là VM ảo trong cụm 1 ID 224 225 226) kết nối với cụm Ceph ( Cụm 2) trên 172.16.9.224 172.16.9.225 172.16.9.226 , Mục đích test connect Ceph remote
 
 + VM test 172.16.9.227 là VM nằm trong Cụm 3 - test thử iops throughput latency ...
@@ -17,3 +19,5 @@ http://grafanalab.dinhtu.xyz:3000/dashboards
 http://172.16.9.115:9090/alerts
 
 https://172.16.9.221:8443/#/login?returnUrl=%2Fdashboard
+
+
