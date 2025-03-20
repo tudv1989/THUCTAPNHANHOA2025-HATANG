@@ -1,0 +1,25 @@
+ssh proxmox109.dinhtu.xyz "apt -y install ceph-common"
+
+scp /etc/ceph/ceph.conf proxmox109.dinhtu.xyz:/etc/ceph/
+
+scp /etc/ceph/ceph.client.admin.keyring proxmox109.dinhtu.xyz:/etc/ceph/
+
+ssh proxmox109.dinhtu.xyz "chown ceph. /etc/ceph/ceph.*"
+
+ssh proxmox109.dinhtu.xyz "ceph osd pool create proxmoxcluster109 128"
+
+ssh proxmox109.dinhtu.xyz "ceph osd pool set proxmoxcluster109 pg_autoscale_mode on"
+
+ssh proxmox109.dinhtu.xyz "rbd pool init proxmoxcluster109"
+
+ssh proxmox109.dinhtu.xyz "ceph osd pool autoscale-status"
+
+ssh proxmox109.dinhtu.xyz "rbd create --size 10G --pool proxmoxcluster109 proxmoxcluster10901"
+
+ssh proxmox109.dinhtu.xyz "rbd ls -l -p proxmoxcluster109"
+
+ssh proxmox109.dinhtu.xyz "rbd map proxmoxcluster109/proxmoxcluster10901"
+
+ssh proxmox109.dinhtu.xyz "rbd showmapped"
+
+ssh proxmox109.dinhtu.xyz "lsblk"
