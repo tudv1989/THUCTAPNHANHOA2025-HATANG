@@ -80,19 +80,43 @@ Việc phân biệt rõ ràng ba mạng này giúp tối ưu hóa hiệu suất,
 
 #### Sơ bộ về server cụm Ceph
 
-Cụm Ceph mình cài đặt trên ubuntu22.04 với 3 node, mỗi node có 6 đĩa OSD , 2 interface network, tên máy và /etc/host ... như các hình ảnh sau:
+Cụm Ceph mình cài đặt trên ubuntu22.04 với 3 node, mỗi node có 3 đĩa OSD , 2 interface network, tên máy và /etc/host ... như các hình ảnh sau:
 
-  <img src="proxmoxremotecephimages/Screenshot_1.png">
+Thông tin cụm:
 
-  <img src="proxmoxremotecephimages/Screenshot_2.png">
+  + Cephnode121 : IP 172.16.9.121 + 10.10.10.121
 
-  <img src="proxmoxremotecephimages/Screenshot_2.png">
+  + Cephnode122 : IP 172.16.9.122 + 10.10.10.122
 
-  <img src="proxmoxremotecephimages/Screenshot_4.png">
+  + Cephnode123 : IP 172.16.9.123 + 10.10.10.123
 
-  <img src="proxmoxremotecephimages/Screenshot_10.png">
-  <img src="proxmoxremotecephimages/Screenshot_11.png">
-  <img src="proxmoxremotecephimages/Screenshot_12.png">
+Mình xử lý tạm 1 node Cephnode123 như sau:
+
+    hostnamectl set-hostname cephnode123
+
+    exec bash
+
+    apt-get install openvswitch-switch -y
+
+Netplan:
+
+root@cephnode123:/etc/netplan# nano /etc/netplan/00-installer-config.yaml
+    network:
+      renderer: networkd
+      ethernets:
+        ens18:
+          addresses:
+            - 172.16.9.123/20
+          nameservers:
+            addresses: [1.1.1.1, 8.8.8.8]
+          routes:
+            - to: default
+              via: 172.16.10.1
+        ens19:
+          addresses:
+            - 10.10.100.123/24
+      version: 2
+
 
 ## Bước 1. Cài đặt cụm proxmox HA bạn tham khảo bài sau:
 
