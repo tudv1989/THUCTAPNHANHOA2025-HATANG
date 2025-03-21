@@ -120,6 +120,10 @@ root@cephnode123:/etc/netplan# nano /etc/netplan/00-installer-config.yaml
             - 10.10.100.123/24
       version: 2
 
+Sau đó khởi động lại netplan
+
+    netplan apply
+
 Làm tương tự với 2 node còn lại, đổi tên và IP tương ứng
 
 
@@ -146,7 +150,7 @@ Nhớ xác nhận các khóa đã tạo thành công.
 
     ls -lah /root/.ssh/
 
-  <img src="proxmoxremotecephimages/Screenshot_5.png">
+  <img src="proxmoxremotecephimages2/Screenshot_5.png">
 
 #### Bước 2.1.2: Thêm thông tin về cách kết nối đến các node trong cụm Ceph.
 
@@ -177,7 +181,7 @@ Xác nhận kết nối đến các Node bằng domain thành công.
 
 Ví dụ kết quả từ cephnode221.dinhtu.xyz sang cephnode222.dinhtu.xyz.
 
-  <img src="proxmoxremotecephimages/Screenshot_7.png">
+  <img src="proxmoxremotecephimages2/Screenshot_7.png">
 
 #### Bước 2.1.4: Sao chép khóa công khai SSH đến node còn lại trong cụm.
 Sử dụng lệnh ``ssh-copy-id`` sao chép khóa công khai SSH đến node trong trong cụm, tính luôn cả ``cephnode221``, ví dụ của mình là ``cephnode222`` và ``cephnode223``.
@@ -192,7 +196,7 @@ Dưới đây là ví dụ đầu ra khi chạy lệnh trên ở một node bấ
 
 Nhập mật khẩu của root Node Remote để thực hiện việc sao chép.
 
-  <img src="proxmoxremotecephimages/Screenshot_8.png">
+  <img src="proxmoxremotecephimages2/Screenshot_8.png">
 
 #### Bước 5: Cài đặt Ceph trên các node trong cụm.
 
@@ -205,8 +209,8 @@ Dưới đây là một đoạn shell sử dụng for để cài đặt Ceph tr�
 
 Ví dụ về đầu ra của đoạn shell:
 
-  <img src="proxmoxremotecephimages/Screenshot_9.png">
-  <img src="proxmoxremotecephimages/Screenshot_13.png">
+  <img src="proxmoxremotecephimages2/Screenshot_9.png">
+  <img src="proxmoxremotecephimages2/Screenshot_13.png">
 
 Hành động này sẽ giúp bạn đứng có thể từ Node bất kỳ gửi lệnh cài đặt Ceph cho tất cả các Node trong dòng for.
 
@@ -236,7 +240,7 @@ Tạo một file cấu hình Ceph mới trong /etc/ceph/ceph.conf với thông t
     mon_allow_pool_delete = true
     OEF
 
-  <img src="proxmoxremotecephimages/Screenshot_14.png">
+  <img src="proxmoxremotecephimages2/Screenshot_14.png">
 
 Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình Ceph ở trên:
 
@@ -256,7 +260,7 @@ Tạo một khóa bí mật cho Ceph Monitor và lưu nó vào file ``/etc/ceph/
 
     ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
 
-  <img src="proxmoxremotecephimages/Screenshot_15.png">
+  <img src="proxmoxremotecephimages2/Screenshot_15.png">
 
 #### Bước 2.1.8: Tạo khóa bí mật cho người quản trị Ceph Cluster.
 
@@ -264,14 +268,14 @@ Tạo một khóa bí mật cho user quản trị Ceph Cluster và lưu nó vào
 
     ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
 
-  <img src="proxmoxremotecephimages/Screenshot_16.png">
+  <img src="proxmoxremotecephimages2/Screenshot_16.png">
 
 #### Bước 2.1.9: Tạo một khóa bí mật cho quá trình khởi động OSD.
 
 Tạo một khóa bí mật cho quá trình khởi động OSD và lưu nó vào file ``/var/lib/ceph/bootstrap-osd/ceph.keyring``.
 
 
-  <img src="proxmoxremotecephimages/Screenshot_17.png">
+  <img src="proxmoxremotecephimages2/Screenshot_17.png">
 
 #### Bước 2.1.10 – Nhập khóa bí mật của người quản trị vào khóa bí mật của Monitor.
 
@@ -281,11 +285,11 @@ Lệnh này sẽ nhập keyring của client admin vào keyring của monitor. �
 
     ceph-authtool /etc/ceph/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.admin.keyring
 
-  <img src="proxmoxremotecephimages/Screenshot_18.png">
+  <img src="proxmoxremotecephimages2/Screenshot_18.png">
 
 Lệnh này sẽ nhập keyring của bootstrap-osd vào keyring của monitor. Điều này cho phép bootstrap-osd được xác thực với monitor.
 
-  <img src="proxmoxremotecephimages/Screenshot_19.png">
+  <img src="proxmoxremotecephimages2/Screenshot_19.png">
 
 Trong cả hai trường hợp, lệnh ceph-authtool sẽ cập nhật ``/etc/ceph/ceph.mon.keyring`` để bao gồm các keys từ keyring được chỉ định.
 
@@ -303,7 +307,7 @@ Chạy lệnh này để tạo một bản đồ monitor mới và thêm một m
 
     monmaptool --create --add $NODENAME $NODEIP --fsid $FSID /etc/ceph/monmap
 
-  <img src="proxmoxremotecephimages/Screenshot_20.png">
+  <img src="proxmoxremotecephimages2/Screenshot_20.png">
 
   + --create: Tạo một bản đồ monitor mới.
   + --add $NODENAME $NODEIP: Thêm một monitor mới vào bản đồ. $NODENAME là tên của monitor và $NODEIP là địa chỉ IP của monitor.
@@ -359,7 +363,7 @@ Lệnh này thay đổi quyền sở hữu của file khóa để người dùng
 
     chown ceph. /etc/ceph/ceph.mgr.admin.keyring
 
-  <img src="proxmoxremotecephimages/Screenshot_21.png">
+  <img src="proxmoxremotecephimages2/Screenshot_21.png">
 
 ``chown -R ceph. /var/lib/ceph/mgr/$NODENAME``: Lệnh này thay đổi quyền sở hữu của thư mục Manager Daemon và tất cả các file bên trong để người dùng ceph có thể truy cập.
 
@@ -369,7 +373,7 @@ Lệnh này thay đổi quyền sở hữu của file khóa để người dùng
 
     systemctl enable --now ceph-mgr@$NODENAME
 
-  <img src="proxmoxremotecephimages/Screenshot_22.png">
+  <img src="proxmoxremotecephimages2/Screenshot_22.png">
 
 #### Bước 2.1.13: Xác nhận trạng thái cụm.
 
@@ -377,7 +381,7 @@ Sẽ ổn thôi nếu [Monitor Daemon] và [Manager Daemon] hoạt động đư�
 
     ceph -s
 
-  <img src="proxmoxremotecephimages/Screenshot_23.png">
+  <img src="proxmoxremotecephimages2/Screenshot_23.png">
 
 Đối với OSD chúng ta sẽ cấu hình chúng ở phần tiếp theo vì vậy sẽ không có vấn đề gì nếu [HEALTH_WARN] tại thời điểm này.
 
@@ -455,9 +459,9 @@ Hoặc nếu bạn thao tác cho nhiều node cùng 1 lúc với các tên ổ �
 
 Trước tiên dùng lệnh lsblk nhìn vào mình sẽ có 6 ổ đĩa sdb sdc sdd sde sdf sdg.
 
-  <img src="proxmoxremotecephimages/Screenshot_25.png">
-  <img src="proxmoxremotecephimages/Screenshot_26.png">
-  <img src="proxmoxremotecephimages/Screenshot_24.png">
+  <img src="proxmoxremotecephimages2/Screenshot_25.png">
+  <img src="proxmoxremotecephimages2/Screenshot_26.png">
+  <img src="proxmoxremotecephimages2/Screenshot_24.png">
 
 Chúng ta tiếp tục thao tác cho các ổ đĩa sdc
 
@@ -517,7 +521,7 @@ Chúng ta tiếp tục thao tác cho các ổ đĩa sdg
 
 Giờ chúng ta xem node Ceph nào cũng đã được xử lý các OSD
 
-  <img src="proxmoxremotecephimages/Screenshot_27.png">
+  <img src="proxmoxremotecephimages2/Screenshot_27.png">
 
 #### Bước 2.2.4: Kiểm tra kết quả.
 
@@ -525,7 +529,7 @@ Giờ chúng ta xem node Ceph nào cũng đã được xử lý các OSD
 
   + Sử dụng lệnh ``ceph -s`` để hiển thị trạng thái tổng quan của cụm Ceph, bao gồm số lượng monitor, OSD, cũng như thông tin về việc sử dụng lưu trữ.
 
-  <img src="proxmoxremotecephimages/Screenshot_28.png">
+  <img src="proxmoxremotecephimages2/Screenshot_28.png">
 
 Nhìn kết quả của ``ceph -s`` bạn sẽ thấy có 18 OSDs tương ứng với 3 node đã xuất hiện.
 
@@ -534,14 +538,14 @@ Nhìn kết quả của ``ceph -s`` bạn sẽ thấy có 18 OSDs tương ứng 
   + Sử dụng lệnh ceph osd tree để hiển thị cấu trúc cây của các OSD trong cụm. Nó cho thấy mối quan hệ giữa các OSD, host và rack trong cụm, giúp bạn hiểu rõ hơn về cách dữ liệu được phân phối và lưu trữ.
 
 
-  <img src="proxmoxremotecephimages/Screenshot_29.png">
+  <img src="proxmoxremotecephimages2/Screenshot_29.png">
 
 ##### Sử dụng lệnh ``ceph df``.
 
   + Sử dụng lệnh ceph df để hiển thị thông tin về việc sử dụng lưu trữ trong cụm. Nó cho thấy tổng dung lượng, dung lượng đã sử dụng và dung lượng còn trống của cụm, cũng như thông tin tương tự cho từng storage pool.
 
 
-  <img src="proxmoxremotecephimages/Screenshot_30.png">
+  <img src="proxmoxremotecephimages2/Screenshot_30.png">
 
 ##### Sử dụng lệnh ``ceph osd df``:
 
@@ -549,7 +553,7 @@ Nhìn kết quả của ``ceph -s`` bạn sẽ thấy có 18 OSDs tương ứng 
   + Sử dụng lệnh ceph osd df để hiển thị thông tin về việc sử dụng lưu trữ của từng OSD. Nó cho thấy dung lượng, dung lượng đã sử dụng, và dung lượng còn trống của từng OSD, giúp bạn xác định xem có OSD nào đang bị quá tải hay không.
 
 
-  <img src="proxmoxremotecephimages/Screenshot_31.png">
+  <img src="proxmoxremotecephimages2/Screenshot_31.png">
 
 ##### Kiểm tra trạng thái ổ đĩa sau khi thêm ổ đĩa vào Ceph.
 
@@ -587,11 +591,11 @@ Hãy thêm nội dung mới vào file cấu hình SSH trong ~/.ssh/config để 
     10.10.100.224 proxmox224.dinhtu.xyz proxmox224
     OEF
 
-  <img src="proxmoxremotecephimages/Screenshot_32.png">
+  <img src="proxmoxremotecephimages2/Screenshot_32.png">
 
     ssh-copy-id -o StrictHostKeychecking=no proxmox224.dinhtu.xyz
 
-  <img src="proxmoxremotecephimages/Screenshot_33.png">
+  <img src="proxmoxremotecephimages2/Screenshot_33.png">
 
     ssh proxmox224.dinhtu.xyz "apt -y install ceph-common"
 
@@ -609,21 +613,21 @@ Hãy thêm nội dung mới vào file cấu hình SSH trong ~/.ssh/config để 
 
     ssh proxmox224.dinhtu.xyz "ceph osd pool autoscale-status"
 
-  <img src="proxmoxremotecephimages/Screenshot_34.png">
+  <img src="proxmoxremotecephimages2/Screenshot_34.png">
 
     ssh proxmox224.dinhtu.xyz "rbd create --size 10G --pool proxmoxcluster224 proxmoxcluster22401"
 
     ssh proxmox224.dinhtu.xyz "rbd ls -l -p proxmoxcluster224"
 
-  <img src="proxmoxremotecephimages/Screenshot_35.png">
+  <img src="proxmoxremotecephimages2/Screenshot_35.png">
 
     ssh proxmox224.dinhtu.xyz "rbd map proxmoxcluster224/proxmoxcluster22401"
 
-  <img src="proxmoxremotecephimages/Screenshot_36.png">
+  <img src="proxmoxremotecephimages2/Screenshot_36.png">
 
     ssh proxmox224.dinhtu.xyz "rbd showmapped"
 
-  <img src="proxmoxremotecephimages/Screenshot_37.png">
+  <img src="proxmoxremotecephimages2/Screenshot_37.png">
 
     ssh proxmox224.dinhtu.xyz "lsblk"
 
@@ -631,15 +635,15 @@ Dung lượng nhỏ quá
 
     ssh proxmox224.dinhtu.xyz "rbd resize --size 30G proxmoxcluster224/proxmoxcluster22401"
 
-  <img src="proxmoxremotecephimages/Screenshot_38.png">
+  <img src="proxmoxremotecephimages2/Screenshot_38.png">
 
     proxmoxcluster224/proxmoxcluster22401 (/dev/rbd0) từ 10GB tăng lên 30GB
 
-  <img src="proxmoxremotecephimages/Screenshot_39.png">
+  <img src="proxmoxremotecephimages2/Screenshot_39.png">
 
     ssh proxmox224.dinhtu.xyz "mkfs.xfs /dev/rbd0"
 
-  <img src="proxmoxremotecephimages/Screenshot_40.png">
+  <img src="proxmoxremotecephimages2/Screenshot_40.png">
 
     ssh proxmox224.dinhtu.xyz "mkdir -p /mnt/vm"
 
@@ -661,24 +665,24 @@ Bên trên là bước tạo và mount để tạo storage như Directory độc
 
 Bạn có thể ssh vào từng node proxmox để xem /mnt
 
-  <img src="proxmoxremotecephimages/Screenshot_49.png">
+  <img src="proxmoxremotecephimages2/Screenshot_49.png">
 
 Còn đây là bước connect trực tiếp đến Pools Ceph đã tạo
 
 Tại ``Datacenter`` > ``Storage`` > ``Add`` > ``RDB`` > 
 
-  <img src="proxmoxremotecephimages/Screenshot_40.png">
+  <img src="proxmoxremotecephimages2/Screenshot_40.png">
 
 cat /etc/ceph/ceph.client.admin.keyring để lấy thông tin keyring
 
-  <img src="proxmoxremotecephimages/Screenshot_41.png">
-  <img src="proxmoxremotecephimages/Screenshot_42.png">
+  <img src="proxmoxremotecephimages2/Screenshot_41.png">
+  <img src="proxmoxremotecephimages2/Screenshot_42.png">
 
-  <img src="proxmoxremotecephimages/Screenshot_43.png">
+  <img src="proxmoxremotecephimages2/Screenshot_43.png">
 
-  <img src="proxmoxremotecephimages/Screenshot_44.png">
-  <img src="proxmoxremotecephimages/Screenshot_45.png">
-  <img src="proxmoxremotecephimages/Screenshot_46.png">
+  <img src="proxmoxremotecephimages2/Screenshot_44.png">
+  <img src="proxmoxremotecephimages2/Screenshot_45.png">
+  <img src="proxmoxremotecephimages2/Screenshot_46.png">
 
 
 
