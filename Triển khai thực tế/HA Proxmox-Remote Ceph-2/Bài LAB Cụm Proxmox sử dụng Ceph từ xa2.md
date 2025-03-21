@@ -196,7 +196,7 @@ Dưới đây là ví dụ đầu ra khi chạy lệnh trên ở một node bấ
 
 Nhập mật khẩu của root Node Remote để thực hiện việc sao chép.
 
-  <img src="proxmoxremotecephimages2/Screenshot_8.png">
+  <img src="proxmoxremotecephimages2/Screenshot_54.png">
 
 #### Bước 5: Cài đặt Ceph trên các node trong cụm.
 
