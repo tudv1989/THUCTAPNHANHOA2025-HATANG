@@ -101,6 +101,7 @@ Mình xử lý tạm 1 node Cephnode123 như sau:
 Netplan:
 
 root@cephnode123:/etc/netplan# nano /etc/netplan/00-installer-config.yaml
+
     network:
       renderer: networkd
       ethernets:
