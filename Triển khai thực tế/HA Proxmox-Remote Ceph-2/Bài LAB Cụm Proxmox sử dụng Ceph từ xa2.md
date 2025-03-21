@@ -218,8 +218,9 @@ Hành động này sẽ giúp bạn đứng có thể từ Node bất kỳ gửi
 
 Sử dụng uuidgen để tạo một UUID mới, UUID này có thể được sử dụng như một định danh duy nhất cho cụm Ceph
 
-    root@cephnode1:~# uuidgen
-    ce6406e1-bc72-4fe0-9f58-0563d3fdab32
+    root@cephnode121:~# uuidgen
+    8760d9ea-2ade-4016-956a-e34f7304be51
+
 
 #### Bước 2.1.6: Tạo file cấu hình chính cho Ceph.
 
@@ -229,7 +230,7 @@ Tạo một file cấu hình Ceph mới trong ``/etc/ceph/ceph.conf`` với thô
     [global]
     cluster_network = 10.10.100.0/24
     public_network = 172.16.0.0/20
-    fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32
+    fsid = 8760d9ea-2ade-4016-956a-e34f7304be51
     mon_host = 172.16.9.121
     mon_initial_members = cephnode121
     osd_pool_default_crush_rule = -1
