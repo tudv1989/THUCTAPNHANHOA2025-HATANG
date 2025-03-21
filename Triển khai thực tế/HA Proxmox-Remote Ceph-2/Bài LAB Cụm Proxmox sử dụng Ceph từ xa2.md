@@ -98,6 +98,8 @@ Mình xử lý tạm 1 node Cephnode123 như sau:
 
     apt-get install openvswitch-switch -y
 
+    timedatectl set-timezone Asia/Ho_Chi_Minh
+
 Netplan:
 
 root@cephnode123:/etc/netplan# nano /etc/netplan/00-installer-config.yaml
