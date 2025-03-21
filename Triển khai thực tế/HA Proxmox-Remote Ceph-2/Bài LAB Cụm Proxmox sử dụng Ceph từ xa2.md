@@ -10,7 +10,8 @@ Bài Lab triển khai cụm proxmox HA connect với cụm storage triển khai 
 
 Bài Lab sử dụng topo như hình 
 
-  <img src="proxmoxremotecephimages/Screenshot_1png.png">
+  <img src="proxmoxremotecephimages2/Screenshot_51.png">
+
 
 Mình đã gộp các mạng sau trên 1 interfaces:
   + Cluster Network = 10.10.100.0/24
