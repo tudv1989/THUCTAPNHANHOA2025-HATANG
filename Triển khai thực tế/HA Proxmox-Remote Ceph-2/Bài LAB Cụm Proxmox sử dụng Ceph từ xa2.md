@@ -181,7 +181,7 @@ Xác nhận kết nối đến các Node bằng domain thành công.
 
 Ví dụ kết quả từ cephnode121.dinhtu.xyz sang cephnode122.dinhtu.xyz.
 
-  <img src="proxmoxremotecephimages2/Screenshot_7.png">
+  <img src="proxmoxremotecephimages2/Screenshot_53.png">
 
 #### Bước 2.1.4: Sao chép khóa công khai SSH đến node còn lại trong cụm.
 Sử dụng lệnh ``ssh-copy-id`` sao chép khóa công khai SSH đến node trong trong cụm, tính luôn cả ``cephnode121``, ví dụ của mình là ``cephnode122`` và ``cephnode123``.
