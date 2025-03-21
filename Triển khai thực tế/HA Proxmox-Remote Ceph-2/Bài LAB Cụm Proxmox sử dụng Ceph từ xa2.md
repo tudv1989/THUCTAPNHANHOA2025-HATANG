@@ -305,10 +305,7 @@ Lệnh monmaptool được sử dụng để tạo và chỉnh sửa bản đồ
 
 Chạy lệnh này để tạo một bản đồ monitor mới và thêm một monitor vào bản đồ đó.
 
-    monmaptool --create --fsid 8760d9ea-2ade-4016-956a-e34f7304be51 /etc/ceph/monmap
-    monmaptool --add cephnode121 172.16.9.121 /etc/ceph/monmap
-    monmaptool --add cephnode122 172.16.9.122 /etc/ceph/monmap
-    monmaptool --add cephnode123 172.16.9.123 /etc/ceph/monmap
+    monmaptool --create --add $NODENAME $NODEIP --fsid $FSID /etc/ceph/monmap
 
   <img src="proxmoxremotecephimages2/Screenshot_20.png">
 
@@ -336,10 +333,8 @@ Thay đổi quyền sở hữu của tất cả các file trong /etc/ceph thành
 
 Kích hoạt và khởi động dịch vụ Ceph Monitor.
 
-    systemctl enable --now ceph-mon@cephnode121
-    systemctl enable --now ceph-mon@cephnode122
-    systemctl enable --now ceph-mon@cephnode123 
-
+    systemctl enable --now ceph-mon$NODENAME
+    
 Kích hoạt giao thức Messenger v2 cho Ceph Monitor.
 
     ceph mon enable-msgr2
