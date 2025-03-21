@@ -173,9 +173,9 @@ Tiếp theo, tạo một file cấu hình SSH mới trong ~/.ssh/config với th
 Phần tiếp theo tạo một file /etc/hosts mới với các địa chỉ IP và tên máy chủ cho cụm Ceph. Lưu ý đối với giao tiếp giữa các Node các bạn nên sử dụng IP Private của mỗi Node, đây là IP có băng thông cao sử dụng cho kết nối các cluster trong cum ví dụ như dưới.
 
     cat >> /etc/hosts << 'OEF'
-    10.10.100.221 cephnode121.dinhtu.xyz cephnode121
-    10.10.100.222 cephnode122.dinhtu.xyz cephnode122
-    10.10.100.223 cephnode123.dinhtu.xyz cephnode123
+    10.10.100.121 cephnode121.dinhtu.xyz cephnode121
+    10.10.100.122 cephnode122.dinhtu.xyz cephnode122
+    10.10.100.123 cephnode123.dinhtu.xyz cephnode123
     OEF
 Xác nhận kết nối đến các Node bằng domain thành công.
 
