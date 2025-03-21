@@ -209,8 +209,8 @@ Dưới đây là một đoạn shell sử dụng for để cài đặt Ceph tr�
 
 Ví dụ về đầu ra của đoạn shell:
 
-  <img src="proxmoxremotecephimages2/Screenshot_9.png">
-  <img src="proxmoxremotecephimages2/Screenshot_13.png">
+  <img src="proxmoxremotecephimages2/Screenshot_55.png">
+  <img src="proxmoxremotecephimages2/Screenshot_56.png">
 
 Hành động này sẽ giúp bạn đứng có thể từ Node bất kỳ gửi lệnh cài đặt Ceph cho tất cả các Node trong dòng for.
 
