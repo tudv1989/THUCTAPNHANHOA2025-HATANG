@@ -250,13 +250,13 @@ Tạo một file cấu hình Ceph mới trong ``/etc/ceph/ceph.conf`` với thô
     mon_addr = 172.16.9.123
     OEF
 
-  <img src="proxmoxremotecephimages2/Screenshot_14.png">
+  <img src="proxmoxremotecephimages2/Screenshot_57.png">
 
 Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình Ceph ở trên:
 
   + cluster_network = 10.10.100.0/24: Địa chỉ mạng cho giao tiếp nội bộ giữa các OSD (Object Storage Daemons) trong cụm. Đây là mạng nội bộ mà Ceph sẽ sử dụng để trao đổi dữ liệu.
   + public_network = 172.16.0.0/20: Địa chỉ mạng công khai mà Ceph sẽ sử dụng để giao tiếp với các client và các dịch vụ khác như Ceph Monitor.
-  + fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32: Định danh duy nhất cho cụm Ceph. Đây là một UUID được tạo ra ngẫu nhiên.
+  + fsid = 8760d9ea-2ade-4016-956a-e34f7304be51: Định danh duy nhất cho cụm Ceph. Đây là một UUID được tạo ra ngẫu nhiên.
   + mon host = 172.16.9.121: Địa chỉ IP của Ceph Monitor, một thành phần quan trọng giám sát trạng thái của cụm.
   + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này, chỉ có một node monitor là cephnode121.
   + osd pool default crush rule = -1: Đây là quy tắc CRUSH mặc định cho các pool. CRUSH là thuật toán mà Ceph sử dụng để xác định cách phân phối dữ liệu trên các OSD.
@@ -264,6 +264,7 @@ Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình 
       + host = cephnode121: Tên host của monitor.
       + mon addr = 172.16.9.121: Địa chỉ IP của monitor.
       + mon allow pool delete = true: Tùy chọn này cho phép xóa các pool. Mặc định, Ceph không cho phép xóa pool để tránh việc xóa dữ liệu không cố ý.
+	  
 #### Bước 2.1.7: Tạo khóa bí mật cho Ceph Monitor.
 
 Tạo một khóa bí mật cho Ceph Monitor và lưu nó vào file ``/etc/ceph/ceph.mon.keyring``. Tùy chọn ``--cap mon 'allow *'`` cấp quyền cho Monitor thực hiện tất cả các hành động.
