@@ -223,20 +223,20 @@ Sử dụng uuidgen để tạo một UUID mới, UUID này có thể được s
 
 #### Bước 2.1.6: Tạo file cấu hình chính cho Ceph.
 
-Tạo một file cấu hình Ceph mới trong /etc/ceph/ceph.conf với thông tin về cụm, bao gồm network, địa chỉ IP của các node monitor và các tùy chọn khác. Nhớ truyền thông tin UUID đã lấy được ở bước trên vào fsid, ví dụ fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32.
+Tạo một file cấu hình Ceph mới trong ``/etc/ceph/ceph.conf`` với thông tin về cụm, bao gồm network, địa chỉ IP của các node monitor và các tùy chọn khác. Nhớ truyền thông tin UUID đã lấy được ở bước trên vào fsid, ví dụ fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32.
 
     cat > /etc/ceph/ceph.conf << OEF
     [global]
     cluster_network = 10.10.100.0/24
     public_network = 172.16.0.0/20
     fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32
-    mon_host = 172.16.9.221
+    mon_host = 172.16.9.121
     mon_initial_members = cephnode121
     osd_pool_default_crush_rule = -1
 
     [mon.cephnode121]
     host = cephnode121
-    mon_addr = 172.16.9.221
+    mon_addr = 172.16.9.121
     mon_allow_pool_delete = true
     OEF
 
@@ -247,12 +247,12 @@ Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình 
   + cluster_network = 10.10.100.0/24: Địa chỉ mạng cho giao tiếp nội bộ giữa các OSD (Object Storage Daemons) trong cụm. Đây là mạng nội bộ mà Ceph sẽ sử dụng để trao đổi dữ liệu.
   + public_network = 172.16.0.0/20: Địa chỉ mạng công khai mà Ceph sẽ sử dụng để giao tiếp với các client và các dịch vụ khác như Ceph Monitor.
   + fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32: Định danh duy nhất cho cụm Ceph. Đây là một UUID được tạo ra ngẫu nhiên.
-  + mon host = 172.16.9.221: Địa chỉ IP của Ceph Monitor, một thành phần quan trọng giám sát trạng thái của cụm.
+  + mon host = 172.16.9.121: Địa chỉ IP của Ceph Monitor, một thành phần quan trọng giám sát trạng thái của cụm.
   + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này, chỉ có một node monitor là cephnode121.
   + osd pool default crush rule = -1: Đây là quy tắc CRUSH mặc định cho các pool. CRUSH là thuật toán mà Ceph sử dụng để xác định cách phân phối dữ liệu trên các OSD.
   + [mon.cephnode121]: Đây là một phần cấu hình cho monitor cephnode1.
       + host = cephnode121: Tên host của monitor.
-      + mon addr = 172.16.9.221: Địa chỉ IP của monitor.
+      + mon addr = 172.16.9.121: Địa chỉ IP của monitor.
       + mon allow pool delete = true: Tùy chọn này cho phép xóa các pool. Mặc định, Ceph không cho phép xóa pool để tránh việc xóa dữ liệu không cố ý.
 #### Bước 2.1.7: Tạo khóa bí mật cho Ceph Monitor.
 
