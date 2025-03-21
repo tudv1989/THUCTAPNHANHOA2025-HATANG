@@ -258,7 +258,7 @@ Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình 
   + public_network = 172.16.0.0/20: Địa chỉ mạng công khai mà Ceph sẽ sử dụng để giao tiếp với các client và các dịch vụ khác như Ceph Monitor.
   + fsid = 8760d9ea-2ade-4016-956a-e34f7304be51: Định danh duy nhất cho cụm Ceph. Đây là một UUID được tạo ra ngẫu nhiên.
   + mon host = 172.16.9.121: Địa chỉ IP của Ceph Monitor, một thành phần quan trọng giám sát trạng thái của cụm.
-  + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này, chỉ có một node monitor là cephnode121.
+  + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này có 3 node monitor.
   + osd pool default crush rule = -1: Đây là quy tắc CRUSH mặc định cho các pool. CRUSH là thuật toán mà Ceph sử dụng để xác định cách phân phối dữ liệu trên các OSD.
   + [mon.cephnode121]: Đây là một phần cấu hình cho monitor cephnode1.
       + host = cephnode121: Tên host của monitor.
