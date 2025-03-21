@@ -231,14 +231,23 @@ Tạo một file cấu hình Ceph mới trong ``/etc/ceph/ceph.conf`` với thô
     cluster_network = 10.10.100.0/24
     public_network = 172.16.0.0/20
     fsid = 8760d9ea-2ade-4016-956a-e34f7304be51
-    mon_host = 172.16.9.121
-    mon_initial_members = cephnode121
+    mon_host = 172.16.9.121,172.16.9.122,172.16.9.123
+    mon_initial_members = cephnode121,cephnode122,cephnode123
     osd_pool_default_crush_rule = -1
+    mgr_initial_modules = orchestrator dashboard prometheus
 
     [mon.cephnode121]
     host = cephnode121
     mon_addr = 172.16.9.121
     mon_allow_pool_delete = true
+
+    [mon.cephnode122]
+    host = cephnode122
+    mon_addr = 172.16.9.122
+
+    [mon.cephnode123]
+    host = cephnode123
+    mon_addr = 172.16.9.123
     OEF
 
   <img src="proxmoxremotecephimages2/Screenshot_14.png">
