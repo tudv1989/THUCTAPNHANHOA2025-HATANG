@@ -231,8 +231,8 @@ Tạo một file cấu hình Ceph mới trong ``/etc/ceph/ceph.conf`` với thô
     cluster_network = 10.10.100.0/24
     public_network = 172.16.0.0/20
     fsid = 8760d9ea-2ade-4016-956a-e34f7304be51
-    mon_host = 172.16.9.121,172.16.9.122,172.16.9.123
-    mon_initial_members = cephnode121,cephnode122,cephnode123
+    mon_host = 172.16.9.121
+    mon_initial_members = cephnode121
     osd_pool_default_crush_rule = -1
     mgr_initial_modules = orchestrator dashboard prometheus
 
@@ -240,17 +240,7 @@ Tạo một file cấu hình Ceph mới trong ``/etc/ceph/ceph.conf`` với thô
     host = cephnode121
     mon_addr = 172.16.9.121
     mon_allow_pool_delete = true
-
-    [mon.cephnode122]
-    host = cephnode122
-    mon_addr = 172.16.9.122
-
-    [mon.cephnode123]
-    host = cephnode123
-    mon_addr = 172.16.9.123
     OEF
-
-  <img src="proxmoxremotecephimages2/Screenshot_57.png">
 
 Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình Ceph ở trên:
 
@@ -258,7 +248,7 @@ Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình 
   + public_network = 172.16.0.0/20: Địa chỉ mạng công khai mà Ceph sẽ sử dụng để giao tiếp với các client và các dịch vụ khác như Ceph Monitor.
   + fsid = 8760d9ea-2ade-4016-956a-e34f7304be51: Định danh duy nhất cho cụm Ceph. Đây là một UUID được tạo ra ngẫu nhiên.
   + mon host = 172.16.9.121: Địa chỉ IP của Ceph Monitor, một thành phần quan trọng giám sát trạng thái của cụm.
-  + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này có 3 node monitor.
+  + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này có 1 node monitor.
   + osd pool default crush rule = -1: Đây là quy tắc CRUSH mặc định cho các pool. CRUSH là thuật toán mà Ceph sử dụng để xác định cách phân phối dữ liệu trên các OSD.
   + [mon.cephnode121]: Đây là một phần cấu hình cho monitor cephnode1.
       + host = cephnode121: Tên host của monitor.
@@ -271,7 +261,7 @@ Tạo một khóa bí mật cho Ceph Monitor và lưu nó vào file ``/etc/ceph/
 
     ceph-authtool --create-keyring /etc/ceph/ceph.mon.keyring --gen-key -n mon. --cap mon 'allow *'
 
-  <img src="proxmoxremotecephimages2/Screenshot_15.png">
+
 
 #### Bước 2.1.8: Tạo khóa bí mật cho người quản trị Ceph Cluster.
 
@@ -279,14 +269,13 @@ Tạo một khóa bí mật cho user quản trị Ceph Cluster và lưu nó vào
 
     ceph-authtool --create-keyring /etc/ceph/ceph.client.admin.keyring --gen-key -n client.admin --cap mon 'allow *' --cap osd 'allow *' --cap mds 'allow *' --cap mgr 'allow *'
 
-  <img src="proxmoxremotecephimages2/Screenshot_16.png">
+
 
 #### Bước 2.1.9: Tạo một khóa bí mật cho quá trình khởi động OSD.
 
 Tạo một khóa bí mật cho quá trình khởi động OSD và lưu nó vào file ``/var/lib/ceph/bootstrap-osd/ceph.keyring``.
 
-
-  <img src="proxmoxremotecephimages2/Screenshot_17.png">
+    ceph-authtool --create-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring --gen-key -n client.bootstrap-osd --cap mon 'profile bootstrap-osd' --cap mgr 'allow r'
 
 #### Bước 2.1.10 – Nhập khóa bí mật của người quản trị vào khóa bí mật của Monitor.
 
@@ -316,7 +305,10 @@ Lệnh monmaptool được sử dụng để tạo và chỉnh sửa bản đồ
 
 Chạy lệnh này để tạo một bản đồ monitor mới và thêm một monitor vào bản đồ đó.
 
-    monmaptool --create --add $NODENAME $NODEIP --fsid $FSID /etc/ceph/monmap
+    monmaptool --create --fsid 8760d9ea-2ade-4016-956a-e34f7304be51 /etc/ceph/monmap
+    monmaptool --add cephnode121 172.16.9.121 /etc/ceph/monmap
+    monmaptool --add cephnode122 172.16.9.122 /etc/ceph/monmap
+    monmaptool --add cephnode123 172.16.9.123 /etc/ceph/monmap
 
   <img src="proxmoxremotecephimages2/Screenshot_20.png">
 
@@ -344,7 +336,9 @@ Thay đổi quyền sở hữu của tất cả các file trong /etc/ceph thành
 
 Kích hoạt và khởi động dịch vụ Ceph Monitor.
 
-    systemctl enable --now ceph-mon@$NODENAME
+    systemctl enable --now ceph-mon@cephnode121
+    systemctl enable --now ceph-mon@cephnode122
+    systemctl enable --now ceph-mon@cephnode123 
 
 Kích hoạt giao thức Messenger v2 cho Ceph Monitor.
 
