@@ -15,7 +15,7 @@ Bài Lab sử dụng topo như hình
 
 Mình đã gộp các mạng sau trên 1 interfaces:
   + Cluster Network = 10.10.100.0/24 chạy trên các interface eno2 của các máy chủ
-  + Mon Network , Public Network = 172.16.0.0/20 chạy trên các interface eno1 của các máy chủ
+  + Mon Network,Manager Network , Public Network = 172.16.0.0/20 chạy trên các interface eno1 của các máy chủ
 
 Trong Ceph có 3 mạng được sử dụng đó là:
 
