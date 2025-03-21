@@ -138,7 +138,7 @@ https://github.com/tudv1989/KYTHUAT-HATANG-2025-FULL/tree/main/Tri%E1%BB%83n%20k
 #### Bước 2.1.1: Tạo cặp khóa SSH.
 Tạo cặp khóa SSH trên Node [Monitor Daemon] (gọi nó là Node quản trị ở đây) và copy nó cho mỗi Node trong cụm. Do mình muốn xóa hết các cặp khóa cũ nên mình sử dụng rm -rf ~/.ssh/* để xóa tất cả các file trong thư mục ~/.ssh, điều này sẽ xóa hết các khóa SSH và các file cấu hình.
 
-Trên ceph-node221 chạy lệnh sau
+Trên cephnode121 chạy lệnh sau
 
     rm -rf ~/.ssh/*
 
@@ -150,21 +150,21 @@ Nhớ xác nhận các khóa đã tạo thành công.
 
     ls -lah /root/.ssh/
 
-  <img src="proxmoxremotecephimages2/Screenshot_5.png">
+  <img src="proxmoxremotecephimages2/Screenshot_52.png">
 
 #### Bước 2.1.2: Thêm thông tin về cách kết nối đến các node trong cụm Ceph.
 
 Tiếp theo, tạo một file cấu hình SSH mới trong ~/.ssh/config với thông tin về cách kết nối đến các node trong cụm Ceph.
 
     cat > ~/.ssh/config << 'OEF'
-    Host cephnode221
-        Hostname cephnode221.dinhtu.xyz 
+    Host cephnode121
+        Hostname cephnode121.dinhtu.xyz 
         User root
-    Host cephnode222
-        Hostname cephnode222.dinhtu.xyz 
+    Host cephnode122
+        Hostname cephnode122.dinhtu.xyz 
         User root
-    Host cephnode223
-        Hostname cephnode223.dinhtu.xyz 
+    Host cephnode123
+        Hostname cephnode123.dinhtu.xyz 
         User root
     OEF
 
@@ -173,22 +173,22 @@ Tiếp theo, tạo một file cấu hình SSH mới trong ~/.ssh/config với th
 Phần tiếp theo tạo một file /etc/hosts mới với các địa chỉ IP và tên máy chủ cho cụm Ceph. Lưu ý đối với giao tiếp giữa các Node các bạn nên sử dụng IP Private của mỗi Node, đây là IP có băng thông cao sử dụng cho kết nối các cluster trong cum ví dụ như dưới.
 
     cat >> /etc/hosts << 'OEF'
-    10.10.100.221 cephnode221.dinhtu.xyz cephnode221
-    10.10.100.222 cephnode222.dinhtu.xyz cephnode222
-    10.10.100.223 cephnode223.dinhtu.xyz cephnode223
+    10.10.100.221 cephnode121.dinhtu.xyz cephnode121
+    10.10.100.222 cephnode122.dinhtu.xyz cephnode122
+    10.10.100.223 cephnode123.dinhtu.xyz cephnode123
     OEF
 Xác nhận kết nối đến các Node bằng domain thành công.
 
-Ví dụ kết quả từ cephnode221.dinhtu.xyz sang cephnode222.dinhtu.xyz.
+Ví dụ kết quả từ cephnode121.dinhtu.xyz sang cephnode122.dinhtu.xyz.
 
   <img src="proxmoxremotecephimages2/Screenshot_7.png">
 
 #### Bước 2.1.4: Sao chép khóa công khai SSH đến node còn lại trong cụm.
-Sử dụng lệnh ``ssh-copy-id`` sao chép khóa công khai SSH đến node trong trong cụm, tính luôn cả ``cephnode221``, ví dụ của mình là ``cephnode222`` và ``cephnode223``.
+Sử dụng lệnh ``ssh-copy-id`` sao chép khóa công khai SSH đến node trong trong cụm, tính luôn cả ``cephnode121``, ví dụ của mình là ``cephnode122`` và ``cephnode123``.
 
-    ssh-copy-id -o StrictHostKeychecking=no cephnode221
-    ssh-copy-id -o StrictHostKeychecking=no cephnode222
-    ssh-copy-id -o StrictHostKeychecking=no cephnode223
+    ssh-copy-id -o StrictHostKeychecking=no cephnode121
+    ssh-copy-id -o StrictHostKeychecking=no cephnode122
+    ssh-copy-id -o StrictHostKeychecking=no cephnode123
 
 Tùy chọn ``-o StrictHostKeychecking=no`` ngăn chặn việc kiểm tra dấu vân tay của máy chủ, cho phép kết nối tự động.
 
@@ -202,7 +202,7 @@ Nhập mật khẩu của root Node Remote để thực hiện việc sao chép.
 
 Dưới đây là một đoạn shell sử dụng for để cài đặt Ceph trên mỗi node trong cụm.
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
         ssh -o StrictHostKeychecking=no $NODE "apt update; apt -y install ceph"
     done 
@@ -218,7 +218,7 @@ Hành động này sẽ giúp bạn đứng có thể từ Node bất kỳ gửi
 
 Sử dụng uuidgen để tạo một UUID mới, UUID này có thể được sử dụng như một định danh duy nhất cho cụm Ceph
 
-    root@ceph-node1:~# uuidgen
+    root@cephnode1:~# uuidgen
     ce6406e1-bc72-4fe0-9f58-0563d3fdab32
 
 #### Bước 2.1.6: Tạo file cấu hình chính cho Ceph.
@@ -231,11 +231,11 @@ Tạo một file cấu hình Ceph mới trong /etc/ceph/ceph.conf với thông t
     public_network = 172.16.0.0/20
     fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32
     mon_host = 172.16.9.221
-    mon_initial_members = cephnode221
+    mon_initial_members = cephnode121
     osd_pool_default_crush_rule = -1
 
-    [mon.cephnode221]
-    host = cephnode221
+    [mon.cephnode121]
+    host = cephnode121
     mon_addr = 172.16.9.221
     mon_allow_pool_delete = true
     OEF
@@ -248,10 +248,10 @@ Dưới đây là giải thích về các tùy chọn trong đoạn cấu hình 
   + public_network = 172.16.0.0/20: Địa chỉ mạng công khai mà Ceph sẽ sử dụng để giao tiếp với các client và các dịch vụ khác như Ceph Monitor.
   + fsid = ce6406e1-bc72-4fe0-9f58-0563d3fdab32: Định danh duy nhất cho cụm Ceph. Đây là một UUID được tạo ra ngẫu nhiên.
   + mon host = 172.16.9.221: Địa chỉ IP của Ceph Monitor, một thành phần quan trọng giám sát trạng thái của cụm.
-  + mon initial members = cephnode221: Danh sách các node monitor ban đầu. Trong trường hợp này, chỉ có một node monitor là cephnode221.
+  + mon initial members = cephnode121: Danh sách các node monitor ban đầu. Trong trường hợp này, chỉ có một node monitor là cephnode121.
   + osd pool default crush rule = -1: Đây là quy tắc CRUSH mặc định cho các pool. CRUSH là thuật toán mà Ceph sử dụng để xác định cách phân phối dữ liệu trên các OSD.
-  + [mon.cephnode221]: Đây là một phần cấu hình cho monitor ceph-node1.
-      + host = cephnode221: Tên host của monitor.
+  + [mon.cephnode121]: Đây là một phần cấu hình cho monitor cephnode1.
+      + host = cephnode121: Tên host của monitor.
       + mon addr = 172.16.9.221: Địa chỉ IP của monitor.
       + mon allow pool delete = true: Tùy chọn này cho phép xóa các pool. Mặc định, Ceph không cho phép xóa pool để tránh việc xóa dữ liệu không cố ý.
 #### Bước 2.1.7: Tạo khóa bí mật cho Ceph Monitor.
@@ -400,13 +400,13 @@ Dưới đây là quy trình thêm OSD.
 
 Ví dụ copy sang các node:
 
-    scp /etc/ceph/ceph.conf cephnode222:/etc/ceph/ceph.conf
-    scp /etc/ceph/ceph.client.admin.keyring cephnode222:/etc/ceph
-    scp /var/lib/ceph/bootstrap-osd/ceph.keyring cephnode222:/var/lib/ceph/bootstrap-osd
+    scp /etc/ceph/ceph.conf cephnode122:/etc/ceph/ceph.conf
+    scp /etc/ceph/ceph.client.admin.keyring cephnode122:/etc/ceph
+    scp /var/lib/ceph/bootstrap-osd/ceph.keyring cephnode122:/var/lib/ceph/bootstrap-osd
 
-    scp /etc/ceph/ceph.conf cephnode223:/etc/ceph/ceph.conf
-    scp /etc/ceph/ceph.client.admin.keyring cephnode223:/etc/ceph
-    scp /var/lib/ceph/bootstrap-osd/ceph.keyring cephnode223:/var/lib/ceph/bootstrap-osd
+    scp /etc/ceph/ceph.conf cephnode123:/etc/ceph/ceph.conf
+    scp /etc/ceph/ceph.client.admin.keyring cephnode123:/etc/ceph
+    scp /var/lib/ceph/bootstrap-osd/ceph.keyring cephnode123:/var/lib/ceph/bootstrap-osd
 
 #### Bước 2.2.2: Thay đổi quyền sở hữu của file.
 
@@ -432,9 +432,9 @@ Hoặc nếu bạn thao tác cho nhiều node cùng 1 lúc với các tên ổ �
 
 Đoạn shell dưới đây tổng hợp từ đoạn trên [Bước 2.2.1 đến Bước 2.2.3] sẽ thực hiện cho ổ đĩa /dev/sdb trên cả 3 node.
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
-        if [ ! ${NODE} = "cephnode221" ]
+        if [ ! ${NODE} = "cephnode121" ]
         then
             scp /etc/ceph/ceph.conf ${NODE}:/etc/ceph/ceph.conf
             scp /etc/ceph/ceph.client.admin.keyring ${NODE}:/etc/ceph
@@ -449,8 +449,8 @@ Hoặc nếu bạn thao tác cho nhiều node cùng 1 lúc với các tên ổ �
 
 Đoạn shell này thực hiện các tác vụ sau:
 
-  + Vòng lặp qua các node: Vòng lặp for đi qua danh sách các node (cephnode221, cephnode222, cephnode223).
-  + Kiểm tra tên node: Điều kiện if [ ! ${NODE} = "cephnode221" ] kiểm tra xem tên của node hiện tại có phải là cephnode221 hay không. Nếu không phải, thì nó thực hiện các lệnh scp bên dưới.
+  + Vòng lặp qua các node: Vòng lặp for đi qua danh sách các node (cephnode121, cephnode122, cephnode123).
+  + Kiểm tra tên node: Điều kiện if [ ! ${NODE} = "cephnode121" ] kiểm tra xem tên của node hiện tại có phải là cephnode121 hay không. Nếu không phải, thì nó thực hiện các lệnh scp bên dưới.
   + Sao chép các file cấu hình và khóa bí mật: Các lệnh scp sao chép file cấu hình ceph.conf và các khóa bí mật từ node hiện tại đến các node khác trong cụm.
   + Thay đổi quyền sở hữu của các file: Lệnh chown thay đổi quyền sở hữu của các file cấu hình và khóa bí mật để người dùng ceph có thể truy cập.
   + Tạo một bảng phân vùng mới trên ổ đĩa: Lệnh parted tạo một bảng phân vùng GPT mới trên ổ đĩa /dev/sdb.
@@ -465,7 +465,7 @@ Trước tiên dùng lệnh lsblk nhìn vào mình sẽ có 6 ổ đĩa sdb sdc 
 
 Chúng ta tiếp tục thao tác cho các ổ đĩa sdc
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
         ssh $NODE \
         "chown ceph. /etc/ceph/ceph.* /var/lib/ceph/bootstrap-osd/*; \
@@ -476,7 +476,7 @@ Chúng ta tiếp tục thao tác cho các ổ đĩa sdc
 
 Chúng ta tiếp tục thao tác cho các ổ đĩa sdd
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
         ssh $NODE \
         "chown ceph. /etc/ceph/ceph.* /var/lib/ceph/bootstrap-osd/*; \
@@ -488,7 +488,7 @@ Chúng ta tiếp tục thao tác cho các ổ đĩa sdd
 
 Chúng ta tiếp tục thao tác cho các ổ đĩa sde
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
         ssh $NODE \
         "chown ceph. /etc/ceph/ceph.* /var/lib/ceph/bootstrap-osd/*; \
@@ -499,7 +499,7 @@ Chúng ta tiếp tục thao tác cho các ổ đĩa sde
 
 Chúng ta tiếp tục thao tác cho các ổ đĩa sdf
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
         ssh $NODE \
         "chown ceph. /etc/ceph/ceph.* /var/lib/ceph/bootstrap-osd/*; \
@@ -510,7 +510,7 @@ Chúng ta tiếp tục thao tác cho các ổ đĩa sdf
 
 Chúng ta tiếp tục thao tác cho các ổ đĩa sdg
 
-    for NODE in cephnode221 cephnode222 cephnode223
+    for NODE in cephnode121 cephnode122 cephnode123
     do
         ssh $NODE \
         "chown ceph. /etc/ceph/ceph.* /var/lib/ceph/bootstrap-osd/*; \
@@ -572,7 +572,7 @@ Nhìn kết quả của ``ceph -s`` bạn sẽ thấy có 18 OSDs tương ứng 
 
 Dưới đây là quy trình tạo block device trong Ceph
 
-Cụ thể chúng ta sẽ tạo một Block Device và mount nó trên Admin Node (ví dụ là cephnode221.dinhtu.xyz)
+Cụ thể chúng ta sẽ tạo một Block Device và mount nó trên Admin Node (ví dụ là cephnode121.dinhtu.xyz)
 
 Bước 1 – Cấu hình môi trường cho Ceph Client.
 
@@ -653,12 +653,12 @@ Lưu fstab
 
     ssh proxmox224.dinhtu.xyz "blkid /dev/rbd0"
 
-    root@cephnode221:~# ssh proxmox224.dinhtu.xyz "blkid /dev/rbd0"
+    root@cephnode121:~# ssh proxmox224.dinhtu.xyz "blkid /dev/rbd0"
     /dev/rbd0: UUID="ae32b8c7-522b-45d5-9822-ae8692ca697c" BLOCK_SIZE="512" TYPE="xfs"
 
     ssh proxmox224.dinhtu.xyz "echo 'ae32b8c7-522b-45d5-9822-ae8692ca697c /mnt/vm xfs defaults 0 2' | sudo tee -a /etc/fstab"
 
-    root@cephnode221:~# ssh proxmox224.dinhtu.xyz "echo 'ae32b8c7-522b-45d5-9822-ae8692ca697c /mnt/vm xfs defaults 0 2' |  tee -a /etc/fstab"
+    root@cephnode121:~# ssh proxmox224.dinhtu.xyz "echo 'ae32b8c7-522b-45d5-9822-ae8692ca697c /mnt/vm xfs defaults 0 2' |  tee -a /etc/fstab"
     ae32b8c7-522b-45d5-9822-ae8692ca697c /mnt/vm xfs defaults 0 2
 
 Bên trên là bước tạo và mount để tạo storage như Directory độc lập giữa các proxmox node, khác với CephFs
