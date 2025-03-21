@@ -117,6 +117,7 @@ root@cephnode123:/etc/netplan# nano /etc/netplan/00-installer-config.yaml
             - 10.10.100.123/24
       version: 2
 
+Làm tương tự với 2 node còn lại, đổi tên và IP tương ứng
 
 ## Bước 1. Cài đặt cụm proxmox HA bạn tham khảo bài sau:
 
