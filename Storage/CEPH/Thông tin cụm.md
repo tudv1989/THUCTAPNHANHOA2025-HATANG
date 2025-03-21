@@ -21,3 +21,6 @@ http://172.16.9.115:9090/alerts
 https://172.16.9.221:8443/#/login?returnUrl=%2Fdashboard
 
 
++ Cụm 2: 3 node Ceph (là VM ảo trong cụm 1 ID 121 122 123 ) IP: 172.16.9.121  172.16.9.122 172.16.9.123
+
+https://172.16.9.121:8443/
