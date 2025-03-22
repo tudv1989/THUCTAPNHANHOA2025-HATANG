@@ -1,0 +1,35 @@
+cat >> ~/.ssh/config << 'OEF'
+Host proxmox151
+    Hostname proxmox151.dinhtu.xyz
+    User root
+OEF
+
+cat >> /etc/hosts << 'OEF'
+10.10.100.151 proxmox151.dinhtu.xyz proxmox151
+OEF
+
+ssh-copy-id -o StrictHostKeychecking=no proxmox151.dinhtu.xyz
+
+scp /etc/ceph/ceph.conf proxmox151.dinhtu.xyz:/etc/ceph/
+
+scp /etc/ceph/ceph.client.admin.keyring proxmox151.dinhtu.xyz:/etc/ceph/
+
+ssh proxmox151.dinhtu.xyz "chown ceph. /etc/ceph/ceph.*"
+
+ssh proxmox151.dinhtu.xyz "ceph osd pool create ceph-pool-from121-for-151 128"
+
+ssh proxmox151.dinhtu.xyz "ceph osd pool set ceph-pool-from121-for-151 pg_autoscale_mode on"
+
+ssh proxmox151.dinhtu.xyz "rbd pool init ceph-pool-from121-for-151"
+
+ssh proxmox151.dinhtu.xyz "ceph osd pool autoscale-status"
+
+Tạo RBD cho Proxmox151
+
+ssh proxmox151.dinhtu.xyz "rbd create --size 100G --pool ceph-pool-from121-for-151 ceph-pool-from121-for-151-rbd"
+
+ssh proxmox151.dinhtu.xyz "rbd ls -l -p ceph-pool-from121-for-151"
+
+ssh proxmox151.dinhtu.xyz "rbd map ceph-pool-from121-for-151/ceph-pool-from121-for-151-rbd"
+
+ssh proxmox151.dinhtu.xyz "rbd showmapped"

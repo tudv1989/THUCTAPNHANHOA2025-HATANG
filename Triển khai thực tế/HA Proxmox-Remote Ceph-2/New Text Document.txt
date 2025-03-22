@@ -206,6 +206,27 @@ root@cephnode121:~# ssh proxmox109.dinhtu.xyz "blkid /dev/rbd0"
 
 ssh proxmox109.dinhtu.xyz "echo '44a95a43-041b-44ee-86cf-d111de851acd /mnt/ceph-pool-from121-for-109-rbd xfs defaults 0 2' |  tee -a /etc/fstab"
 
+Tạo LVM thử
+
+ssh proxmox109.dinhtu.xyz "rbd create --size 100G --pool ceph-pool-from121-for-109 ceph-pool-from121-for-109-rbd1"
+ssh proxmox109.dinhtu.xyz "rbd create --size 100G --pool ceph-pool-from121-for-109 ceph-pool-from121-for-109-rbd2"
+
+ssh proxmox109.dinhtu.xyz "rbd map ceph-pool-from121-for-109/ceph-pool-from121-for-109-rbd1"
+ssh proxmox109.dinhtu.xyz "rbd map ceph-pool-from121-for-109/ceph-pool-from121-for-109-rbd2"
+
+ssh proxmox109.dinhtu.xyz "rbd showmapped"
+
+root@proxmox109:/mnt# parted /dev/rbd1 mklabel gpt
+Information: You may need to update /etc/fstab.
+
+root@proxmox109:/mnt# parted /dev/rbd2 mklabel gpt
+Information: You may need to update /etc/fstab.
+
+root@proxmox109:/mnt# sgdisk -N 1 /dev/rbd1
+The operation has completed successfully.
+root@proxmox109:/mnt# sgdisk -N 1 /dev/rbd2
+The operation has completed successfully.
+
 
 
 
