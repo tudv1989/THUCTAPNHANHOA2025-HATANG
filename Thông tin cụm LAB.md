@@ -11,6 +11,7 @@
   + Cụm 3: 3 node Ceph (là VM ảo trong cụm 1 ID 121 122 123 ) IP: 172.16.9.121 172.16.9.122 172.16.9.123
 
     https://172.16.9.121:8443/
+    http://172.16.9.121:9283/metrics
 
   + Cụm 4: 3 node Proxmox (là VM ảo trong cụm 1 ID 224 225 226) kết nối với cụm Ceph ( Cụm 2) trên 172.16.9.224 172.16.9.225 172.16.9.226 , Mục đích test connect Ceph remote
 
