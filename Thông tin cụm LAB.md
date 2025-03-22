@@ -1,3 +1,5 @@
+## Thông tin các cụm LAB
+
   + Cụm 1: 3 node proxmox vật lý IP: 172.16.9.111 172.16.9.112 172.16.9.113 chạy proxmox HA kèm Ceph proxmox , Mục đích test Ceph chung Proxmox HA
 
     Master: https://172.16.9.111:8006/
@@ -23,16 +25,18 @@
 
     https://172.16.9.221:8443/#/login?returnUrl=%2Fdashboard
 
- 
-  + FreeNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113
+  + TrueNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113 - Lab demo sự vượt trội của ZFS so với RAID CARD cứng là chính
 
-  + VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ... 
+## Nội dung HA:
 
-    + Đây là máy Control Virtualizor trên toàn proxmox đơn, do là controller nên dùng máy ảo cũng được.
+    VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ... 
 
-    + Chúng ta sẽ sử dụng máy này để test HA controller Virtualizor
+    Đây là máy Control Virtualizor kiểm soát các proxmox đơn, do vai trò virtulizor là control nên dùng máy ảo cũng được.
 
-    + Trường hợp giá rẻ hơn là sử dụng TrueNAS cấp đĩa dạng block device hoặc dùng phương pháp cluster 2 node proxmox - VM virtulizor phụ sao chép dữ liệu mỗi nửa tiếng,
-    mô hình này chạy kiểu active-passive
+    + 1. Chúng ta sẽ sử dụng máy này để test HA controller Virtualizor chạy disk Ceph
 
-    + Thực ra vẫn còn cách sử lý thủ công là backup liên tục máy Virtulizor control
+    + 2. Trường hợp giá rẻ hơn là sử dụng TrueNAS cấp đĩa dạng block device hoặc dùng chạy HA
+
+    + 3. Phương pháp cluster 2 node proxmox - VM virtulizor phụ sao chép dữ liệu mỗi nửa tiếng,mô hình này chạy kiểu active-passive
+
+    + 4. Cách xử lý thủ công là backup liên tục máy Virtulizor control
