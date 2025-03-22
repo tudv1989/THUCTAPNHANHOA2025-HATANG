@@ -25,4 +25,4 @@
     https://172.16.9.221:8443/#/login?returnUrl=%2Fdashboard
 
  
-  + FreeNAS 172.16.9.116 10.10.100.116 là VMID 101 nằm trên Proxmox113
+  + FreeNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113
