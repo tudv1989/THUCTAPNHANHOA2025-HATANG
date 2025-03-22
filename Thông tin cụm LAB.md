@@ -2,7 +2,7 @@
 
     Master: https://172.16.9.111:8006/
 
-  + Cụm 2: 3 node Ceph (là VM ảo trong cụm 1 ID 991 992 993 ) IP: 172.16.9.221 172.16.9.222 172.16.9.223
+  + Cụm 2: 3 node Ceph (là VM ảo trong cụm 1 ID 991 992 993 ) IP: 172.16.9.221 172.16.9.222 172.16.9.223 - Hiện cụm này tạm off để giảm tài nguyên LAB
 
     https://172.16.9.221:8006/
 
@@ -15,8 +15,6 @@
 
   + Cụm 4: 3 node Proxmox (là VM ảo trong cụm 1 ID 224 225 226) kết nối với cụm Ceph ( Cụm 2) trên 172.16.9.224 172.16.9.225 172.16.9.226 , Mục đích test connect Ceph remote
 
-  + VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ...
-
   + Prometheus server 172.16.9.115 là VM trong Cụm 1 - ID VM 999 , link
 
     http://grafanalab.dinhtu.xyz:3000/dashboards
@@ -27,3 +25,14 @@
 
  
   + FreeNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113
+
+ + VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ... 
+
+    + Đây là máy Control Virtualizor trên toàn proxmox đơn, do là controller nên
+   
+    dùng máy ảo cũng được.
+
+    + Chúng ta sẽ sử dụng máy này để test HA controller Virtualizor
+
+    + Trường hợp giá rẻ hơn là sử dụng TrueNAS cấp đĩa dạng block device hoặc dùng phương pháp cluster 2 node proxmox - VM virtulizor phụ sao chép dữ liệu mỗi nửa tiếng,
+    mô hình này chạy kiểu active-passive
