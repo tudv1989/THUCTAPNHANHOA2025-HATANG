@@ -1,0 +1,4 @@
+Đang HA VM 2242 >> Chuyển sang node proxmox226, khi proxmox224 die
+Thời gian xử lý hơi lâu do proxmox cũng là máy ảo.
+IP VM là 172.16.2.216 có khả năng là đang boot vào os
+Boot ok
