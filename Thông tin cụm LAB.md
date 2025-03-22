@@ -26,7 +26,7 @@
  
   + FreeNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113
 
- + VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ... 
+  + VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ... 
 
     + Đây là máy Control Virtualizor trên toàn proxmox đơn, do là controller nên
    
@@ -36,3 +36,5 @@
 
     + Trường hợp giá rẻ hơn là sử dụng TrueNAS cấp đĩa dạng block device hoặc dùng phương pháp cluster 2 node proxmox - VM virtulizor phụ sao chép dữ liệu mỗi nửa tiếng,
     mô hình này chạy kiểu active-passive
+
+    + Thực ra vẫn còn cách sử lý thủ công là backup liên tục máy Virtulizor control
