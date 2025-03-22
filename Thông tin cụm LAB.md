@@ -28,9 +28,7 @@
 
   + VM test 172.16.9.228 là VMID 2242 nằm trong Cụm 4 - test thử iops throughput latency ... 
 
-    + Đây là máy Control Virtualizor trên toàn proxmox đơn, do là controller nên
-   
-    dùng máy ảo cũng được.
+    + Đây là máy Control Virtualizor trên toàn proxmox đơn, do là controller nên dùng máy ảo cũng được.
 
     + Chúng ta sẽ sử dụng máy này để test HA controller Virtualizor
 
