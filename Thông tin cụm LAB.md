@@ -40,3 +40,29 @@
     + 3. Phương pháp cluster 2 node proxmox - VM virtulizor phụ sao chép dữ liệu mỗi nửa tiếng,mô hình này chạy kiểu active-passive
 
     + 4. Cách xử lý thủ công là backup liên tục máy Virtulizor control
+
+172.16.9.200
+
+    API KEY : OraCLXhTBx5IULkTOaQTUhFNMqTu8RZM
+    API Password : KwhX88JYkLnP8dVj8mhJxYe1JUVwB33j
+
+172.16.9.226
+
+    API KEY : vH9mtirN3PGfYPDxv7MxhABL47y4TO5X
+    API Password : gFOCv9Xjs1yGb0wULKCaEJag9DwxttW0
+
+172.16.9.225
+
+    API KEY : kWI6s4EJVT1qEX1qbOS0Oklf8ADuBLzV
+    API Password : 2twWB0qo4XS2ci6L870DVJlDKrLKOx6V
+
+172.16.9.228
+
+    API KEY : rfZOsYpRgWupOX9xEWrErKhwn35Ittyf
+    API Password : YidqhAXkI3vxe1RkwzYiEP5HuY1Cme7n
+
+172.16.9.224
+
+    API KEY : kSjaRIXWNC0gmYUexWOVWVu4LH6YRl1J
+    API Password : IeKiLwZO1dOQGwYRF32wGxHkjJ6iGzXG
+
