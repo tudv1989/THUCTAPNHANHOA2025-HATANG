@@ -15,35 +15,32 @@
     Tính năng này giúp tối ưu hóa sử dụng dung lượng lưu trữ và tránh lãng phí.
 ## 2. Thực hành chuyên sâu Logical Volume Manager (LVM)
 
-Mình sử dụng máy chủ Ubuntu 22.04 để LAB vì mặc định khi cài Ubuntu 22.04 hệ thống có sử dụng LVM cho phân vùng root(/) 
+Trong LVM (Logical Volume Manager), các khái niệm PVs, VGs và LVs đóng vai trò quan trọng trong việc quản lý không gian lưu trữ linh hoạt.
+
+  + PVs (Physical Volumes - Tập Vật Lý):
+
+    Đây là các ổ đĩa vật lý (hard disk, SSD, phân vùng,...) được sử dụng làm thành phần cơ bản của LVM.
+    PVs được khởi tạo từ các thiết bị lưu trữ vật lý để LVM có thể quản lý.
+
+  + VGs (Volume Groups - Nhóm Ổ Đĩa):
+
+    VG là một tập hợp các PVs, tạo thành một "bể" lưu trữ ảo.
+    VG cung cấp một không gian lưu trữ lớn, có thể mở rộng bằng cách thêm PVs.
+    Từ VG người quản trị hệ thống có thể phân chia thành các Logical Volume (LV) để sử dụng
+
+  + LVs (Logical Volumes - Ổ Đĩa Logic):
+
+    LV là các ổ đĩa logic được tạo ra từ không gian lưu trữ của VG.
+    LVs tương đương với các phân vùng ổ đĩa truyền thống, nhưng linh hoạt hơn về kích thước.
+
+Người quản trị có thể thay đổi kích thước LV một cách dễ dàng mà không cần khởi động lại hệ thống.
+
+Mình sử dụng máy chủ Ubuntu 22.04 để LAB vì mặc định khi cài Ubuntu 22.04 hệ thống có sử dụng LVM quản lý phân vùng root(/),và tiện thể mình resize luôn phân vùng root của Ubuntu. 
 
   <img src="proxmoximages/Screenshot_2.png">
 
-Chúng ta có thể thấy rằng 1 ổ cứng sda sử dụng cài OS chia làm 3 phân vùng trong đó /dev/sda3 sử dụng LVM để quản lý phân vùng
-
-``dev/sda3`` thuộc Physical Volum Groups tên ``ubuntu-vg``
-
-Trong Physical Volum Groups ``ubuntu-vg`` tạo ra Logical Volum Group tên ``ubuntu-lv``
-
-root@tudv:~# pvs
-  PV         VG        Fmt  Attr PSize   PFree
-  /dev/sda3  ubuntu-vg lvm2 a--  <28.00g 14.00g
-
-root@tudv:~# vgs
-  VG        #PV #LV #SN Attr   VSize   VFree
-  ubuntu-vg   1   1   0 wz--n- <28.00g 14.00g
-
-root@tudv:~# lvs
-  LV        VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-  ubuntu-lv ubuntu-vg -wi-ao---- <14.00g
 
 
-  + pvs: Liệt kê các Physical Volume (PV) trong hệ thống.
-    Các thông tin hiển thị bao gồm: Tên PV, Volume Group (VG), Dung lượng (Size), Dung lượng đã dùng (Used), Dung lượng trống (Free).
-  + vgs: Liệt kê các Volume Group (VG) trong hệ thống.
-    Các thông tin hiển thị bao gồm: Tên VG, số Logical Volume (LV), số Snapshot (SN), Attribute, Dung lượng (VSize), Dung lượng trống (VFree).
-  + lvs: Liệt kê các Logical Volume (LV) trong hệ thống.
-    Các thông tin hiển thị bao gồm: Tên LV, Tên VG, Attribute, Dung lượng (LSize), Pool Origin, Data%, Meta%, Move Log, Cp%Sync, Convert.
 
 #### 1.1 - root
 
