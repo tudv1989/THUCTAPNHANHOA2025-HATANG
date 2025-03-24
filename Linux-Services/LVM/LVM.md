@@ -116,37 +116,36 @@ Tiếp theo chúng ta resize / đạt max disk =28GB
 
   <img src="lvmimages/Screenshot_2.png">
 
-### 3.2. Tạo LV Pool mới
+### 3.2. Tạo VG mới
 
-Tiếp theo chúng ta sẽ tạo thêm Pool LV mới, VG mới với 3 đĩa sdb, sdc và sdd sử dụng LVM
+Tiếp theo chúng ta sẽ tạo thêm Pool LV mới, VG mới với 3 đĩa sdb, sdc và sdd sử dụng LVM , các ổ này dung lượng không đồng đều, mục đích chỉ để test.
 
 Đầu tiên chúng ta tạo các phân vùng trên các đĩa, phân vùng lấy đủ 100% dung lượng đĩa.
 
-parted --script /dev/sdb 'mklabel gpt'
-parted --script /dev/sdb "mkpart primary 0% 100%"
+    parted --script /dev/sdb 'mklabel gpt'
+    parted --script /dev/sdb "mkpart primary 0% 100%"
 
-parted --script /dev/sdc 'mklabel gpt'
-parted --script /dev/sdc "mkpart primary 0% 100%"
+    parted --script /dev/sdc 'mklabel gpt'
+    parted --script /dev/sdc "mkpart primary 0% 100%"
 
-parted --script /dev/sdd 'mklabel gpt'
-parted --script /dev/sdd "mkpart primary 0% 100%"
+    parted --script /dev/sdd 'mklabel gpt'
+    parted --script /dev/sdd "mkpart primary 0% 100%"
 
   <img src="lvmimages/Screenshot_3.png">
 
 Tạo Physical volume tên ``vgnew``
 
-vgcreate vgnew /dev/sdb1
+    vgcreate vgnew /dev/sdb1
 
 Join 2 phân vùng ``/dev/sdc1`` và ``/dev/sdd1`` vào ``vgnew``
 
-vgextend vgnew /dev/sdc1
+    vgextend vgnew /dev/sdc1
 
-vgextend vgnew /dev/sdd1
-
+    vgextend vgnew /dev/sdd1
 
 Kiểm tra trạng thái ``vgdisplay vgnew``
 
-vgdisplay vgnew
+    vgdisplay vgnew
 
   <img src="lvmimages/Screenshot_4.png">
 
