@@ -25,7 +25,7 @@
 
     https://172.16.9.221:8443/#/login?returnUrl=%2Fdashboard
 
-  + TrueNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113 - Lab demo sự vượt trội của ZFS so với RAID CARD cứng là chính
+  + TrueNAS 172.16.2.13 là VMID 117 nằm trên Proxmox113 - Lab demo sự vượt trội của ZFS so với RAID CARD cứng là chính
 
 ## Nội dung HA:
 
@@ -50,6 +50,12 @@
 
     API KEY : vH9mtirN3PGfYPDxv7MxhABL47y4TO5X
     API Password : gFOCv9Xjs1yGb0wULKCaEJag9DwxttW0
+
+172.16.9.229
+
+    API KEY : YGnVoizDIT0BdhvfG0QgpcT4yHHVpLnx
+    API Password : PqBk93h4A647XRW0opdInESUGE0Q54uo
+
 
 172.16.9.225
 
