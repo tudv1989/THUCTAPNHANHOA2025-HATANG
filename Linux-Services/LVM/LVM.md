@@ -101,7 +101,7 @@ Mình sử dụng máy chủ Ubuntu 22.04 để LAB vì mặc định khi cài U
 
 Nhìn vào hình chúng ta có thể thấy như sau:
 
-Physical disk hiện tại có 1 đĩa sda để cài OS, sau đó sda được chia ra làm các phân vùng như ``/boot = 2GB``, ``/ = 28GB``.
+Physical disk hiện tại có 1 đĩa sda để cài OS, sau đó sda được chia ra làm các phân vùng như ``/boot = 2GB``, ``/ = 14GB`` ``free là 14GB``.
 
 Hiện tại /dev/sda3 được sử dụng bởi LVM qua các công đoạn:
 
