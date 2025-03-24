@@ -102,7 +102,7 @@ Mình sử dụng máy chủ Ubuntu 22.04 để LAB vì mặc định khi cài U
 
 Nhìn vào hình chúng ta có thể thấy như sau:
 
-Physical disk hiện tại có 1 đĩa sda để cài OS, sau đó sda được chia ra làm các phân vùng như ``/boot = 2GB``, ``/ = 14GB`` ``free là 14GB``.
+Physical disk hiện tại có 1 đĩa sda để cài OS, sau đó sda được chia ra làm 3 phân vùng với các mount point: ``/dev/sda2`` mount ``/boot = 2GB``, ``/dev/sda3`` mount ``/ = 14GB`` ``, dung lượng trống của ``/dev/sda3`` là 14GB``.
 
 Hiện tại /dev/sda3 được sử dụng bởi LVM qua các công đoạn:
 
@@ -242,69 +242,9 @@ Tạo LV 30GB với striping trên 3 PVs:
 
 
 
-## 2. Creating a Volume Group
-
-Chúng ta có 1 ổ trống /dev/sdc, và chúng ta muốn tạo một nhóm ổ đĩa có tên là
-``vmdata``.
-
-#### Chú ý:
-Xin lưu ý rằng các lệnh sau sẽ xóa toàn bộ dữ liệu hiện có trên /dev/sdc.
-
-#### 2.1 - Tạo bảng phân vùng GPT trên ổ đĩa
-
-    parted /dev/sdc mklabel gpt
-       Warning: The existing disk label on /dev/sdc will be destroyed and all data on this disk will be lost. Do you want to continue?
-       Yes/No? Yes
-       Information: You may need to update /etc/fstab.
 
 
-#### 2.2 - Tạo một phân vùng /dev/sdc1
 
-    root@promox:~# sgdisk -N 1 /dev/sdc
-      The operation has completed successfully.
-
-#### 2.3 - Tạo một Physical Volume (PV) không cần xác nhận và metadatasize 250K.
-
-    root@promox:~# pvcreate --metadatasize 250k -y -ff /dev/sdc1
-      Physical volume "/dev/sdc1" successfully created.
-
-#### 2.4 -Tạo một nhóm volume có tên ``vmdata`` trên /dev/sdc1
-
-    root@promox:~# vgcreate vmdata /dev/sdc1
-      Volume group "vmdata" successfully created
-
-#### 2.5 Join ``/dev/sdd1`` vào ``VG vmdata``:
-
-    root@promox:~# vgextend vmdata /dev/sdd1
-      Volume group "vmdata" successfully extended
-
-#### 2.6 - Kiểm tra lại trạng thái của ``VG vmdata``:
-
-  <img src="proxmoximages/Screenshot_64.png">
-
-Chúng ta tạo được 1 ``VG vmdata``có dung lượng 1.75 TB
-
-#### 2.7 - Tạo LV trong VG
-
-    root@promox:~# lvcreate –size 1G –name www_wordpress vmdata
-
-    root@promox:~# lvscan
-
-    root@promox:~# lvdisplay VG_NAME/LV_NAME
-
-    root@promox:~# mkfs.ext4 /dev/VG_NAME/LV_NAME
-
-    root@promox:~# mkfs.ext4 /dev/vmdata/www_wordpress
-
-    root@promox:~# mkdir -pv /var/www/wordpress
-   
-    root@promox:~# mount /dev/vmdata/www_wordpress /var/www/wordpress
-
-Đến đây bạn lưu mount vào fstab nhé
-
-Tăng dung lượng 
-
-     root@promox:~# lvextend –size +500M –resizefs vmdata/www_wordpress
       
 ## 3. Create a LVM-thin pool
 
