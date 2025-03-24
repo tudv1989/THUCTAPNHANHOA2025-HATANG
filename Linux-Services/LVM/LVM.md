@@ -191,21 +191,30 @@ parted --script /dev/sdi "mkpart primary 0% 100%"
 parted --script /dev/sdj 'mklabel gpt'
 parted --script /dev/sdj "mkpart primary 0% 100%"
 
+  <img src="lvmimages/Screenshot_6.png">
+
+Nếu bạn gặp cảnh báo sau, hãy xóa nó đi ( do trước đó mình đã thêm nhầm các /dev/sdf1 - ... - /dev/sdfj1 vào vgnew , điều này cũng tương đương việc bạn loại bỏ các phân vùng khỏi VG)
+
+  <img src="lvmimages/Screenshot_7.png">
+  <img src="lvmimages/Screenshot_8.png">
+
+    vgreduce --removemissing vgnew
+
 Tạo Volume Group tên ``vgnew2``
 
-vgcreate vgnew2 /dev/sde1
+    vgcreate vgnew2 /dev/sde1
 
 Join các phân vùng còn lại vào nhóm VG vgnew2
 
-vgextend vgnew /dev/sdf1
+    vgextend vgnew2 /dev/sdf1
 
-vgextend vgnew /dev/sdg1
+    vgextend vgnew2 /dev/sdg1
 
-vgextend vgnew /dev/sdh1
+    vgextend vgnew2 /dev/sdh1
 
-vgextend vgnew /dev/sdi1
+    vgextend vgnew2 /dev/sdi1
 
-vgextend vgnew /dev/sdj1
+    vgextend vgnew2 /dev/sdj1
 
 Tạo LV 10GB với striping trên 2 PVs:
 
