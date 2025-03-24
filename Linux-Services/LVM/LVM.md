@@ -200,6 +200,10 @@ Nếu bạn gặp cảnh báo sau, hãy xóa nó đi ( do trước đó mình đ
 
     vgreduce --removemissing vgnew
 
+Nếu lệnh trên không hoạt động, bạn có thể sử dụng 
+
+    vgreduce --force --removemissing vgnew
+
 Tạo Volume Group tên ``vgnew2``
 
     vgcreate vgnew2 /dev/sde1
