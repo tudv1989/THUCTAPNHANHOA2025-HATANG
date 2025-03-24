@@ -104,7 +104,7 @@ Nhìn vào hình chúng ta có thể thấy như sau:
 
 Physical disk hiện tại có 1 đĩa sda để cài OS, sau đó sda được chia ra làm 3 phân vùng với các mount point: ``/dev/sda2`` mount ``/boot = 2GB``, ``/dev/sda3`` mount ``/ = 14GB`` , dung lượng trống của ``/dev/sda3`` là ``14GB``.
 
-Hiện tại /dev/sda3 được sử dụng bởi LVM qua các công đoạn:
+Hiện tại /dev/sda3 được quản lý bởi LVM qua các công đoạn:
 
   + Sử dụng LVM tạo nhóm Volum Groups ``ubuntu-vg``
   + Sử dụng LVM tạo Logical Volumes ``ubuntu-lv``
