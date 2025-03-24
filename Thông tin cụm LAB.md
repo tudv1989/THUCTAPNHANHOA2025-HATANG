@@ -26,3 +26,5 @@
 
  
   + FreeNAS 172.16.9.117 10.10.100.116 là VMID 117 nằm trên Proxmox113
+
+    http://172.16.9.117/ui/sessions/signin
