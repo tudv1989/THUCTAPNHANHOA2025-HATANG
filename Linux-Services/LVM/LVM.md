@@ -22,8 +22,9 @@
 
   + Striping:
 
-    + Đây là kỹ thuật phân chia dữ liệu thành các khối (stripe) và phân phối đều trên nhiều PVs.
-      Striping giúp tăng hiệu suất đọc/ghi bằng cách cho phép hệ thống truy cập dữ liệu đồng thời từ nhiều ổ đĩa.
+    + Là một kỹ thuật RAID (Redundant Array of Independent Disks) cấp độ 0.
+    + Dữ liệu được chia thành các khối (stripe) và phân phối đều trên nhiều ổ đĩa vật lý (PVs).
+    + Khi dữ liệu được đọc hoặc ghi, hệ thống có thể truy cập đồng thời vào nhiều PVs, giúp tăng tốc độ truyền dữ liệu.   
 
   + Mirroring:
 
@@ -93,7 +94,7 @@ Trong LVM (Logical Volume Manager), các khái niệm PVs, VGs và LVs đóng va
 
 Người quản trị có thể thay đổi kích thước LV một cách dễ dàng mà không cần khởi động lại hệ thống.
 
-### 1. Resize / OS Ubuntu 22.04
+### 3.1. Resize / OS Ubuntu 22.04
 
 Mình sử dụng máy chủ Ubuntu 22.04 để LAB vì mặc định khi cài Ubuntu 22.04 hệ thống có sử dụng LVM quản lý phân vùng root(/),và tiện thể mình resize luôn phân vùng root của Ubuntu. 
 
@@ -115,7 +116,7 @@ Tiếp theo chúng ta resize / đạt max disk =28GB
 
   <img src="lvmimages/Screenshot_2.png">
 
-### 2. Tạo LV Pool mới
+### 3.2. Tạo LV Pool mới
 
 Tiếp theo chúng ta sẽ tạo thêm Pool LV mới, VG mới với 3 đĩa sdb, sdc và sdd sử dụng LVM
 
@@ -149,7 +150,7 @@ vgdisplay vgnew
 
   <img src="lvmimages/Screenshot_4.png">
 
-#### 1. Tạo LV với kích thước cụ thể:
+#### 3.2.1. Tạo LV với kích thước cụ thể:
 
 Tạo LV 10GB với tên lv_10gb:
 
@@ -169,11 +170,9 @@ Tạo LV sử dụng toàn bộ dung lượng trống:
 
 Như vậy chúng ta đã tạo được 2 LV tên ``lv_10gb`` và ``lv_10gb``
 
-#### 2. Tạo LV với striping (tăng hiệu suất):
+#### 3.2.2. Tạo LV với striping (tăng hiệu suất):
 
-Chúng ta sẽ add thêm các disk có dung lượng bằng nhau , mình tạo thêm 5 disk sử dụng ``tripping`` để tăng hiệu suất
-
-  <img src="lvmimages/Screenshot_5.png">
+Chúng ta sẽ add thêm các disk có dung lượng bằng nhau , mình tạo thêm 6 disk sử dụng ``tripping`` để tăng hiệu suất
 
 parted --script /dev/sde 'mklabel gpt'
 parted --script /dev/sde "mkpart primary 0% 100%"
@@ -190,6 +189,9 @@ parted --script /dev/sdh "mkpart primary 0% 100%"
 parted --script /dev/sdi 'mklabel gpt'
 parted --script /dev/sdi "mkpart primary 0% 100%"
 
+parted --script /dev/sdj 'mklabel gpt'
+parted --script /dev/sdj "mkpart primary 0% 100%"
+
 Tạo Volume Group tên ``vgnew2``
 
 vgcreate vgnew2 /dev/sde1
@@ -204,9 +206,11 @@ vgextend vgnew /dev/sdh1
 
 vgextend vgnew /dev/sdi1
 
-Tạo LV 20GB với striping trên 2 PVs:
+vgextend vgnew /dev/sdj1
 
-    lvcreate -L 20G -n lv_stripe2 -i 2 vgnew
+Tạo LV 10GB với striping trên 2 PVs:
+
+    lvcreate -L 20G -n lv_stripe2 -i 2 vgnew2
 
   + -L 20G: Chỉ định kích thước là 20GB.
   + -n lv_stripe2: Đặt tên cho LV là lv_stripe2.
