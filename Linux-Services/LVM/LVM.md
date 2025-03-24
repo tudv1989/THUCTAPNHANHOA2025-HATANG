@@ -40,6 +40,37 @@
     + Đây là kỹ thuật cho phép bạn cấp phát dung lượng lưu trữ lớn hơn dung lượng thực tế có sẵn.
       Thin provisioning giúp tối ưu hóa việc sử dụng không gian lưu trữ, đặc biệt là trong các môi trường ảo hóa.
 
+#### Lưu ý khi sử dụng LVM
+
+Khi các PVs (Physical Volumes) trong LVM (Logical Volume Manager) có dung lượng khác nhau, điều này có thể ảnh hưởng đến cách LVM phân bổ không gian và hiệu suất của các LV (Logical Volumes). Dưới đây là một số vấn đề tiềm ẩn:
+
+  + Phân bổ không gian không đồng đều:
+
+    + LVM sẽ cố gắng phân bổ không gian đều từ các PVs vào VG (Volume Group). Tuy nhiên, nếu các PVs có dung lượng khác nhau, điều này có thể dẫn đến việc một số PVs bị sử dụng nhiều hơn các PVs khác.
+      Điều này có thể dẫn đến tình trạng mất cân bằng về không gian lưu trữ và hiệu suất.
+
+  + Hiệu suất không tối ưu:
+
+    + Khi sử dụng striping (chia sọc) trên các PVs có dung lượng khác nhau, hiệu suất có thể không được tối ưu.
+      Điều này là do LVM sẽ phân bổ các stripe có kích thước bằng nhau trên tất cả các PVs. Nếu một PV có dung lượng nhỏ hơn, nó có thể trở thành điểm nghẽn hiệu suất.
+  
+  + Khó khăn trong việc mở rộng và quản lý:
+
+    + Việc quản lý các VG với các PVs có dung lượng khác nhau có thể phức tạp hơn.
+      Việc mở rộng VG hoặc LV có thể gặp khó khăn nếu không có đủ không gian trống trên tất cả các PVs.
+
+  + Rủi ro về dữ liệu:
+
+    + Nếu một PV bị lỗi, dữ liệu trên LV sẽ bị mất. Rủi ro này tăng lên nếu dữ liệu được phân bổ không đều trên các PVs.
+
+#### Tuy nhiên:
+
+  + LVM vẫn có thể hoạt động với các PVs có dung lượng khác nhau.
+  + LVM cung cấp các công cụ và tùy chọn để quản lý không gian lưu trữ và tối ưu hóa hiệu suất, chẳng hạn như:
+    + pvresize: Để thay đổi kích thước PV.
+    + vgextend: Để mở rộng VG.
+    + lvextend: Để mở rộng LV.
+
 ## 3. Thực hành Logical Volume Manager (LVM)
 
 Trong LVM (Logical Volume Manager), các khái niệm PVs, VGs và LVs đóng vai trò quan trọng trong việc quản lý không gian lưu trữ linh hoạt.
