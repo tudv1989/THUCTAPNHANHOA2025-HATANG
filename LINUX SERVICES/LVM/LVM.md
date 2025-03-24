@@ -13,7 +13,34 @@
     Với LVM Thin, kích thước logic của LV có thể lớn hơn kích thước vật lý của các PV. Điều này cho phép overprovisioning dung lượng lưu trữ.
     LVM Thin sử dụng các pool dung lượng chia sẻ để cung cấp dung lượng cho các LV mỏng. Khi dữ liệu được ghi vào LV, dung lượng từ pool sẽ được cấp phát.
     Tính năng này giúp tối ưu hóa sử dụng dung lượng lưu trữ và tránh lãng phí.
-## 2. Thực hành chuyên sâu Logical Volume Manager (LVM)
+
+## 2. Các kỹ thuật quản lý trong LVM 
+
+  + Mở rộng và thu hẹp LV:
+    + LVM cho phép bạn dễ dàng thay đổi kích thước của LV mà không cần khởi động lại hệ thống.
+      Điều này rất hữu ích khi bạn cần tăng hoặc giảm dung lượng lưu trữ cho một ứng dụng.
+
+  + Striping:
+
+    + Đây là kỹ thuật phân chia dữ liệu thành các khối (stripe) và phân phối đều trên nhiều PVs.
+      Striping giúp tăng hiệu suất đọc/ghi bằng cách cho phép hệ thống truy cập dữ liệu đồng thời từ nhiều ổ đĩa.
+
+  + Mirroring:
+
+    + Đây là kỹ thuật tạo bản sao dữ liệu trên nhiều PVs.
+      Mirroring giúp tăng khả năng chịu lỗi bằng cách đảm bảo rằng dữ liệu vẫn có thể truy cập được ngay cả khi một ổ đĩa bị lỗi.
+
+  + Snapshot:
+
+    + Đây là kỹ thuật tạo bản sao "tức thời" của LV.
+      Snapshot cho phép bạn khôi phục dữ liệu về trạng thái trước đó nếu cần thiết.
+
+  + Thin provisioning:
+
+    + Đây là kỹ thuật cho phép bạn cấp phát dung lượng lưu trữ lớn hơn dung lượng thực tế có sẵn.
+      Thin provisioning giúp tối ưu hóa việc sử dụng không gian lưu trữ, đặc biệt là trong các môi trường ảo hóa.
+
+## 3. Thực hành Logical Volume Manager (LVM)
 
 Trong LVM (Logical Volume Manager), các khái niệm PVs, VGs và LVs đóng vai trò quan trọng trong việc quản lý không gian lưu trữ linh hoạt.
 
@@ -35,34 +62,138 @@ Trong LVM (Logical Volume Manager), các khái niệm PVs, VGs và LVs đóng va
 
 Người quản trị có thể thay đổi kích thước LV một cách dễ dàng mà không cần khởi động lại hệ thống.
 
+### 1. Resize / OS Ubuntu 22.04
+
 Mình sử dụng máy chủ Ubuntu 22.04 để LAB vì mặc định khi cài Ubuntu 22.04 hệ thống có sử dụng LVM quản lý phân vùng root(/),và tiện thể mình resize luôn phân vùng root của Ubuntu. 
 
-  <img src="proxmoximages/Screenshot_2.png">
+  <img src="lvmimages/Screenshot_1.png">
+
+Nhìn vào hình chúng ta có thể thấy như sau:
+
+Physical disk hiện tại có 1 đĩa sda để cài OS, sau đó sda được chia ra làm các phân vùng như ``/boot = 2GB``, ``/ = 28GB``.
+
+Hiện tại /dev/sda3 được sử dụng bởi LVM qua các công đoạn:
+
+  + Sử dụng LVM tạo nhóm Volum Groups ``ubuntu-vg``
+  + Sử dụng LVM tạo Logical Volumes ``ubuntu-lv``
+
+Tiếp theo chúng ta resize / đạt max disk =28GB
+
+    lvextend -L +14G ubuntu-vg/ubuntu-lv
+    resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+
+  <img src="lvmimages/Screenshot_2.png">
+
+### 2. Tạo LV Pool mới
+
+Tiếp theo chúng ta sẽ tạo thêm Pool LV mới, VG mới với 3 đĩa sdb, sdc và sdd sử dụng LVM
+
+Đầu tiên chúng ta tạo các phân vùng trên các đĩa, phân vùng lấy đủ 100% dung lượng đĩa.
+
+parted --script /dev/sdb 'mklabel gpt'
+parted --script /dev/sdb "mkpart primary 0% 100%"
+
+parted --script /dev/sdc 'mklabel gpt'
+parted --script /dev/sdc "mkpart primary 0% 100%"
+
+parted --script /dev/sdd 'mklabel gpt'
+parted --script /dev/sdd "mkpart primary 0% 100%"
+
+  <img src="lvmimages/Screenshot_3.png">
+
+Tạo Physical volume tên ``vgnew``
+
+vgcreate vgnew /dev/sdb1
+
+Join 2 phân vùng ``/dev/sdc1`` và ``/dev/sdd1`` vào ``vgnew``
+
+vgextend vgnew /dev/sdc1
+
+vgextend vgnew /dev/sdd1
+
+
+Kiểm tra trạng thái ``vgdisplay vgnew``
+
+vgdisplay vgnew
+
+  <img src="lvmimages/Screenshot_4.png">
+
+#### 1. Tạo LV với kích thước cụ thể:
+
+Tạo LV 10GB với tên lv_10gb:
+
+    lvcreate -L 10G -n lv_10gb vgnew
+
+  + -L 10G: Chỉ định kích thước là 10GB.
+  + -n lv_10gb: Đặt tên cho LV là lv_10gb.
+  + vgnew: Chỉ định VG là vgnew.
+
+Tạo LV sử dụng toàn bộ dung lượng trống:
+
+    lvcreate -l 100%FREE -n lv_full vgnew
+
+  + -l 100%FREE: Sử dụng 100% dung lượng trống trong VG.
+  + -n lv_full: Đặt tên cho LV là lv_full.
+  + vgnew: Chỉ định VG là vgnew.
+
+Như vậy chúng ta đã tạo được 2 LV tên ``lv_10gb`` và ``lv_10gb``
+
+#### 2. Tạo LV với striping (tăng hiệu suất):
+
+Chúng ta sẽ add thêm các disk có dung lượng bằng nhau , mình tạo thêm 5 disk sử dụng ``tripping`` để tăng hiệu suất
+
+  <img src="lvmimages/Screenshot_5.png">
+
+parted --script /dev/sde 'mklabel gpt'
+parted --script /dev/sde "mkpart primary 0% 100%"
+
+parted --script /dev/sdf 'mklabel gpt'
+parted --script /dev/sdf "mkpart primary 0% 100%"
+
+parted --script /dev/sdg 'mklabel gpt'
+parted --script /dev/sdg "mkpart primary 0% 100%"
+
+parted --script /dev/sdh 'mklabel gpt'
+parted --script /dev/sdh "mkpart primary 0% 100%"
+
+parted --script /dev/sdi 'mklabel gpt'
+parted --script /dev/sdi "mkpart primary 0% 100%"
+
+Tạo Volume Group tên ``vgnew2``
+
+vgcreate vgnew2 /dev/sde1
+
+Join các phân vùng còn lại vào nhóm VG vgnew2
+
+vgextend vgnew /dev/sdf1
+
+vgextend vgnew /dev/sdg1
+
+vgextend vgnew /dev/sdh1
+
+vgextend vgnew /dev/sdi1
+
+Tạo LV 20GB với striping trên 2 PVs:
+
+    lvcreate -L 20G -n lv_stripe2 -i 2 vgnew
+
+  + -L 20G: Chỉ định kích thước là 20GB.
+  + -n lv_stripe2: Đặt tên cho LV là lv_stripe2.
+  + -i 2: Chỉ định striping trên 2 PVs.
+
+Tạo LV 30GB với striping trên 3 PVs:
+
+    lvcreate -L 30G -n lv_stripe3 -i 3 vgnew
+
+  + -L 30G: Chỉ định kích thước là 30GB.
+  + -n lv_stripe3: Đặt tên cho LV là lv_stripe3.
+  + -i 3: Chỉ định striping trên 3 PVs.
 
 
 
 
-#### 1.1 - root
 
-Được định dạng là ext4 và chứa hệ điều hành.
 
-#### 1.2 - swap
-
-Swap partition 
-
-#### 1.3 - data ``/var/lib/vz/``
-
-Ổ đĩa này sử dụng LVM-thin và được dùng để lưu trữ hình ảnh VM. LVM-thin được ưu tiên cho tác vụ này,
-vì nó cung cấp hỗ trợ hiệu quả cho ảnh chụp nhanh và bản sao.
-Đối với Proxmox VE phiên bản lên đến 4.1, trình cài đặt tạo một ổ đĩa logic chuẩn có tên là ``data``, được
-gắn kết tại /var/lib/vz.
-Bắt đầu từ phiên bản 4.2, ổ đĩa logic ``data`` là một nhóm LVM-thin, được dùng để lưu trữ hình ảnh khách dựa trên khối và /var/lib/vz chỉ đơn giản là một thư mục trên hệ thống tệp gốc.
-
-    cd /var/lib/vz/
-    root@promox:/var/lib/vz# ls -lah
-    drwxr-x-x  2 root root 4.0K Mar  4 15:40 dump
-    drwxr-xr-x  2 root root 4.0K Nov 20 17:39 images
-    drwxr-xr-x  4 root root 4.0K Mar  4 15:30 template
 
 ## 2. Creating a Volume Group
 
