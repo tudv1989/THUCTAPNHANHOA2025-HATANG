@@ -118,7 +118,7 @@ Tiếp theo chúng ta resize / đạt max disk =28GB
 
 ### 3.2. Tạo VG mới
 
-Tiếp theo chúng ta sẽ tạo thêm Pool LV mới, VG mới với 3 đĩa sdb, sdc và sdd sử dụng LVM , các ổ này dung lượng không đồng đều, mục đích chỉ để test.
+Tiếp theo chúng ta sẽ tạo thêm Pool LV mới, VG mới với 3 đĩa sdb, sdc và sdd sử dụng LVM , các ổ này dung lượng không đồng đều, mục đích chỉ để test, thực tế người ta không nhóm các ổ đĩa có dung lượng khác nhau vì hiệu suất và nó sẽ xảy ra sự phân bố dữ liệu không đồng đều.
 
 Đầu tiên chúng ta tạo các phân vùng trên các đĩa, phân vùng lấy đủ 100% dung lượng đĩa.
 
