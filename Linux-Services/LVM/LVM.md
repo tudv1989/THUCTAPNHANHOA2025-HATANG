@@ -78,19 +78,19 @@ Trong LVM (Logical Volume Manager), các khái niệm PVs, VGs và LVs đóng va
 
   + PVs (Physical Volumes - Tập Vật Lý):
 
-    Đây là các ổ đĩa vật lý (hard disk, SSD, phân vùng,...) được sử dụng làm thành phần cơ bản của LVM.
-    PVs được khởi tạo từ các thiết bị lưu trữ vật lý để LVM có thể quản lý.
+    + Đây là các ổ đĩa vật lý (hard disk, SSD, phân vùng,...) được sử dụng làm thành phần cơ bản của LVM.
+      PVs được khởi tạo từ các thiết bị lưu trữ vật lý để LVM có thể quản lý.
 
   + VGs (Volume Groups - Nhóm Ổ Đĩa):
 
-    VG là một tập hợp các PVs, tạo thành một "bể" lưu trữ ảo.
-    VG cung cấp một không gian lưu trữ lớn, có thể mở rộng bằng cách thêm PVs.
-    Từ VG người quản trị hệ thống có thể phân chia thành các Logical Volume (LV) để sử dụng
+    + VG là một tập hợp các PVs, tạo thành một "bể" lưu trữ ảo.
+      VG cung cấp một không gian lưu trữ lớn, có thể mở rộng bằng cách thêm PVs.
+      Từ VG người quản trị hệ thống có thể phân chia thành các Logical Volume (LV) để sử dụng
 
   + LVs (Logical Volumes - Ổ Đĩa Logic):
 
-    LV là các ổ đĩa logic được tạo ra từ không gian lưu trữ của VG.
-    LVs tương đương với các phân vùng ổ đĩa truyền thống, nhưng linh hoạt hơn về kích thước.
+    + LV là các ổ đĩa logic được tạo ra từ không gian lưu trữ của VG.
+      LVs tương đương với các phân vùng ổ đĩa truyền thống, nhưng linh hoạt hơn về kích thước.
 
 Người quản trị có thể thay đổi kích thước LV một cách dễ dàng mà không cần khởi động lại hệ thống.
 
