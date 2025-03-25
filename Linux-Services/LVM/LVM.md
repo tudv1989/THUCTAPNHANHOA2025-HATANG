@@ -346,6 +346,10 @@ Lưu ý quan trọng:
     Khi sử dụng LVM mirrored, nếu 1 trong 2 ổ đĩa gặp vấn đề, bạn vẫn có thể sử dụng dữ liệu từ ổ còn lại. Sau khi thay thế ổ cứng bị hỏng, bạn cần thực hiện các thao tác để đồng bộ lại dữ liệu.
     Bằng cách làm theo các bước này, bạn có thể tạo một LV mirrored trong LVM để tăng cường khả năng dự phòng dữ liệu cho hệ thống của mình.
 
+    mkfs.ext4 /dev/vgnew3/mirrored_lv
+    mount /dev/vgnew3/mirrored_lv /mnt/mirrored_data
+
+
     
 ## 3. Create a LVM-thin pool
 
