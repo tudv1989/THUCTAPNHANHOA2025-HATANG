@@ -173,23 +173,23 @@ Như vậy chúng ta đã tạo được 2 LV tên ``lv_10gb`` và ``lv_10gb``
 
 Chúng ta sẽ add thêm các disk có dung lượng bằng nhau , mình tạo thêm 6 disk sử dụng ``tripping`` để tăng hiệu suất
 
-parted --script /dev/sde 'mklabel gpt'
-parted --script /dev/sde "mkpart primary 0% 100%"
+    parted --script /dev/sde 'mklabel gpt'
+    parted --script /dev/sde "mkpart primary 0% 100%"
 
-parted --script /dev/sdf 'mklabel gpt'
-parted --script /dev/sdf "mkpart primary 0% 100%"
+    parted --script /dev/sdf 'mklabel gpt'
+    parted --script /dev/sdf "mkpart primary 0% 100%"
 
-parted --script /dev/sdg 'mklabel gpt'
-parted --script /dev/sdg "mkpart primary 0% 100%"
+    parted --script /dev/sdg 'mklabel gpt'
+    parted --script /dev/sdg "mkpart primary 0% 100%"
 
-parted --script /dev/sdh 'mklabel gpt'
-parted --script /dev/sdh "mkpart primary 0% 100%"
+    parted --script /dev/sdh 'mklabel gpt'
+    parted --script /dev/sdh "mkpart primary 0% 100%"
 
-parted --script /dev/sdi 'mklabel gpt'
-parted --script /dev/sdi "mkpart primary 0% 100%"
+    parted --script /dev/sdi 'mklabel gpt'
+    parted --script /dev/sdi "mkpart primary 0% 100%"
 
-parted --script /dev/sdj 'mklabel gpt'
-parted --script /dev/sdj "mkpart primary 0% 100%"
+    parted --script /dev/sdj 'mklabel gpt'
+    parted --script /dev/sdj "mkpart primary 0% 100%"
 
   <img src="lvmimages/Screenshot_6.png">
 
@@ -220,13 +220,62 @@ Join các phân vùng còn lại vào nhóm VG vgnew2
 
     vgextend vgnew2 /dev/sdj1
 
-Tạo LV 10GB với striping trên 2 PVs:
+Tạo LV 2 GB với striping trên 2 PVs:
 
-    lvcreate -L 20G -n lv_stripe2 -i 2 vgnew2
+    lvcreate -L 2G -n lv_stripe2 -i 2 vgnew2
 
   + -L 20G: Chỉ định kích thước là 20GB.
   + -n lv_stripe2: Đặt tên cho LV là lv_stripe2.
   + -i 2: Chỉ định striping trên 2 PVs.
+
+Khi bạn tạo một Logical Volume (LV) với lệnh ``lvcreate -L 2G -n lv_stripe2 -i 2 vgnew2`` trên một Volume Group (VG) có 6 Physical Volumes (PVs) mỗi PV 5GB, dữ liệu sẽ được phân phối theo mô hình striping trên 2 PVs. Điều này có nghĩa là mỗi stripe dữ liệu sẽ được ghi luân phiên trên 2 PVs khác nhau.
+
+  + Phân bố dữ liệu:
+
+    Kích thước LV: LV có kích thước 2GB.
+
+    Stripes: Do sử dụng -i 2, dữ liệu sẽ được chia thành các stripe và ghi luân phiên trên 2 PVs.
+
+  + Phân bổ trên PVs:
+
+    Vì bạn đang sử dụng striping trên 2 PVs, dữ liệu sẽ được ghi xen kẽ trên 2 PVs cùng lúc.
+    LVM sẽ chọn 2 PVs từ 6 PVs trong VG vgnew2 để thực hiện striping.
+    Mỗi PV tham gia vào striping sẽ chứa 1GB dữ liệu của LV.
+    4 PVs còn lại trong VG vgnew2 sẽ không được sử dụng cho LV này.
+
+  + Cách xem phân bố dữ liệu:
+
+    lvs -o +devices
+
+Lệnh này sẽ hiển thị danh sách các LV và các PV mà chúng đang sử dụng.
+
+    lvs -o +devices vgnew2/lv_stripe2
+
+  <img src="lvmimages/Screenshot_9.png">
+
+Kết quả sẽ cho bạn biết LV lv_stripe2 được phân bổ trên những PV nào.Và bạn thấy đó : ``/dev/sde1(0),/dev/sdf1(0)`` , số (0) ở đây mình không hiểu lắm nhưng đoán là RAID 0
+
+    pvs -o pv_name,vg_name,lv_name,pe_start,pe_size
+
+Lệnh này hiển thị các thông tin chi tiết về các PV, VG, LV và các Physical Extents (PEs) được sử dụng.
+
+pvs -o pv_name,vg_name,lv_name,pe_start,pe_size
+Kết quả sẽ cho bạn biết LV lv_stripe2 sử dụng những PEs nào trên những PV nào.
+
+lvdisplay -m vgnew2/lv_stripe2: Lệnh này hiển thị thông tin chi tiết về LV lv_stripe2, bao gồm cả phân bổ dữ liệu.
+
+Bash
+
+lvdisplay -m vgnew2/lv_stripe2
+Kết quả sẽ cho bạn biết các PEs được sử dụng và chúng nằm trên những PV nào.
+
+Lưu ý:
+
+LVM sẽ tự động chọn 2 PVs tốt nhất để sử dụng cho striping. Bạn không thể chỉ định cụ thể PV nào được sử dụng.
+Nếu bạn muốn phân phối dữ liệu trên nhiều hơn 2 PVs, bạn có thể thay đổi giá trị của -i trong lệnh lvcreate. Ví dụ, -i 3 sẽ phân phối dữ liệu trên 3 PVs.
+Nếu bạn muốn xem phân bổ dữ liệu chi tiết hơn, bạn có thể sử dụng các công cụ LVM khác như pvscan, vgscan, và lvscan.
+
+
 
 Tạo LV 30GB với striping trên 3 PVs:
 
