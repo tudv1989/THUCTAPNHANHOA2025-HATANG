@@ -583,6 +583,30 @@ Loại bỏ PV:
 
     pvremove /dev/<ổ_đĩa_muốn_loại_bỏ>
 
+  <img src="lvmimages/Screenshot_19.png">
+
+Ví dụ loại ``/dev/sdr`` khỏi ``ubuntu-vg/ubuntu-lv``
+
+Việc thay thế ổ đĩa hỏng và di chuyển extents là một thao tác quan trọng để bảo vệ dữ liệu, duy trì tính sẵn sàng của hệ thống, tối ưu hóa hiệu suất và đảm bảo tính toàn vẹn của LVM.
+
+Ở đây mình thấy ``/dev/sdr`` bị hỏng và phải thay thế bằng ``/dev/sds`
+
+Đầu tiên chúng ta cần joine ``/dev/sds` và VG ``ubuntu-vg``
+
+     pvcreate /dev/sds
+
+    vgextend ubuntu-vg /dev/sds
+
+    pvmove /dev/sdr
+    /dev/sdr: Moved: 0.55%
+    /dev/sdr: Moved: 100.00%
+
+    vgreduce ubuntu-vg /dev/sdr
+    root@tudv:/mnt# vgreduce ubuntu-vg /dev/sdr
+      Removed "/dev/sdr" from volume group "ubuntu-vg"
+
+    pvremove /dev/sdr
+
 #### 3.6.3. Thay thế ổ đĩa:
 
 Chuẩn bị ổ đĩa mới:
@@ -640,6 +664,9 @@ Lưu ý quan trọng:
     Khi di chuyển VG, đảm bảo rằng các ổ đĩa vật lý được gắn đúng cách trên server mới.
     Kiểm tra kỹ lưỡng các lệnh trước khi thực hiện để tránh mất dữ liệu.
 
+Mình sẽ demo với ``vgnew3``
+
+  <img src="lvmimages/Screenshot_19.png">
 
 
 ## 4. Create a LVM-thin pool
