@@ -485,17 +485,23 @@ Lưu FS TAB
     
 #### 3.6.1. Tăng VG và LV:
 
-Tăng VG:
-Thêm PV mới (nếu cần):
+Tăng VG:Thêm PV mới (nếu cần):
 
     pvcreate /dev/<ổ_đĩa_mới>
 
-Mở rộng VG:
+    root@tudv:~# pvcreate /dev/sdr
+      Physical volume "/dev/sdr" successfully created.
+
+Mở rộng VG: - > Mình sẽ áp dụng cho LV ``ubuntu-lv`` thuộc VG ``ubuntu-vg`` > Resize ``/``
+
+  <img src="lvmimages/Screenshot_15.png">
 
     vgextend <tên_VG> /dev/<ổ_đĩa_mới>
 
-Tăng LV:
-Unmount LV (nếu cần):
+    root@tudv:~# vgextend ubuntu-vg /dev/sdr
+      Volume group "ubuntu-vg" successfully extended
+
+Tăng LV:Unmount LV (nếu cần):
 
     umount /dev/<tên_VG>/<tên_LV>
 
@@ -503,9 +509,15 @@ Mở rộng LV:
 
     lvextend -L +<kích_thước_tăng_thêm> /dev/<tên_VG>/<tên_LV> (ví dụ: lvextend -L +5G /dev/my_vg/my_lv)
 
+    root@tudv:~# lvextend -L +5GB /dev/ubuntu-vg/ubuntu-lv
+      Size of logical volume ubuntu-vg/ubuntu-lv changed from <28.00 GiB (7167 extents) to <33.00 GiB (8447 extents).
+      Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+
 Mở rộng hệ thống tệp:
 
     resize2fs /dev/<tên_VG>/<tên_LV> (nếu là ext4)
+
+    resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 
 Mount lại LV (nếu cần):
 
@@ -513,28 +525,52 @@ Mount lại LV (nếu cần):
 
 #### 3.6.2. Giảm VG và LV:
 
-Giảm LV:
-Unmount LV:
+Giảm LV:Unmount LV:
 
     umount /dev/<tên_VG>/<tên_LV>
+
+  <img src="lvmimages/Screenshot_17.png">
+
+    root@tudv:~#umount /dev/mapper/vgnew3-mirrored_lv
 
 Kiểm tra hệ thống tệp:
 
     e2fsck -f /dev/<tên_VG>/<tên_LV> (nếu là ext4)
 
+  <img src="lvmimages/Screenshot_18.png">
+
+    root@tudv:~# e2fsck -f /dev/mapper/vgnew3-mirrored_lv
+
 Giảm kích thước hệ thống tệp:
 
     resize2fs /dev/<tên_VG>/<tên_LV> <kích_thước_mới> (ví dụ: resize2fs /dev/my_vg/my_lv 5G)
+
+    root@tudv:~# resize2fs /dev/mapper/vgnew3-mirrored_lv 5G
+    resize2fs 1.46.5 (30-Dec-2021)
+    Resizing the filesystem on /dev/mapper/vgnew3-mirrored_lv to 1310720 (4k) blocks.
+    The filesystem on /dev/mapper/vgnew3-mirrored_lv is now 1310720 (4k) blocks long.
 
 Giảm kích thước LV:
 
     lvreduce -L <kích_thước_mới> /dev/<tên_VG>/<tên_LV> (ví dụ: lvreduce -L 5G /dev/my_vg/my_lv)
 
+    root@tudv:~# lvreduce -L 5G /dev/mapper/vgnew3-mirrored_lv
+      WARNING: Reducing active logical volume to 5.00 GiB.
+      THIS MAY DESTROY YOUR DATA (filesystem etc.)
+    Do you really want to reduce vgnew3/mirrored_lv? [y/n]: y
+      Size of logical volume vgnew3/mirrored_lv changed from 8.00 GiB (2048 extents) to 5.00 GiB (1280 extents).
+      Logical volume vgnew3/mirrored_lv successfully resized.
+
 Mount lại LV:
 
-mount /dev/<tên_VG>/<tên_LV> /<điểm_gắn>
+    mount /dev/<tên_VG>/<tên_LV> /<điểm_gắn>
+
+    root@tudv:/mnt# mount /dev/mapper/vgnew3-mirrored_lv /mnt/mirrored_data
+
+  <img src="lvmimages/Screenshot_19.png">
 
 Giảm VG:
+
 Di chuyển extents khỏi PV muốn loại bỏ:
 
     pvmove /dev/<ổ_đĩa_muốn_loại_bỏ>
