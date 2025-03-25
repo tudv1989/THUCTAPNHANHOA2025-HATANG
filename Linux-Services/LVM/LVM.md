@@ -149,7 +149,7 @@ Kiểm tra trạng thái ``vgdisplay vgnew``
 
   <img src="lvmimages/Screenshot_4.png">
 
-#### 3.2.1. Tạo LV với kích thước cụ thể:
+#### 3.3 Tạo LV với kích thước cụ thể:
 
 Tạo LV 10GB với tên lv_10gb:
 
@@ -169,7 +169,7 @@ Tạo LV sử dụng toàn bộ dung lượng trống:
 
 Như vậy chúng ta đã tạo được 2 LV tên ``lv_10gb`` và ``lv_10gb``
 
-#### 3.2.2. Tạo LV với striping (tăng hiệu suất):
+#### 3.4. Tạo LV với striping (tăng hiệu suất):
 
 Chúng ta sẽ add thêm các disk có dung lượng bằng nhau , mình tạo thêm 6 disk sử dụng ``tripping`` để tăng hiệu suất
 
@@ -255,47 +255,421 @@ Lệnh này sẽ hiển thị danh sách các LV và các PV mà chúng đang s�
 
 Kết quả sẽ cho bạn biết LV lv_stripe2 được phân bổ trên những PV nào.Và bạn thấy đó : ``/dev/sde1(0),/dev/sdf1(0)`` , số (0) ở đây mình không hiểu lắm nhưng đoán là RAID 0
 
-    pvs -o pv_name,vg_name,lv_name,pe_start,pe_size
 
-Lệnh này hiển thị các thông tin chi tiết về các PV, VG, LV và các Physical Extents (PEs) được sử dụng.
+    lvdisplay -m vgnew2/lv_stripe2 
 
-pvs -o pv_name,vg_name,lv_name,pe_start,pe_size
-Kết quả sẽ cho bạn biết LV lv_stripe2 sử dụng những PEs nào trên những PV nào.
+Lệnh này hiển thị thông tin chi tiết về LV lv_stripe2, bao gồm cả phân bổ dữ liệu.
 
-lvdisplay -m vgnew2/lv_stripe2: Lệnh này hiển thị thông tin chi tiết về LV lv_stripe2, bao gồm cả phân bổ dữ liệu.
+  <img src="lvmimages/Screenshot_10.png">
 
-Bash
-
-lvdisplay -m vgnew2/lv_stripe2
 Kết quả sẽ cho bạn biết các PEs được sử dụng và chúng nằm trên những PV nào.
 
 Lưu ý:
 
-LVM sẽ tự động chọn 2 PVs tốt nhất để sử dụng cho striping. Bạn không thể chỉ định cụ thể PV nào được sử dụng.
-Nếu bạn muốn phân phối dữ liệu trên nhiều hơn 2 PVs, bạn có thể thay đổi giá trị của -i trong lệnh lvcreate. Ví dụ, -i 3 sẽ phân phối dữ liệu trên 3 PVs.
-Nếu bạn muốn xem phân bổ dữ liệu chi tiết hơn, bạn có thể sử dụng các công cụ LVM khác như pvscan, vgscan, và lvscan.
+    LVM sẽ tự động chọn 2 PVs tốt nhất để sử dụng cho striping. Bạn không thể chỉ định cụ thể PV nào được sử dụng.
+    Nếu bạn muốn phân phối dữ liệu trên nhiều hơn 2 PVs, bạn có thể thay đổi giá trị của -i trong lệnh lvcreate. Ví dụ, -i 3 sẽ phân phối dữ liệu trên 3 PVs.
+    Nếu bạn muốn xem phân bổ dữ liệu chi tiết hơn, bạn có thể sử dụng các công cụ LVM khác như pvscan, vgscan, và lvscan.
 
+Tạo LV 16GB với striping trên 3 PVs:
 
-
-Tạo LV 30GB với striping trên 3 PVs:
-
-    lvcreate -L 30G -n lv_stripe3 -i 3 vgnew
+    lvcreate -L 16G -n lv_stripe3 -i 3 vgnew2
 
   + -L 30G: Chỉ định kích thước là 30GB.
   + -n lv_stripe3: Đặt tên cho LV là lv_stripe3.
   + -i 3: Chỉ định striping trên 3 PVs.
 
+  <img src="lvmimages/Screenshot_11.png">
+
+Nếu bây giờ mình chạy lệnh sau sẽ báo lỗi
+
+    lvcreate -L 16G -n lv_stripe6 -i 6 vgnew2
+
+Vì không còn đủ 6 disk để tạo striping 
+
+    root@tudv:~# lvcreate -L 8G -n lv_stripe6 -i 6 vgnew2
+      Using default stripesize 64.00 KiB.
+      Rounding size 8.00 GiB (2048 extents) up to stripe boundary size <8.02 GiB (2052 extents).
+      Insufficient suitable allocatable extents for logical volume lv_stripe6: 2052 more required
+
+    root@tudv:~# lvcreate -L 8G -n lv_stripe4 -i 3 vgnew2
+      Using default stripesize 64.00 KiB.
+      Rounding size 8.00 GiB (2048 extents) up to stripe boundary size 8.00 GiB (2049 extents).
+      Logical volume "lv_stripe4" created.
+
+#### Kết luận cho mục 3.4 Tạo LV với striping
+
+Nên tạo LV nếu dụng Striping thì nên tạo đồng bộ,để dữ liệu phân phát đồng đều trên các ổ đĩa, ví dụ 2 ổ thì tạo striping 2 ổ, 3 ổ thì tạo striping 3 ổ...và nên tạo LV dùng hết dung lượng của VG
+
+#### 3.5 Tạo LV với Mirrored (tăng dự phòng):
+
+Việc tạo Logical Volume (LV) với mirrored (nhân bản) trong LVM mang lại khả năng dự phòng dữ liệu, đảm bảo rằng dữ liệu của bạn vẫn an toàn ngay cả khi một ổ đĩa vật lý bị hỏng. Dưới đây là các bước cơ bản để tạo LV mirrored:
+
+  + Chuẩn bị các Physical Volumes (PVs):
+
+    Đảm bảo bạn có ít nhất hai PVs có đủ dung lượng để chứa LV mirrored. Bạn có thể tạo PVs từ các ổ đĩa vật lý hoặc phân vùng.
+    Lệnh để tạo PV: pvcreate /dev/sdX /dev/sdY (thay /dev/sdX và /dev/sdY bằng đường dẫn đến các ổ đĩa hoặc phân vùng của bạn).
+
+  + Tạo Volume Group (VG):
+
+    Tạo một VG từ các PVs đã chuẩn bị.
+    Lệnh để tạo VG: vgcreate <tên_VG> /dev/sdX /dev/sdY (thay <tên_VG> bằng tên bạn muốn đặt cho VG).
+
+  + Tạo Logical Volume Mirrored (LV):
+
+    Sử dụng lệnh lvcreate với tùy chọn -m 1 để tạo LV mirrored. Số 1 ở đây nghĩa là sẽ tạo 1 bản sao dữ liệu.
+    Lệnh để tạo LV mirrored: lvcreate -m 1 -L <dung_lượng> -n <tên_LV> <tên_VG>
+    -m 1: Chỉ định tạo một bản sao (mirrored).
+    -L <dung_lượng>: Chỉ định dung lượng của LV.
+    -n <tên_LV>: Chỉ định tên của LV.
+    <tên_VG>: Tên của VG bạn đã tạo.
+
+Ví dụ:
+
+    Giả sử bạn có 4 PVs là /dev/sdk /dev/sdl /dev/sdm /dev/sdn, và bạn muốn tạo một LV mirrored có dung lượng 8GB với tên ``mirrored_lv`` trong VG ``vgnew3``. Các lệnh sẽ như sau:
+
+    pvcreate /dev/sdk /dev/sdl /dev/sdm /dev/sdn
+    vgcreate vgnew3 /dev/sdk /dev/sdl /dev/sdm /dev/sdn
+    lvcreate -m 1 -L 8G -n mirrored_lv vgnew3
+
+  <img src="lvmimages/Screenshot_13.png">
+
+  + Định dạng và gắn kết LV:
+
+    Sau khi tạo LV, bạn cần định dạng nó với một hệ thống tệp (ví dụ: ext4) và gắn kết nó vào một thư mục.
+    Lệnh để định dạng: mkfs.ext4 /dev/vgnew3/mirrored_lv
+    Lệnh để gắn kết: mount /dev/vgnew3/mirrored_lv /mnt/mirrored_data (thay /mnt/mirrored_data bằng thư mục bạn muốn gắn kết).
+
+Lưu ý quan trọng:
+
+    Hiệu suất ghi có thể giảm khi sử dụng LV mirrored vì dữ liệu phải được ghi vào cả hai ổ đĩa.
+    Đảm bảo rằng các PVs bạn sử dụng cho LV mirrored có cùng dung lượng hoặc dung lượng tương đương.
+    Khi sử dụng LVM mirrored, nếu 1 trong 2 ổ đĩa gặp vấn đề, bạn vẫn có thể sử dụng dữ liệu từ ổ còn lại. Sau khi thay thế ổ cứng bị hỏng, bạn cần thực hiện các thao tác để đồng bộ lại dữ liệu.
+    Bằng cách làm theo các bước này, bạn có thể tạo một LV mirrored trong LVM để tăng cường khả năng dự phòng dữ liệu cho hệ thống của mình.
+
+    mkfs.ext4 /dev/vgnew3/mirrored_lv
+    mount /dev/vgnew3/mirrored_lv /mnt/mirrored_data
 
 
+#### 3.5. Cache Logical Volume (tăng hiệu suất):
+
+##### 3.5.1 Trong LVM (Logical Volume Manager), Cache Logical Volume (LV cache) là một tính năng cho phép sử dụng một thiết bị lưu trữ tốc độ cao (như SSD) làm bộ nhớ đệm cho một LV chậm hơn (như HDD), nhằm cải thiện hiệu suất đọc/ghi dữ liệu.
+
+Cache Logical Volume hoạt động như thế nào?
+
+  + Tạo Cache LV:
+
+    + Bạn tạo một LV cache trên thiết bị lưu trữ tốc độ cao (ví dụ: SSD).
+    + Bạn tạo một LV origin trên thiết bị lưu trữ chậm hơn (ví dụ: HDD).
+    + Bạn kết hợp hai LV này lại với nhau để tạo thành một cache LV.
+
+  + Hoạt động đọc/ghi:
+
+    + Khi ứng dụng đọc dữ liệu, LVM sẽ kiểm tra xem dữ liệu đó có trong cache LV hay không.
+    + Nếu có, dữ liệu sẽ được đọc từ cache LV, giúp tăng tốc độ đọc.
+    + Nếu không, dữ liệu sẽ được đọc từ origin LV và được sao chép vào cache LV để sử dụng cho lần sau.
+    + Khi ứng dụng ghi dữ liệu, LVM sẽ ghi dữ liệu vào cả cache LV và origin LV.
+
+  + Cách tạo Cache Logical Volume:
+
+##### 3.5.2 Các bước cơ bản để tạo LV cache:
+
+Chuẩn bị các Physical Volumes (PVs):Đảm bảo bạn có ít nhất hai PVs: một PV trên thiết bị lưu trữ tốc độ cao (SSD) và một PV trên thiết bị lưu trữ chậm hơn (HDD).
+
+  + Tạo Volume Group (VG):
+
+    + Tạo một VG từ các PVs đã chuẩn bị.
+
+  + Tạo Logical Volumes (LVs):
+
+  + Tạo một LV cache trên PV SSD.
+
+  + Tạo một LV origin trên PV HDD.
+
+Tạo Cache LV:
+
+Sử dụng lệnh ``lvcreate`` với tùy chọn ``--type cache`` để tạo cache LV.
+
+Ví dụ:
+
+  <img src="lvmimages/Screenshot_14.png">
+
+Giả sử bạn có:
+
+    /dev/sdq: SSD = 7GB
+    /dev/sdo: HDD = 8GB
+    /dev/sdp: HDD = 8GB
 
 
+Mình sẽ tạo LV mirrored từ ``/dev/sdo`` , ``/dev/sdp`` và ``/dev/sdq`` sau đó sử dụng ``/dev/sdq`` để cached cho LV mirrored này
+
+    pvcreate /dev/sdo /dev/sdp /dev/sdq
+    vgcreate vgnew4 /dev/sdo /dev/sdp /dev/sdq
+
+Tạo Logical Volume Mirrored (LV):
+
+Vì ``/dev/sdq`` chỉ có ``7GB``, nên LV Mirrored tạo từ ``/dev/sdo`` và ``/dev/sdp`` sẽ cần tạo ``7G`` để đảm bảo dung lượng cho cache >> Rút ra kinh nghiệm nên lắp ổ dung lượng tương đương nhau
+
+    lvcreate -m 1 -L 7G -n mirrored_lv vgnew4 /dev/sdo /dev/sdp
+
+Tạo Logical Volume Cache:
+
+    lvcreate -L 7G -n cache_lv vgnew4 /dev/sdq
+
+>>
+
+    root@tudv:~# lvcreate -L 7G -n cache_lv vgnew4 /dev/sdq
+      Insufficient free space: 1792 extents needed, but only 1791 available
+    root@tudv:~# lvcreate -L 6G -n cache_lv vgnew4 /dev/sdq
+      Logical volume "cache_lv" created.
+
+Mình định tạo 7GB nhưng báo lỗi Insufficient free space
+
+Tạo Cache Logical Volume:
+
+    lvcreate --type cache -L 6G --name cached_mirrored_lv --cachevol cache_lv vgnew4
+
+>> 
+
+    root@tudv:~# lvcreate --type cache -L 6G --name cached_mirrored_lv --cachevol cache_lv vgnew4
+      Volume group "vgnew4" has insufficient free space (763 extents): 1536 required.
+    root@tudv:~# lvcreate --type cache -L 5G --name cached_mirrored_lv --cachevol cache_lv vgnew4
+      Volume group "vgnew4" has insufficient free space (763 extents): 1280 required.
+    root@tudv:~# lvcreate --type cache -L 4G --name cached_mirrored_lv --cachevol cache_lv vgnew4
+      Volume group "vgnew4" has insufficient free space (763 extents): 1024 required.
+    root@tudv:~# lvcreate --type cache -L 3G --name cached_mirrored_lv --cachevol cache_lv vgnew4
+      Volume group "vgnew4" has insufficient free space (763 extents): 768 required.
+    root@tudv:~# lvcreate --type cache -L 2G --name cached_mirrored_lv --cachevol cache_lv vgnew4
+      Logical volume "cached_mirrored_lv" created.
+    Erase all existing data on vgnew4/cache_lv? [y/n]: y
+      Logical volume vgnew4/cached_mirrored_lv is now cached.
 
 
+Rút gọn các bước khởi tạo
+
+    Bước 1 Tạo PV VG.
+    Bước 2 Tạo VG
+    Bước 3 Tạo một LV mirrored có dung lượng 7GB từ /dev/sdo và /dev/sdp.
+    Bước 4 Tạo một LV cache có dung lượng 6GB từ /dev/sdq (SSD).
+    Bước 5 Ta kết hợp mirrored_lv và cache_lv để tạo thành cached_mirrored_lv. LVM sẽ sử dụng ``/dev/sdq (SSD)`` làm bộ nhớ đệm cho LV mirrored.
+
+Lưu ý quan trọng:
+
+    Dung lượng của cache_lv phải nhỏ hơn hoặc bằng dung lượng của mirrored_lv.
+    Hiệu suất của cache sẽ phụ thuộc vào tốc độ của SSD ``/dev/sdq``.
+    Khi sử dụng kết hợp Mirrored LV với cache LV, ta vẫn đảm bảo được tính dự phòng dữ liệu, và tăng tốc độ đọc ghi từ SSD.
+
+Các bước tiếp theo:
+
+  + Định dạng cached_mirrored_lv với hệ thống tệp (ví dụ: ext4).
+
+    mkfs.ext4 /dev/vgnew4/cached_mirrored_lv
+
+  + Gắn kết cached_mirrored_lv vào một thư mục.
+
+    mkdir /mnt/cached_mirrored_lv4
+
+    mount /dev/vgnew4/cached_mirrored_lv /mnt/cached_mirrored_lv4
+
+  <img src="lvmimages/Screenshot_15.png">
+
+Lưu FS TAB
 
 
+#### 3.6 Thực hành thêm các thao tác trong LVM
 
-      
-## 3. Create a LVM-thin pool
+  + Tăng vg, lv
+  + Giảm vg, lv 
+  + Out 1 disk ra khỏi cụm LVM thay thế bằng 1 disk có dung lượng cao hơn.
+  + Chuyển toàn bộ cụm disk LVM từ server này sang server khác .
+
+    
+#### 3.6.1. Tăng VG và LV:
+
+Tăng VG:Thêm PV mới (nếu cần):
+
+    pvcreate /dev/<ổ_đĩa_mới>
+
+    root@tudv:~# pvcreate /dev/sdr
+      Physical volume "/dev/sdr" successfully created.
+
+Mở rộng VG: - > Mình sẽ áp dụng cho LV ``ubuntu-lv`` thuộc VG ``ubuntu-vg`` > Resize ``/``
+
+  <img src="lvmimages/Screenshot_15.png">
+
+    vgextend <tên_VG> /dev/<ổ_đĩa_mới>
+
+    root@tudv:~# vgextend ubuntu-vg /dev/sdr
+      Volume group "ubuntu-vg" successfully extended
+
+Tăng LV:Unmount LV (nếu cần):
+
+    umount /dev/<tên_VG>/<tên_LV>
+
+Mở rộng LV:
+
+    lvextend -L +<kích_thước_tăng_thêm> /dev/<tên_VG>/<tên_LV> (ví dụ: lvextend -L +5G /dev/my_vg/my_lv)
+
+    root@tudv:~# lvextend -L +5GB /dev/ubuntu-vg/ubuntu-lv
+      Size of logical volume ubuntu-vg/ubuntu-lv changed from <28.00 GiB (7167 extents) to <33.00 GiB (8447 extents).
+      Logical volume ubuntu-vg/ubuntu-lv successfully resized.
+
+Mở rộng hệ thống tệp:
+
+    resize2fs /dev/<tên_VG>/<tên_LV> (nếu là ext4)
+
+    resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+
+Mount lại LV (nếu cần):
+
+    mount /dev/<tên_VG>/<tên_LV> /<điểm_gắn>
+
+#### 3.6.2. Giảm VG và LV:
+
+#### Giảm LV:Unmount LV:
+
+    umount /dev/<tên_VG>/<tên_LV>
+
+  <img src="lvmimages/Screenshot_17.png">
+
+    root@tudv:~#umount /dev/mapper/vgnew3-mirrored_lv
+
+Kiểm tra hệ thống tệp:
+
+    e2fsck -f /dev/<tên_VG>/<tên_LV> (nếu là ext4)
+
+  <img src="lvmimages/Screenshot_18.png">
+
+    root@tudv:~# e2fsck -f /dev/mapper/vgnew3-mirrored_lv
+
+Giảm kích thước hệ thống tệp:
+
+    resize2fs /dev/<tên_VG>/<tên_LV> <kích_thước_mới> (ví dụ: resize2fs /dev/my_vg/my_lv 5G)
+
+    root@tudv:~# resize2fs /dev/mapper/vgnew3-mirrored_lv 5G
+    resize2fs 1.46.5 (30-Dec-2021)
+    Resizing the filesystem on /dev/mapper/vgnew3-mirrored_lv to 1310720 (4k) blocks.
+    The filesystem on /dev/mapper/vgnew3-mirrored_lv is now 1310720 (4k) blocks long.
+
+Giảm kích thước LV:
+
+    lvreduce -L <kích_thước_mới> /dev/<tên_VG>/<tên_LV> (ví dụ: lvreduce -L 5G /dev/my_vg/my_lv)
+
+    root@tudv:~# lvreduce -L 5G /dev/mapper/vgnew3-mirrored_lv
+      WARNING: Reducing active logical volume to 5.00 GiB.
+      THIS MAY DESTROY YOUR DATA (filesystem etc.)
+    Do you really want to reduce vgnew3/mirrored_lv? [y/n]: y
+      Size of logical volume vgnew3/mirrored_lv changed from 8.00 GiB (2048 extents) to 5.00 GiB (1280 extents).
+      Logical volume vgnew3/mirrored_lv successfully resized.
+
+Mount lại LV:
+
+    mount /dev/<tên_VG>/<tên_LV> /<điểm_gắn>
+
+    root@tudv:/mnt# mount /dev/mapper/vgnew3-mirrored_lv /mnt/mirrored_data
+
+  <img src="lvmimages/Screenshot_19.png">
+
+#### Giảm VG:
+
+Di chuyển extents khỏi PV muốn loại bỏ:
+
+    pvmove /dev/<ổ_đĩa_muốn_loại_bỏ>
+
+Loại bỏ PV khỏi VG:
+
+    vgreduce <tên_VG> /dev/<ổ_đĩa_muốn_loại_bỏ>
+
+Loại bỏ PV:
+
+    pvremove /dev/<ổ_đĩa_muốn_loại_bỏ>
+
+  <img src="lvmimages/Screenshot_19.png">
+
+Ví dụ loại ``/dev/sdr`` khỏi ``ubuntu-vg/ubuntu-lv``
+
+Việc thay thế ổ đĩa hỏng và di chuyển extents là một thao tác quan trọng để bảo vệ dữ liệu, duy trì tính sẵn sàng của hệ thống, tối ưu hóa hiệu suất và đảm bảo tính toàn vẹn của LVM.
+
+Ở đây mình thấy ``/dev/sdr`` bị hỏng và phải thay thế bằng ``/dev/sds`
+
+Đầu tiên chúng ta cần joine ``/dev/sds` và VG ``ubuntu-vg``
+
+     pvcreate /dev/sds
+
+    vgextend ubuntu-vg /dev/sds
+
+    pvmove /dev/sdr
+    /dev/sdr: Moved: 0.55%
+    /dev/sdr: Moved: 100.00%
+
+    vgreduce ubuntu-vg /dev/sdr
+    root@tudv:/mnt# vgreduce ubuntu-vg /dev/sdr
+      Removed "/dev/sdr" from volume group "ubuntu-vg"
+
+    pvremove /dev/sdr
+
+#### 3.6.3. Thay thế ổ đĩa:
+
+Chuẩn bị ổ đĩa mới:
+Cắm ổ đĩa mới vào server.
+Tạo PV trên ổ đĩa mới:
+
+    pvcreate /dev/<ổ_đĩa_mới>
+
+Mở rộng VG với PV mới:
+
+    vgextend <tên_VG> /dev/<ổ_đĩa_mới>
+
+Di chuyển extents từ ổ đĩa cũ sang ổ đĩa mới:
+
+    pvmove /dev/<ổ_đĩa_cũ> /dev/<ổ_đĩa_mới>
+
+Loại bỏ ổ đĩa cũ khỏi VG:
+
+    vgreduce <tên_VG> /dev/<ổ_đĩa_cũ>
+
+Loại bỏ PV cũ:
+
+    pvremove /dev/<ổ_đĩa_cũ>
+
+#### 3.6.4. Di chuyển VG sang server khác:
+
+Tắt các LV:
+
+    umount /dev/<tên_VG>/<tên_LV> (cho tất cả các LV trong VG)
+    lvchange -an /dev/<tên_VG>/<tên_LV> (cho tất cả các LV trong VG)
+
+Xuất VG:
+
+    vgexport <tên_VG>
+
+Di chuyển các PV sang server mới:
+Tháo các ổ đĩa vật lý chứa PV và gắn vào server mới.
+Nhập VG trên server mới:
+
+    vgscan
+    vgchange -ay <tên_VG>
+
+Kích hoạt các LV:
+
+    lvchange -ay /dev/<tên_VG>/<tên_LV> (cho tất cả các LV trong VG)
+
+Mount các LV:
+
+    mount /dev/<tên_VG>/<tên_LV> /<điểm_gắn> (cho tất cả các LV trong VG)
+
+Lưu ý quan trọng:
+
+    Sao lưu dữ liệu trước khi thực hiện bất kỳ thay đổi nào.
+    Cẩn thận khi loại bỏ PV khỏi VG, đảm bảo rằng không có dữ liệu quan trọng nào trên PV đó.
+    Khi di chuyển VG, đảm bảo rằng các ổ đĩa vật lý được gắn đúng cách trên server mới.
+    Kiểm tra kỹ lưỡng các lệnh trước khi thực hiện để tránh mất dữ liệu.
+
+Mình sẽ demo với ``vgnew3``
+
+  <img src="lvmimages/Screenshot_19.png">
+
+
+## 4. Create a LVM-thin pool
 
 LVM-thin pool là một tính năng của Logical Volume Management (LVM) cho phép tạo ra các Logical Volume (LV) động, có thể tăng/giảm kích thước khi cần thiết.
 
