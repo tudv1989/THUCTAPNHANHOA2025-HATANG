@@ -525,7 +525,7 @@ Mount lại LV (nếu cần):
 
 #### 3.6.2. Giảm VG và LV:
 
-Giảm LV:Unmount LV:
+#### Giảm LV:Unmount LV:
 
     umount /dev/<tên_VG>/<tên_LV>
 
@@ -569,7 +569,7 @@ Mount lại LV:
 
   <img src="lvmimages/Screenshot_19.png">
 
-Giảm VG:
+#### Giảm VG:
 
 Di chuyển extents khỏi PV muốn loại bỏ:
 
@@ -639,9 +639,6 @@ Lưu ý quan trọng:
     Cẩn thận khi loại bỏ PV khỏi VG, đảm bảo rằng không có dữ liệu quan trọng nào trên PV đó.
     Khi di chuyển VG, đảm bảo rằng các ổ đĩa vật lý được gắn đúng cách trên server mới.
     Kiểm tra kỹ lưỡng các lệnh trước khi thực hiện để tránh mất dữ liệu.
-
-
-
 
 
 
