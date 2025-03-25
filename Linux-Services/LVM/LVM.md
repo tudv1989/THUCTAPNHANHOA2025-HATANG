@@ -149,7 +149,7 @@ Kiểm tra trạng thái ``vgdisplay vgnew``
 
   <img src="lvmimages/Screenshot_4.png">
 
-#### 3.2.1. Tạo LV với kích thước cụ thể:
+#### 3.3 Tạo LV với kích thước cụ thể:
 
 Tạo LV 10GB với tên lv_10gb:
 
@@ -169,7 +169,7 @@ Tạo LV sử dụng toàn bộ dung lượng trống:
 
 Như vậy chúng ta đã tạo được 2 LV tên ``lv_10gb`` và ``lv_10gb``
 
-#### 3.2.2. Tạo LV với striping (tăng hiệu suất):
+#### 3.4. Tạo LV với striping (tăng hiệu suất):
 
 Chúng ta sẽ add thêm các disk có dung lượng bằng nhau , mình tạo thêm 6 disk sử dụng ``tripping`` để tăng hiệu suất
 
@@ -255,46 +255,98 @@ Lệnh này sẽ hiển thị danh sách các LV và các PV mà chúng đang s�
 
 Kết quả sẽ cho bạn biết LV lv_stripe2 được phân bổ trên những PV nào.Và bạn thấy đó : ``/dev/sde1(0),/dev/sdf1(0)`` , số (0) ở đây mình không hiểu lắm nhưng đoán là RAID 0
 
-    pvs -o pv_name,vg_name,lv_name,pe_start,pe_size
 
-Lệnh này hiển thị các thông tin chi tiết về các PV, VG, LV và các Physical Extents (PEs) được sử dụng.
+    lvdisplay -m vgnew2/lv_stripe2 
 
-pvs -o pv_name,vg_name,lv_name,pe_start,pe_size
-Kết quả sẽ cho bạn biết LV lv_stripe2 sử dụng những PEs nào trên những PV nào.
+Lệnh này hiển thị thông tin chi tiết về LV lv_stripe2, bao gồm cả phân bổ dữ liệu.
 
-lvdisplay -m vgnew2/lv_stripe2: Lệnh này hiển thị thông tin chi tiết về LV lv_stripe2, bao gồm cả phân bổ dữ liệu.
+  <img src="lvmimages/Screenshot_10.png">
 
-Bash
-
-lvdisplay -m vgnew2/lv_stripe2
 Kết quả sẽ cho bạn biết các PEs được sử dụng và chúng nằm trên những PV nào.
 
 Lưu ý:
 
-LVM sẽ tự động chọn 2 PVs tốt nhất để sử dụng cho striping. Bạn không thể chỉ định cụ thể PV nào được sử dụng.
-Nếu bạn muốn phân phối dữ liệu trên nhiều hơn 2 PVs, bạn có thể thay đổi giá trị của -i trong lệnh lvcreate. Ví dụ, -i 3 sẽ phân phối dữ liệu trên 3 PVs.
-Nếu bạn muốn xem phân bổ dữ liệu chi tiết hơn, bạn có thể sử dụng các công cụ LVM khác như pvscan, vgscan, và lvscan.
+    LVM sẽ tự động chọn 2 PVs tốt nhất để sử dụng cho striping. Bạn không thể chỉ định cụ thể PV nào được sử dụng.
+    Nếu bạn muốn phân phối dữ liệu trên nhiều hơn 2 PVs, bạn có thể thay đổi giá trị của -i trong lệnh lvcreate. Ví dụ, -i 3 sẽ phân phối dữ liệu trên 3 PVs.
+    Nếu bạn muốn xem phân bổ dữ liệu chi tiết hơn, bạn có thể sử dụng các công cụ LVM khác như pvscan, vgscan, và lvscan.
 
+Tạo LV 16GB với striping trên 3 PVs:
 
-
-Tạo LV 30GB với striping trên 3 PVs:
-
-    lvcreate -L 30G -n lv_stripe3 -i 3 vgnew
+    lvcreate -L 16G -n lv_stripe3 -i 3 vgnew2
 
   + -L 30G: Chỉ định kích thước là 30GB.
   + -n lv_stripe3: Đặt tên cho LV là lv_stripe3.
   + -i 3: Chỉ định striping trên 3 PVs.
 
+  <img src="lvmimages/Screenshot_11.png">
 
+Nếu bây giờ mình chạy lệnh sau sẽ báo lỗi
 
+lvcreate -L 16G -n lv_stripe6 -i 6 vgnew2
 
+Vì không còn đủ 6 disk để tạo striping 
 
+    root@tudv:~# lvcreate -L 8G -n lv_stripe6 -i 6 vgnew2
+      Using default stripesize 64.00 KiB.
+      Rounding size 8.00 GiB (2048 extents) up to stripe boundary size <8.02 GiB (2052 extents).
+      Insufficient suitable allocatable extents for logical volume lv_stripe6: 2052 more required
 
+    root@tudv:~# lvcreate -L 8G -n lv_stripe4 -i 3 vgnew2
+      Using default stripesize 64.00 KiB.
+      Rounding size 8.00 GiB (2048 extents) up to stripe boundary size 8.00 GiB (2049 extents).
+      Logical volume "lv_stripe4" created.
 
+#### Kết luận cho mục 3.4 Tạo LV với striping
 
+Nên tạo LV nếu dụng Striping thì nên tạo đồng bộ,để dữ liệu phân phát đồng đều trên các ổ đĩa, ví dụ 2 ổ thì tạo striping 2 ổ, 3 ổ thì tạo striping 3 ổ...và nên tạo LV dùng hết dung lượng của VG
 
+#### 3.5 Tạo LV với Mirrored (tăng dự phòng):
 
-      
+Việc tạo Logical Volume (LV) với mirrored (nhân bản) trong LVM mang lại khả năng dự phòng dữ liệu, đảm bảo rằng dữ liệu của bạn vẫn an toàn ngay cả khi một ổ đĩa vật lý bị hỏng. Dưới đây là các bước cơ bản để tạo LV mirrored:
+
+  + Chuẩn bị các Physical Volumes (PVs):
+
+    Đảm bảo bạn có ít nhất hai PVs có đủ dung lượng để chứa LV mirrored. Bạn có thể tạo PVs từ các ổ đĩa vật lý hoặc phân vùng.
+    Lệnh để tạo PV: pvcreate /dev/sdX /dev/sdY (thay /dev/sdX và /dev/sdY bằng đường dẫn đến các ổ đĩa hoặc phân vùng của bạn).
+
+  + Tạo Volume Group (VG):
+
+    Tạo một VG từ các PVs đã chuẩn bị.
+    Lệnh để tạo VG: vgcreate <tên_VG> /dev/sdX /dev/sdY (thay <tên_VG> bằng tên bạn muốn đặt cho VG).
+
+  + Tạo Logical Volume Mirrored (LV):
+
+    Sử dụng lệnh lvcreate với tùy chọn -m 1 để tạo LV mirrored. Số 1 ở đây nghĩa là sẽ tạo 1 bản sao dữ liệu.
+    Lệnh để tạo LV mirrored: lvcreate -m 1 -L <dung_lượng> -n <tên_LV> <tên_VG>
+    -m 1: Chỉ định tạo một bản sao (mirrored).
+    -L <dung_lượng>: Chỉ định dung lượng của LV.
+    -n <tên_LV>: Chỉ định tên của LV.
+    <tên_VG>: Tên của VG bạn đã tạo.
+
+Ví dụ:
+
+    Giả sử bạn có 4 PVs là /dev/sdk /dev/sdl /dev/sdm /dev/sdn, và bạn muốn tạo một LV mirrored có dung lượng 10GB với tên ``mirrored_lv`` trong VG ``vgnew3``. Các lệnh sẽ như sau:
+
+    pvcreate /dev/sdk /dev/sdl /dev/sdm /dev/sdn
+    vgcreate vgnew3 /dev/sdk /dev/sdl /dev/sdm /dev/sdn
+    lvcreate -m 1 -L 8G -n mirrored_lv vgnew3
+
+  <img src="lvmimages/Screenshot_13.png">
+
+  + Định dạng và gắn kết LV:
+
+    Sau khi tạo LV, bạn cần định dạng nó với một hệ thống tệp (ví dụ: ext4) và gắn kết nó vào một thư mục.
+    Lệnh để định dạng: mkfs.ext4 /dev/vgnew3/mirrored_lv
+    Lệnh để gắn kết: mount /dev/vgnew3/mirrored_lv /mnt/mirrored_data (thay /mnt/mirrored_data bằng thư mục bạn muốn gắn kết).
+
+Lưu ý quan trọng:
+
+    Hiệu suất ghi có thể giảm khi sử dụng LV mirrored vì dữ liệu phải được ghi vào cả hai ổ đĩa.
+    Đảm bảo rằng các PVs bạn sử dụng cho LV mirrored có cùng dung lượng hoặc dung lượng tương đương.
+    Khi sử dụng LVM mirrored, nếu 1 trong 2 ổ đĩa gặp vấn đề, bạn vẫn có thể sử dụng dữ liệu từ ổ còn lại. Sau khi thay thế ổ cứng bị hỏng, bạn cần thực hiện các thao tác để đồng bộ lại dữ liệu.
+    Bằng cách làm theo các bước này, bạn có thể tạo một LV mirrored trong LVM để tăng cường khả năng dự phòng dữ liệu cho hệ thống của mình.
+
+    
 ## 3. Create a LVM-thin pool
 
 LVM-thin pool là một tính năng của Logical Volume Management (LVM) cho phép tạo ra các Logical Volume (LV) động, có thể tăng/giảm kích thước khi cần thiết.
