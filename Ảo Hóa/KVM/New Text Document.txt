@@ -1,24 +1,3 @@
-Tạo một script tự động sao lưu máy ảo của node KVM. Script này sẽ sao lưu các máy ảo  mỗi 2 phút một lần và tạo một bản sao lưu đầy đủ sau 10 phút.
-
-### 1. Cài Đặt Công Cụ Cần Thiết
-
-Trước tiên, đảm bảo rằng bạn đã cài đặt `qemu-kvm` và `libvirt` trên hệ thống của bạn. Nếu chưa, bạn có thể cài đặt bằng cách:
-
-```bash
-apt update
-apt install qemu-kvm libvirt-daemon-system libvirt-clients
-```
-
-### 2. Tạo Script Sao Lưu
-
-Mở terminal và tạo một file script mới:
-
-```bash
-nano /mnt/backups/backup_all_vm.sh
-```
-
-Dán đoạn mã sau vào file:
-```bash
 #!/bin/bash
 
 # Ten may ao can sao luu
@@ -102,51 +81,3 @@ for vm in $VM_NAME; do
 
     log "Hoan tat: Sao luu tai: ${BACKUP_IMAGE}."
 done
-
-```
-### 3. Cấp Quyền Thực Thi Cho Script
-
-Sau khi lưu file, bạn cần cấp quyền thực thi cho script:
-
-```bash
-chmod +x /mnt/backups/backup_all_vm.sh
-```
-
-### 4. Chạy Script
-
-Bạn có thể chạy script bằng lệnh:
-
-```bash
-bash /mnt/backups/backup_all_vm.sh
-```
-
-### 5. Tự Động Hóa Sao Lưu
-
-Để tự động chạy script mỗi 2 phút, bạn có thể sử dụng `cron`. Mở crontab để chỉnh sửa:
-
-```bash
-sudo crontab -e
-```
-
-Thêm dòng sau vào cuối file để chạy script mỗi 2 phút:
-
-```bash
-*/2 * * * * /mnt/backups/backup_all_vm.sh
-```
-
-### 6. Kiểm Tra Kết Quả Sao Lưu
-
-Sau khi chạy script hoặc khi cron tự động chạy, bạn có thể kiểm tra thư mục `/mnt/backups` để xem các file sao lưu được tạo ra. Các file backup sẽ có tên như sau:
-
-- `ubuntu18.04_incremental_YYYYMMDD_HHMMSS.qcow2` cho các bản sao lưu tăng dần.
-- `ubuntu18.04_full_YYYYMMDD_HHMMSS.qcow2` cho bản sao lưu đầy đủ.
-
-
-### 7. Xem Log
-
-Các thông tin log sẽ được lưu vào file `/var/log/kvm_backup.log`, bạn có thể xem file log này để kiểm tra các thông tin về quá trình sao lưu.
-
-```bash
-cat /var/log/kvm_backup.log
-```
-
