@@ -1,0 +1,10 @@
+qemu-img convert -O qcow2 /var/lib/libvirt/images/Ubuntu24-TuDV.qcow2  /opt/Bk1-Ubuntu24-TuDV.qcow2
+cp /etc/libvirt/qemu/Ubuntu24-TuDV.xml /opt/Bk1-Ubuntu24-TuDV.xml
+
+
+
+cp /opt/Bk1-Ubuntu24-TuDV.qcow2 /var/lib/libvirt/images/Ubuntu24-TuDV.qcow2
+cp /opt/Bk1-Ubuntu24-TuDV.xml /etc/libvirt/qemu/Ubuntu24-TuDV.xml
+
+virsh define  /etc/libvirt/qemu/Ubuntu24-TuDV.xml
+virsh start Ubuntu24-TuDV
