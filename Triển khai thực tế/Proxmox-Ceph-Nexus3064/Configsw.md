@@ -1,3 +1,5 @@
+  <img src="proxmoxcephnexus3064images/Screenshot_1.png">
+```Bash
 Eth1/15       Port10G-1-131      connected 666       full    10G     SFP-H10GB-CU3M
 Eth1/16       Port10G-1-132      connected 666       full    10G     SFP-H10GB-CU3M
 Eth1/17       Port10G-1-133      connected 666       full    10G     SFP-H10GB-CU3M
@@ -12,6 +14,10 @@ Eth1/36       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-C
 Eth1/37       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
 Eth1/38       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
 
+switch-local(config)#vlan 666
+VLANPROXMOXHA
+switch-local(config)#vlan 888
+VLANCEPH
 switch-local(config)# feature lacp
 
 switch-local(config-if)# interface port-channel 134
@@ -61,8 +67,11 @@ switch-local# co
 configure   copp        copy
 switch-local# copy running-config startup-config
 
-
-
+```
+  <img src="proxmoxcephnexus3064images/Screenshot_2.png">
+  <img src="proxmoxcephnexus3064images/Screenshot_3.png">
+  <img src="proxmoxcephnexus3064images/Screenshot_4.png">
+  <img src="proxmoxcephnexus3064images/Screenshot_5.png">
 
 
 
