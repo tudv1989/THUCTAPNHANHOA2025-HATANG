@@ -1,19 +1,20 @@
   <img src="proxmoxcephnexus3064images/Screenshot_1.png">
+
+    Eth1/15       Port10G-1-131      connected 666       full    10G     SFP-H10GB-CU3M
+    Eth1/16       Port10G-1-132      connected 666       full    10G     SFP-H10GB-CU3M
+    Eth1/17       Port10G-1-133      connected 666       full    10G     SFP-H10GB-CU3M
+
+    Eth1/30       -> Port10G-2-131   connected 888       full    10G     SFP-H10GB-CU2M
+    Eth1/31       -> Port10G-2-132   connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/32       -> Port10G-2-133   connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/33       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/34       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/35       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/36       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/37       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/38       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+
 ```Bash
-Eth1/15       Port10G-1-131      connected 666       full    10G     SFP-H10GB-CU3M
-Eth1/16       Port10G-1-132      connected 666       full    10G     SFP-H10GB-CU3M
-Eth1/17       Port10G-1-133      connected 666       full    10G     SFP-H10GB-CU3M
-
-Eth1/30       -> Port10G-2-131   connected 888       full    10G     SFP-H10GB-CU2M
-Eth1/31       -> Port10G-2-132   connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/32       -> Port10G-2-133   connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/33       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/34       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/35       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/36       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/37       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-Eth1/38       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-
 switch-local(config)#vlan 666
 VLANPROXMOXHA
 switch-local(config)#vlan 888
