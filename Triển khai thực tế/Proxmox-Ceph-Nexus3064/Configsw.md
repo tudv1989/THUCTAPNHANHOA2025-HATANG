@@ -7,12 +7,12 @@
     Eth1/30       Port10G-2-131   connected 888       full    10G     SFP-H10GB-CU2M
     Eth1/31       Port10G-2-132   connected 888       full    10G     SFP-H10GB-CU3M
     Eth1/32       Port10G-2-133   connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/33       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/34       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/35       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/36       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/37       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/38       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/33       Port10G-1-Cephnode134 connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/34       Port10G-2-Cephnode134 connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/35       Port10G-1-Cephnode135 connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/36       Port10G-2-Cephnode135 connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/37       Port10G-1-Cephnode136 connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/38       Port10G-2-Cephnode136 connected 888       full    10G     SFP-H10GB-CU3M
 
 ```Bash
 switch-local(config)#vlan 666 //name VLANPROXMOXHA
