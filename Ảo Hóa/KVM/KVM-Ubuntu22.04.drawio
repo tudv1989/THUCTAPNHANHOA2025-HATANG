@@ -289,6 +289,24 @@
             <mxPoint x="480" y="1360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="szSGA_zlBWCNXYSLS5dA-88" value="enp65s0f0" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-197.2" y="1370" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="szSGA_zlBWCNXYSLS5dA-89" value="enp65s0f1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-90" y="1370" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="szSGA_zlBWCNXYSLS5dA-90" value="enp129s0f0" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="85" y="1348" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="szSGA_zlBWCNXYSLS5dA-91" value="enp129s0f1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1348" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="szSGA_zlBWCNXYSLS5dA-92" value="enp65s0f0" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1360" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="szSGA_zlBWCNXYSLS5dA-93" value="enp65s0f1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1360" width="80" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
