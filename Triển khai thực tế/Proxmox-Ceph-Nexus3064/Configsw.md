@@ -4,9 +4,9 @@
     Eth1/16       Port10G-1-132      connected 666       full    10G     SFP-H10GB-CU3M
     Eth1/17       Port10G-1-133      connected 666       full    10G     SFP-H10GB-CU3M
 
-    Eth1/30       -> Port10G-2-131   connected 888       full    10G     SFP-H10GB-CU2M
-    Eth1/31       -> Port10G-2-132   connected 888       full    10G     SFP-H10GB-CU3M
-    Eth1/32       -> Port10G-2-133   connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/30       Port10G-2-131   connected 888       full    10G     SFP-H10GB-CU2M
+    Eth1/31       Port10G-2-132   connected 888       full    10G     SFP-H10GB-CU3M
+    Eth1/32       Port10G-2-133   connected 888       full    10G     SFP-H10GB-CU3M
     Eth1/33       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
     Eth1/34       Port10G-2-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
     Eth1/35       Port10G-1-Cephnode connected 888       full    10G     SFP-H10GB-CU3M
