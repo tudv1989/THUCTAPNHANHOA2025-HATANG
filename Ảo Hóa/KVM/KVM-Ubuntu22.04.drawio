@@ -203,10 +203,10 @@
           <mxGeometry x="660" y="1240" width="70" height="40" as="geometry" />
         </mxCell>
         <mxCell id="szSGA_zlBWCNXYSLS5dA-67" value="Eth1/36" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="750" y="1240" width="70" height="40" as="geometry" />
+          <mxGeometry x="770" y="1240" width="70" height="40" as="geometry" />
         </mxCell>
         <mxCell id="szSGA_zlBWCNXYSLS5dA-68" value="Eth1/37" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="830" y="1240" width="70" height="40" as="geometry" />
+          <mxGeometry x="850" y="1240" width="70" height="40" as="geometry" />
         </mxCell>
         <mxCell id="szSGA_zlBWCNXYSLS5dA-69" value="Eth1/38" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="955" y="1240" width="70" height="40" as="geometry" />
@@ -263,7 +263,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="szSGA_zlBWCNXYSLS5dA-80" value="eno1 172.16.9.131" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-160" y="1630" width="60" height="30" as="geometry" />
+          <mxGeometry x="-150" y="1630" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="szSGA_zlBWCNXYSLS5dA-81" value="eno1 172.16.9.132" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="150" y="1630" width="60" height="30" as="geometry" />
