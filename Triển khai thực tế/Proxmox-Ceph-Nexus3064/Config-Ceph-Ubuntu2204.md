@@ -135,13 +135,13 @@ do
     ceph-volume lvm create --data /dev/sdd1"
 done 
 
-for NODE in cephnode134 cephnode135 cephnode136
+for NODE in   cephnode136
 do
     ssh $NODE \
     "chown ceph. /etc/ceph/ceph.* /var/lib/ceph/bootstrap-osd/*; \
-    parted --script /dev/sde 'mklabel gpt'; \
-    parted --script /dev/sde "mkpart primary 0% 100%"; \
-    ceph-volume lvm create --data /dev/sde1"
+    parted --script /dev/sdd 'mklabel gpt'; \
+    parted --script /dev/sdd "mkpart primary 0% 100%"; \
+    ceph-volume lvm create --data /dev/sdd1"
 done 
 
 
