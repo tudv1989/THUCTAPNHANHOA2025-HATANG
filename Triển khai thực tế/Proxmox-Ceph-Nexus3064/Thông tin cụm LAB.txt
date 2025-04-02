@@ -12,6 +12,8 @@ Test 1 số case:
 
 - Proxmox master trong cụm tự động được bầu chọn lại tự động khi node master mất kết nối 1 lần
 
+- Cụm proxmox181 đang set thời gian chết của node là 300000 miligiay =  5 phút
+
 - Test HA VM tự chuyển cụm khi 1 node proxmox mất kết nối
 
   <img src="proxmoxcephnexus3064images/Screenshot_20.png">
