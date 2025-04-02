@@ -1,1 +1,9 @@
 https://10.10.88.134:8443 root 123456ok1
+
+10.10.66.131:8006 > Test Network Proxmox
+
+10.10.66.181:8006 > Test Network Proxmox
+
+10.10.66.131:8006 > Test Network Proxmox
+
+Máy remote 172.16.9.141 administrator 123456ok1A
