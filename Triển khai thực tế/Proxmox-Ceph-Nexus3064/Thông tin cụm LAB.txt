@@ -1,23 +1,27 @@
-https://10.10.88.134:8443 root 123456ok1
+sw vlan1 172.16.9.14 admin password 12345678aA@
+
+sw 10g 172.16.9.100 admin !3CGh4yJj6VSw9A
+
+remote ceph 172.16.9.134  https://10.10.88.134:8443 root 123456ok1
 
 10.10.66.131:8006 > Test Network Proxmox
 
 10.10.66.181:8006 > Test Network Proxmox
 
-Máy remote 172.16.9.141 administrator 123456ok1A ( tạo trên proxmox 131 )
+Máy remote 172.16.9.141  để vào xem ceph134 administrator pass 123456ok1A ( tạo trên proxmox 131 )
 
 Test 1 số case:
 
-- Proxmox master trong cụm tự động được bầu chọn lại tự động khi node master mất kết nối 1 lần
+- Proxmox master trong cụm tự động được bầu chọn lại tự động khi node master mất kết nối
 
-- Cụm proxmox181 đang set thời gian chết của node là 300000 miligiay =  5 phút >> test tắt 1 node và đợi 5 phút xem phục hồi
+- Cụm proxmox181 đang set thời gian corosync đánh giá node die để kích hoạt HA VM là 300000 miligiay =  5 phút >> test tắt 1 node và đợi 5 phút xem HV tranfer
 
 - Test HA VM tự chuyển cụm khi 1 node proxmox mất kết nối
 
   <img src="proxmoxcephnexus3064images/Screenshot_20.png">
   <img src="proxmoxcephnexus3064images/Screenshot_21.png">
 
-- Test 
+- Test đọc ghi độ trễ máy ảo
 
 https://hocvps.com/kiem-tra-hieu-suat-o-cung-voi-fio-va-ioping/
 
@@ -25,7 +29,7 @@ https://hocvps.com/kiem-tra-hieu-suat-o-cung-voi-fio-va-ioping/
 
 - Test 1 số case liên quan HA
 
-- Test tham số khởi động của VM khi HA , các tham số Maxrestart =1 chỉ khởi động 1 lần > VM chuyển về node dự phòng, Maxrestart =2 - chỉ khởi động 2 lần - VM sẽ chuyển đi 2 lần ( có thể quay về node ban đầu nếu node ban đầu khôi phục - trường hợp có nhiều node dự phòng ...)
+Test tham số khởi động của VM khi HA , các tham số Maxrestart = 1 chỉ khởi động 1 lần > VM chuyển về node dự phòng, Maxrestart = 2 - chỉ khởi động 2 lần - VM sẽ chuyển đi 2 lần ( có thể quay về node ban đầu nếu node ban đầu khôi phục - trường hợp có nhiều node dự phòng - tùy cấu hình node, cụm cụ thể ...)
 
   <img src="proxmoxcephnexus3064images/Screenshot_23.png">
 
@@ -33,7 +37,7 @@ https://hocvps.com/kiem-tra-hieu-suat-o-cung-voi-fio-va-ioping/
 
 ```Bash
 
-Câu lệnh có thể làm cron auto HA VM
+Câu lệnh có thể làm cron auto HA VM (xem status VM 103 104 )
 
 root@proxmox131:~# ha-manager  status
 quorum OK
@@ -41,6 +45,7 @@ master proxmox132 (active, Wed Apr  2 11:49:05 2025)
 lrm proxmox131 (active, Wed Apr  2 11:49:09 2025)
 lrm proxmox132 (active, Wed Apr  2 11:49:08 2025)
 lrm proxmox133 (idle, Wed Apr  2 11:49:12 2025)
+
 service vm:103 (proxmox131, started)
 service vm:104 (proxmox132, started)
 
