@@ -12,15 +12,40 @@ Test 1 số case:
 
 - Proxmox master trong cụm tự động được bầu chọn lại tự động khi node master mất kết nối 1 lần
 
-- Cụm proxmox181 đang set thời gian chết của node là 300000 miligiay =  5 phút
+- Cụm proxmox181 đang set thời gian chết của node là 300000 miligiay =  5 phút >> test tắt 1 node và đợi 5 phút xem phục hồi
 
 - Test HA VM tự chuyển cụm khi 1 node proxmox mất kết nối
 
   <img src="proxmoxcephnexus3064images/Screenshot_20.png">
-  <img src="proxmoxcephnexus3064images/Screenshot_20.png">
+  <img src="proxmoxcephnexus3064images/Screenshot_21.png">
 
 - Test 
 
 https://hocvps.com/kiem-tra-hieu-suat-o-cung-voi-fio-va-ioping/
 
 - Test hieu suat Ceph
+
+- Test 1 số case liên quan HA
+
+- Test tham số khởi động của VM khi HA , các tham số =1 chỉ khởi động 1 lần, =2 chỉ khởi động 2 lần
+
+  <img src="proxmoxcephnexus3064images/Screenshot_23.png">
+
+  <img src="proxmoxcephnexus3064images/Screenshot_22.png">
+
+```Bash
+root@proxmox183:~# qm start 100
+Requesting HA start for VM 100
+service 'vm:100' in error state, must be disabled and fixed first
+command 'ha-manager set vm:100 --state started' failed: exit code 255
+root@proxmox183:~# ha-manager set vm:100 --state stoped
+400 Parameter verification failed.
+state: value 'stoped' does not have a value in the enumeration 'started, stopped, enabled, disabled, ignored'
+ha-manager set <sid> [OPTIONS]
+root@proxmox183:~# ha-manager set vm:100 --state stopped
+service 'vm:100' in error state, must be disabled and fixed first
+root@proxmox183:~# ha-manager set vm:100 --state disabled
+root@proxmox183:~# qm start 100
+Requesting HA start for VM 100
+root@proxmox183:~#
+```
