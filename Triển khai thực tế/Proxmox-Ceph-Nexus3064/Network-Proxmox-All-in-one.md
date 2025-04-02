@@ -1,4 +1,4 @@
-Dưới đây là file cấu hình network promoxmox 131 132 133
+Dưới đây là file cấu hình network proxmox 131 132 133
   + Proxmox131
 ```Bash
 auto lo
