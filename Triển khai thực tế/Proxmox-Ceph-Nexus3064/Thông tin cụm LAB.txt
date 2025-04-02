@@ -34,6 +34,19 @@ https://hocvps.com/kiem-tra-hieu-suat-o-cung-voi-fio-va-ioping/
   <img src="proxmoxcephnexus3064images/Screenshot_22.png">
 
 ```Bash
+
+Câu lệnh có thể làm cron auto HA VM
+
+root@proxmox131:~# ha-manager  status
+quorum OK
+master proxmox132 (active, Wed Apr  2 11:49:05 2025)
+lrm proxmox131 (active, Wed Apr  2 11:49:09 2025)
+lrm proxmox132 (active, Wed Apr  2 11:49:08 2025)
+lrm proxmox133 (idle, Wed Apr  2 11:49:12 2025)
+service vm:103 (proxmox131, started)
+service vm:104 (proxmox132, started)
+
+
 root@proxmox183:~# qm start 100
 Requesting HA start for VM 100
 service 'vm:100' in error state, must be disabled and fixed first
