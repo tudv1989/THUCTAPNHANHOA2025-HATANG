@@ -1,4 +1,7 @@
 ## Network 3 node 181.182.183
+
+  + Proxmox181
+
 ```Bash
 auto lo
 iface lo inet loopback
@@ -34,6 +37,9 @@ iface brvlan888 inet static
 source /etc/network/interfaces.d/*
 
 ```
+
+  + Proxmox182
+
 ```Bash
 auto lo
 iface lo inet loopback
@@ -68,6 +74,8 @@ iface brvlan888 inet static
 
 source /etc/network/interfaces.d/*
 ```
+  + Proxmox183
+
 ```Bash
 auto lo
 iface lo inet loopback
@@ -133,8 +141,7 @@ Sử dụng lệnh sau để cài đặt: apt install ceph-common librados2 libr
     + Username: "admin" (hoặc tên người dùng Ceph của bạn).
     + Monitors: Danh sách địa chỉ IP của các monitor Ceph.
     + Nhấn "Add".
-  + Cấu hình Tùy chọn:
-    + Bạn có thể cấu hình các tùy chọn bổ sung như "Thin provisioning" và "Discard" tùy thuộc vào yêu cầu của bạn.
+
 #### 4. Kiểm tra Kết nối:
 
 Sau khi thêm lưu trữ Ceph RBD, kiểm tra xem Proxmox có thể kết nối với cụm Ceph hay không.
