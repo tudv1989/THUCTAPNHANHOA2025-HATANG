@@ -6,4 +6,19 @@ https://10.10.88.134:8443 root 123456ok1
 
 10.10.66.131:8006 > Test Network Proxmox
 
-Máy remote 172.16.9.141 administrator 123456ok1A
+Máy remote 172.16.9.141 administrator 123456ok1A ( tạo trên proxmox 131 )
+
+Test 1 số case:
+
+- Proxmox master trong cụm tự động được bầu chọn lại tự động khi node master mất kết nối 1 lần
+
+- Test HA VM tự chuyển cụm khi 1 node proxmox mất kết nối
+
+  <img src="proxmoxcephnexus3064images/Screenshot_20.png">
+  <img src="proxmoxcephnexus3064images/Screenshot_20.png">
+
+- Test 
+
+https://hocvps.com/kiem-tra-hieu-suat-o-cung-voi-fio-va-ioping/
+
+- Test hieu suat Ceph
