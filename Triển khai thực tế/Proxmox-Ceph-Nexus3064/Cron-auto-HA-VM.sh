@@ -1,6 +1,6 @@
 # HA thi tat nhien VM phai duoc tao tren storage chung cua cum cluster va cron nay tao tren tung node proxmox do co the co nhieu nhom HA tuy vao cum
 # Day la vi du them VM vao group HA All-to-183
-# Luu y VM tao nhu nay Max.restart = 1 va Max.relocate =1
+# Luu y VM co cac tham so Max.relocate =1
 
 #!/bin/bash
 
