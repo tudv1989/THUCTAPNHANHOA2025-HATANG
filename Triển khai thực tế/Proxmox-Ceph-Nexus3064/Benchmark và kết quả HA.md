@@ -17,3 +17,7 @@
   <img src="proxmoxcephnexus3064images/Screenshot_36.png">
 
   <img src="proxmoxcephnexus3064images/Screenshot_37.png">
+
+  <img src="proxmoxcephnexus3064images/Screenshot_38.png">
+
+  <img src="proxmoxcephnexus3064images/Screenshot_39.png">
