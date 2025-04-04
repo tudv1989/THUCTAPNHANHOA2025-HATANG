@@ -1,3 +1,4 @@
+```Bash
 network:
   renderer: networkd
   ethernets:
@@ -25,4 +26,5 @@ network:
       addresses: [10.10.88.134/24]
 
   version: 2
+```
 
