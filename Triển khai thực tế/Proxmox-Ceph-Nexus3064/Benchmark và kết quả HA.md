@@ -182,7 +182,21 @@ Disk stats (read/write):
   rbd0: ios=12305855/0, merge=0/0, ticks=941313/0, in_queue=941313, util=65.35%
 
 ```
-### Vài hình ảnh test xong node proxmox khác:
+
+### Nếu muốn tối ưu hơn, có thể điều chỉnh osd_op_num_threads_per_shard, osd_op_num_shards, hoặc thử bluestore_cache_size.
+
+### Cách Cải Thiện Hiệu Suất Ceph Sau Benchmark
+
+  + Tăng số lượng OSD: Giúp tăng IOPS
+  + Dùng Nvme cho OSD và journal: Giảm độ trễ
+  + Cấu hình CRUSH tối ưu: Đảm bảo phân bổ dữ liệu đều
+  + Tối ưu PG (Placement Groups): Tránh tình trạng quá tải một OSD
+
+### Kết Luận
+
+Benchmark là bước quan trọng giúp đánh giá và tối ưu hiệu suất Ceph. Bằng cách sử dụng rados bench, fio, dd và ioping, bạn có thể đo lường tốc độ đọc/ghi, độ trễ và hiệu suất RBD để tinh chỉnh hệ thống Ceph một cách hiệu quả.
+
+### Vài hình ảnh test xong node proxmox khác và HA:
 
   <img src="proxmoxcephnexus3064images/Screenshot_30.png">
 
@@ -204,15 +218,3 @@ Disk stats (read/write):
 
   <img src="proxmoxcephnexus3064images/Screenshot_39.png">
 
-### Nếu muốn tối ưu hơn, có thể điều chỉnh osd_op_num_threads_per_shard, osd_op_num_shards, hoặc thử bluestore_cache_size.
-
-### Cách Cải Thiện Hiệu Suất Ceph Sau Benchmark
-
-  + Tăng số lượng OSD: Giúp tăng IOPS
-  + Dùng Nvme cho OSD và journal: Giảm độ trễ
-  + Cấu hình CRUSH tối ưu: Đảm bảo phân bổ dữ liệu đều
-  + Tối ưu PG (Placement Groups): Tránh tình trạng quá tải một OSD
-
-### Kết Luận
-
-Benchmark là bước quan trọng giúp đánh giá và tối ưu hiệu suất Ceph. Bằng cách sử dụng rados bench, fio, dd và ioping, bạn có thể đo lường tốc độ đọc/ghi, độ trễ và hiệu suất RBD để tinh chỉnh hệ thống Ceph một cách hiệu quả.
