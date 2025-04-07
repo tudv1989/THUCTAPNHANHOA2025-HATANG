@@ -182,6 +182,7 @@ Disk stats (read/write):
   rbd0: ios=12305855/0, merge=0/0, ticks=941313/0, in_queue=941313, util=65.35%
 
 ```
+### Vài hình ảnh test xong node proxmox khác:
 
   <img src="proxmoxcephnexus3064images/Screenshot_30.png">
 
