@@ -22,9 +22,8 @@
   - Triển khai:  
     - Cách 1: Dùng VLAN tách biệt trên bond LACP (nếu không có NIC vật lý dư).  
     - Cách 2: Dùng NIC vật lý riêng (tối ưu nhất).  
-  - Cấu hình Ceph:  
+  - Cấu hình Ceph: ``/etc/ceph/ceph.conf``
    
-    # /etc/ceph/ceph.conf
     [global]
     public network = 10.10.88.0/24
     cluster network = 10.10.89.0/24
