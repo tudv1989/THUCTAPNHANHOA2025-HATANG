@@ -72,6 +72,7 @@
 ---
 
 ### 3. Sơ Đồ Mạng Tối Ưu
+
 [Proxmox Node]
 |
 |-- eno1 (1G): Management + VM Traffic (172.16.10.0/20)  # Tạm thời (nên nâng cấp)
