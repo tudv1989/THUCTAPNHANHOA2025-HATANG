@@ -23,11 +23,11 @@
     - Cách 1: Dùng VLAN tách biệt trên bond LACP (nếu không có NIC vật lý dư).  
     - Cách 2: Dùng NIC vật lý riêng (tối ưu nhất).  
   - Cấu hình Ceph: ``/etc/ceph/ceph.conf``
-   
+```Bash   
     [global]
     public network = 10.10.88.0/24
     cluster network = 10.10.89.0/24
-    
+```    
 #### b. Tối Ưu Bond LACP cho Ceph
 - Kiểm tra bonding mode và hash policy:  
   - bond-mode 4 (802.3ad): Đảm bảo switch hỗ trợ LACP.  
