@@ -1,5 +1,4 @@
-Đinh Tú, [4/8/2025 12:42 AM]
-Dựa trên cấu hình hiện tại của bạn, dưới đây là phân tích và đề xuất tối ưu hóa chi tiết:
+Đề xuất tối ưu hóa:
 
 ---
 
@@ -88,13 +87,6 @@ Dựa trên cấu hình hiện tại của bạn, dưới đây là phân tích 
 |-- Port 4: Access 10.10.66.0/24 (Corosync)
 ---
 
-### 4. Kiểm Tra Hiệu Suất
-- Kiểm tra Ceph:  
-  `bash
-  ceph osd perf        # Latency OSD
-  ceph -
-
-Đinh Tú, [4/8/2025 12:45 AM]
 ### 4. Kiểm Tra Hiệu Suất
 - Kiểm tra Ceph:  
  
