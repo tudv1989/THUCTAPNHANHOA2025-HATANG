@@ -47,30 +47,34 @@
   - Nâng cấp lên NIC 10G (nếu có NIC dư).  
   - Áp dụng QoS (nếu không thể nâng cấp):  
    
-    # Giới hạn bandwidth cho non-critical traffic (vd: backup)
+Giới hạn bandwidth cho non-critical traffic (vd: backup)
+
+```Bash  
+
     tc qdisc add dev vmbr0 root handle 1: htb default 10
     tc class add dev vmbr0 parent 1: classid 1:1 htb rate 900Mbit
     tc class add dev vmbr0 parent 1:1 classid 1:10 htb rate 800Mbit  # VM traffic
     tc class add dev vmbr0 parent 1:1 classid 1:20 htb rate 100Mbit  # Management
-    
+```   
 #### d. Tối Ưu Live Migration
-- Chỉ định NIC 10G cho Live Migration:  
+- Chỉ định NIC 10G cho Live Migration: ``/etc/pve/datacenter.cfg``  
  
-  # /etc/pve/datacenter.cfg
+```Bash 
   migration: {
       network: 10.10.70.0/24  # Subnet trên NIC 10G
       type: insecure
   }
-  
+```  
 #### e. Kiểm Tra MTU và Jumbo Frames
 - Đảm bảo tất cả NIC, switch và Ceph đều dùng MTU 9000 cho các đường 10G.  
 - Kiểm tra:  
  
-  ping -M do -s 8972 <IP_Ceph_Node>  # Kiểm tra jumbo frames
+    ping -M do -s 8972 <IP_Ceph_Node>  # Kiểm tra jumbo frames
   
 ---
 
 ### 3. Sơ Đồ Mạng Tối Ưu
+
 [Proxmox Node]
 |
 |-- eno1 (1G): Management + VM Traffic (172.16.10.0/20)  # Tạm thời (nên nâng cấp)
