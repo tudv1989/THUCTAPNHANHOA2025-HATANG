@@ -50,6 +50,13 @@ ceph config set global osd_network_mtu 9000
 #### b. Mẫu bonding proxmox - MTU chỉnh sửa qua giao diện 8006 - Chỉnh tại card vật lý và card bridge
 ```Bash
   # /etc/network/interfaces
+
+iface enp3s0f0 inet manual
+        mtu 9000
+
+iface enp3s0f1 inet manual
+        mtu 9000
+
   auto bond1
   iface bond1
       bond-slaves enp3s0f0 enp3s0f1
@@ -64,4 +71,51 @@ ceph config set global osd_network_mtu 9000
       bridge-vlan-aware yes
       bridge-vids 100 200 300
       mtu 9000
+```
+
+#### c. Mẫu bonding Ubuntu22.04 Ceph
+```Bash
+network:
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: false
+      dhcp6: false
+      mtu: 9000
+    eno2:
+      dhcp4: false
+      dhcp6: false
+      mtu: 9000
+  bonds:
+    bond0:
+      interfaces: [eno1, eno2]
+      parameters:
+        mode: 802.3ad
+        lacp-rate: fast
+        mii-monitor-interval: 100
+      addresses: [172.16.2.181/20]
+
+      gateway4: 172.16.10.1
+      nameservers:
+        addresses: [1.1.1.1, 8.8.8.8]
+      mtu: 9000
+
+    enp66s0f0:
+      dhcp4: false
+      dhcp6: false
+      mtu: 9000
+    enp66s0f1:
+      dhcp4: false
+      dhcp6: false
+      mtu: 9000
+  bonds:
+    bond1:
+      interfaces: [enp66s0f0, enp66s0f1]
+      parameters:
+        mode: 802.3ad
+        lacp-rate: fast
+        mii-monitor-interval: 100
+      addresses: [10.10.88.134/24]
+      mtu: 9000
+  version: 2
 ```
