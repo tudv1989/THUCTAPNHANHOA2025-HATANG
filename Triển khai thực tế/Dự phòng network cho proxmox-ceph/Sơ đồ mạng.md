@@ -91,28 +91,21 @@ Giới hạn bandwidth cho non-critical traffic (vd: backup)
 
 ### 4. Kiểm Tra Hiệu Suất
 - Kiểm tra Ceph:  
-  `bash
-  ceph osd perf        # Latency OSD
-  ceph -
-
-Đinh Tú, [4/8/2025 12:44 AM]
-### 4. Kiểm Tra Hiệu Suất
-- Kiểm tra Ceph:  
- 
+```Bash  
   ceph osd perf        # Latency OSD
   ceph -s              # Trạng thái cluster
   rados bench -p <pool> 10 write --no-cleanup  # Benchmark
-  
+```  
 - Kiểm tra Corosync:  
- 
+```Bash   
   corosync-cfgtool -s  # Thống kê gói tin
   pvecm status         # Trạng thái cluster
-  
+```  
 - Kiểm tra Network:  
- 
+```Bash   
   iperf3 -s -p 5201   # Trên node đích
   iperf3 -c <IP_Node> -p 5201 -t 20 -P 4  # Trên node nguồn
-  
+```  
 ---
 
 ### 5. Lưu Ý Quan Trọng
@@ -121,7 +114,7 @@ Giới hạn bandwidth cho non-critical traffic (vd: backup)
   - Cấu hình LACP và flow control.  
 - NTP: Đồng bộ thời gian giữa tất cả node.  
  
-  timedatectl set-ntp true
+    timedatectl set-ntp true
   
 - Firewall: Mở các port cần thiết:  
   - Ceph: 6789, 6800-7300  
