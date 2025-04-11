@@ -74,7 +74,7 @@ Giới hạn bandwidth cho non-critical traffic (vd: backup)
 ---
 
 ### 3. Sơ Đồ Mạng Tối Ưu
-
+```Bash
 [Proxmox Node]
 |
 |-- eno1 (1G): Management + VM Traffic (172.16.10.0/20)  # Tạm thời (nên nâng cấp)
@@ -88,7 +88,7 @@ Giới hạn bandwidth cho non-critical traffic (vd: backup)
 |-- Port 2-3: Trunk VLAN 88,89 (Ceph)
 |-- Port 4: Access 10.10.66.0/24 (Corosync)
 ---
-
+```
 ### 4. Kiểm Tra Hiệu Suất
 - Kiểm tra Ceph:  
 ```Bash  
