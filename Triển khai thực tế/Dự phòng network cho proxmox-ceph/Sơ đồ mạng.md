@@ -1,5 +1,3 @@
-Đinh Tú, [4/8/2025 12:41 AM]
-Dựa trên cấu hình hiện tại của bạn, dưới đây là phân tích và đề xuất tối ưu hóa chi tiết:
 
 ---
 
