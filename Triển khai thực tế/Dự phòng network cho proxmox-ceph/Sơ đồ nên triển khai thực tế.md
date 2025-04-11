@@ -42,3 +42,26 @@ https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th
   - Interfaces: enp4s0f0, enp4s0f1 (2x40G).
   - VLAN 888 Ceph IP 10.10.88.0/24
   - MTU: 9000 (Jumbo Frames).
+  - Kích hoạt Jumbo Frames cho Ceph Cluster:
+```Bash
+ceph config set global osd_network_mtu 9000
+
+```
+#### b. Mẫu bonding proxmox - MTU chỉnh sửa qua giao diện 8006 - Chỉnh tại card vật lý và card bridge
+```Bash
+  # /etc/network/interfaces
+  auto bond1
+  iface bond1
+      bond-slaves enp3s0f0 enp3s0f1
+      bond-miimon 100
+      bond-mode 802.3ad
+      bond-xmit-hash-policy layer3+4
+      mtu 9000
+
+  auto vmbr1
+  iface vmbr1
+      bridge-ports bond1
+      bridge-vlan-aware yes
+      bridge-vids 100 200 300
+      mtu 9000
+```
