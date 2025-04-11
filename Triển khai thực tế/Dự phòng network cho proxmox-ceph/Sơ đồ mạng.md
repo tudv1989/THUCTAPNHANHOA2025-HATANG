@@ -32,7 +32,7 @@
   - bond-mode 4 (802.3ad): Đảm bảo switch hỗ trợ LACP.  
   - bond-xmit-hash-policy layer3+4: Cân bằng traffic dựa trên IP và port.  
   - Ví dụ cấu hình:  
-   
+```Bash    
     auto bond0
     iface bond0 inet manual
         bond-slaves eno3 eno4
@@ -40,7 +40,7 @@
         bond-miimon 100
         bond-xmit-hash-policy layer3+4
         mtu 9000
-    
+```    
 #### c. Tối Ưu Đường Internet và VM Traffic (1G → 10G)
 - Vấn đề: NIC 1G không đủ băng thông cho VM traffic và live migration.  
 - Giải pháp:  
