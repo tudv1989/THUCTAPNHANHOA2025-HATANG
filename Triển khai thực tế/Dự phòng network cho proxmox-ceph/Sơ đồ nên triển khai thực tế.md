@@ -69,7 +69,7 @@ iface enp3s0f1 inet manual
   iface vmbr1
       bridge-ports bond1
       bridge-vlan-aware yes
-      bridge-vids 666 888
+      bridge-vids 100 200 300
       mtu 9000
 ```
 
@@ -93,7 +93,9 @@ network:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
-      addresses: [172.16.9.134/20]
+        xmit-hash-policy: layer3+4
+      addresses: [172.16.2.181/20]
+
       gateway4: 172.16.10.1
       nameservers:
         addresses: [1.1.1.1, 8.8.8.8]
@@ -114,9 +116,8 @@ network:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
+        xmit-hash-policy: layer3+4
       addresses: [10.10.88.134/24]
       mtu: 9000
   version: 2
 ```
-
-Sau khi chỉnh sửa xong thì kiểm tra lại toàn bộ mạng để đảm bảo các gói tin không bị drop
