@@ -81,11 +81,11 @@ network:
     eno1:
       dhcp4: false
       dhcp6: false
-      mtu: 9000
+      
     eno2:
       dhcp4: false
       dhcp6: false
-      mtu: 9000
+      
   bonds:
     bond0:
       interfaces: [eno1, eno2]
@@ -99,7 +99,7 @@ network:
       gateway4: 172.16.10.1
       nameservers:
         addresses: [1.1.1.1, 8.8.8.8]
-      mtu: 9000
+      
 
     enp66s0f0:
       dhcp4: false
