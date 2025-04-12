@@ -22,12 +22,12 @@ https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th
 ---
 ```
 
-#### a. Bonding Interfaces
+#### a. Bonding Interfaces - Các port này để MTU 9000 hay ko phụ thuộc vào các thiết bị trên nó 
 - Management (bond0):
   - Mode: active-backup (nếu switch không hỗ trợ LACP) hoặc 802.3ad (LACP).
   - Interfaces: eno1, eno2 (2x10G).
   - IP: Static (172.16.9.0/24).
-  - MTU: 9000 (Jumbo Frames).
+
 
 - Corosync/VM/Ceph Public (bond1):
   - Mode: 802.3ad (LACP) hoặc balance-alb.
@@ -47,7 +47,7 @@ https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th
 ceph config set global osd_network_mtu 9000
 
 ```
-#### b. Mẫu bonding proxmox - MTU chỉnh sửa qua giao diện 8006 - Chỉnh tại card vật lý và card bridge
+#### b. Mẫu bonding proxmox - MTU chỉnh sửa qua giao diện 8006 - Chỉnh tại card vật lý và card bridge - Với card Bridge VM ra internet tính toán có nên để MTU 9000 hay ko như bên trên: Các port này để MTU 9000 hay ko phụ thuộc vào các thiết bị trên nó 
 ```Bash
   # /etc/network/interfaces
 
