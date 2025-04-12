@@ -1,1 +1,5 @@
 172.16.9.200 administrator 123456aA@
+172.16.9.116 nginx proxy proxmox
+172.16.9.115 grafana
+172.16.9.201 ubuntu2204
+172.16.9.202 ubuntu2204
