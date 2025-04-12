@@ -44,7 +44,7 @@ https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th
   - MTU: 9000 (Jumbo Frames).
   - Kích hoạt Jumbo Frames cho Ceph Cluster:
 ```Bash
-ceph config set global osd_network_mtu 9000
+ceph config set global osd_network_mtu 9000 # Lenh kiem tra nay tren Ceph moi, ban 17 quincy ko ho tro
 
 ```
 #### b. Mẫu bonding proxmox - MTU chỉnh sửa qua giao diện 8006 - Chỉnh tại card vật lý và card bridge - Với card Bridge VM ra internet tính toán có nên để MTU 9000 hay ko như bên trên: Các port này để MTU 9000 hay ko phụ thuộc vào các thiết bị trên nó 
@@ -93,7 +93,7 @@ network:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
-        xmit-hash-policy: layer3+4
+#        xmit-hash-policy: layer3+4
       addresses: [172.16.2.181/20]
 
       gateway4: 172.16.10.1
@@ -116,7 +116,7 @@ network:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
-        xmit-hash-policy: layer3+4
+#        xmit-hash-policy: layer3+4
       addresses: [10.10.88.134/24]
       mtu: 9000
   version: 2

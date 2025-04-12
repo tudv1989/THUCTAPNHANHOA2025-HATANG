@@ -1,36 +1,31 @@
-root@cephnode134:/etc/netplan# cat 50-cloud-init.yaml
-
-```Bash
 network:
   renderer: networkd
   ethernets:
     eno1:
       addresses:
-        - 172.16.9.134/20
+        - 172.16.9.135/20
       nameservers:
         addresses: [1.1.1.1, 8.8.8.8]
       routes:
         - to: default
           via: 172.16.10.1
-    enp66s0f0:
+    enp68s0f0:
       dhcp4: false
       dhcp6: false
       mtu: 9000
-    enp66s0f1:
+    enp68s0f1:
       dhcp4: false
       dhcp6: false
       mtu: 9000
   bonds:
     bond0:
-      interfaces: [enp66s0f0, enp66s0f1]
+      interfaces: [enp68s0f0, enp68s0f1]
       parameters:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
-          #        bond-xmit-hash-policy: layer3+4
-      addresses: [10.10.88.134/24]
+          #        xmit-hash-policy: layer3+4
+      addresses: [10.10.88.135/24]
       mtu: 9000
-
   version: 2
-```
 
