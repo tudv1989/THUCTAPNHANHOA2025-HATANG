@@ -71,8 +71,6 @@ Proxmox VE, trình cài đặt tạo mục cấu hình sau trong ``/etc/pve/stor
 
     cat /etc/pve/storage.cfg
 
-
-
 ## Cấu hình ZFS trên hệ thống Linux:
 
 #### 1. Cài đặt ZFS:
@@ -91,7 +89,7 @@ Trên CentOS/RHEL:
 
 Sử dụng lệnh lsblk hoặc fdisk -l để xác định các ổ đĩa bạn muốn sử dụng cho ZFS.
 
-#### 3. Tạo ZFS Pool:
+#### 3. Tạo ZFS Pool:(Stripe)
 
 Sử dụng lệnh zpool create để tạo một ZFS pool. Ví dụ:
 
