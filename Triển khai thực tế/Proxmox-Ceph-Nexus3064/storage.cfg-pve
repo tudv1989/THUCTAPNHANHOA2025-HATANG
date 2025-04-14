@@ -1,0 +1,16 @@
+dir: local
+	path /var/lib/vz
+	content backup,vztmpl,iso
+
+lvmthin: local-lvm
+	thinpool data
+	vgname pve
+	content images,rootdir
+
+rbd: ceph-pool-from134-for-131
+	content images,rootdir
+	krbd 1
+	monhost 10.10.88.134
+	pool ceph-pool-from134-for-131
+	username admin
+
