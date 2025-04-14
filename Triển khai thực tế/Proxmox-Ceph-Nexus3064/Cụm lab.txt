@@ -5,6 +5,8 @@
 
 Trình bày - Câu hỏi
 
+0. Nginx proxmox Cụm proxmox
+
 1. Có thể tạo LVM dựa trên RBD mapping vào Node không > Trả lời có, nhưng không ai làm, vấn đề striped đã được xử lý bởi Ceph phân phối dữ liệu vào OSD đồng thời
 
 >> Gây chồng lấn, kém hiệu quả , phức tạp vấn đề
