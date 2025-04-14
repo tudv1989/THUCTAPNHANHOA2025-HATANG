@@ -3,7 +3,9 @@
 172.16.9.201 ubuntu2204
 172.16.9.202 ubuntu2204
 
-Trình bày - Câu hỏi
+## Trình bày - Câu hỏi
+
+Trước tiên giới thiệu mô hình network có dự phòng (Dự phòng network cho proxmox-ceph)
 
 0. Nginx proxy cho cụm Proxmox
 
