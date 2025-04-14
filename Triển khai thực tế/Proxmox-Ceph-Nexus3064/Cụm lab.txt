@@ -1,5 +1,40 @@
 172.16.9.200 administrator 123456aA@
 172.16.9.116 nginx proxy proxmox
-172.16.9.115 grafana
 172.16.9.201 ubuntu2204
 172.16.9.202 ubuntu2204
+
+Trình bày - Câu hỏi
+
+1. Có thể tạo LVM dựa trên RBD mapping vào Node không > Trả lời có, nhưng không ai làm, vấn đề striped đã được xử lý bởi Ceph phân phối dữ liệu vào OSD đồng thời
+
+>> Gây chồng lấn, kém hiệu quả , phức tạp vấn đề
+
+>> Chưa tính nếu tạo LVM thì sẽ không có chuyện HA VM, vì tạo LVM sẽ mapping pool LV vào máy tạo LVM >> Khi đó Node này không khác gì Node độc lập , Node off thì VM off
+
+>> LVM đã cố tình chặn các block name tên /dev/rbd* mặc định là có chủ đích
+
+2. Khi đường Cluster Proxmox bị cắt, VM chuyển sang node khác bằng đường nào?:
+
+>> Thông tin VM được lưu trong từng Node(khẳng định là lưu trong từng node vì VM tạo trên disk local vẫn được HA nhưng khi nó được chuyển là nó die luôn )và thông tin này được đồng bộ bởi Corosync 
+
+>> Không có khái niệm chuyển VM khi Node bị off >> Chỉ có khái niệm VM được khởi động ở Node nào
+
+Nếu mà nói VM được chuyển từ Node nọ sang Node kia >> Chỉ đúng trong trường hợp Live Migrate máy ảo >> Đố Ae biết tại sao nó đúng
+
+3. Làm sao tạo máy ảo có disk dạng qcow2 >> Với Rados Block Device mặc định hỗ trợ Thin provisioning  >> Mặc định tạo disk RAW
+
+Máy ảo được tạo và disk format  RAW cũng có thể có disk lớn hơn Pool Ceph chứa nó.
+
+>> Nếu tạo VM qcow2 thì dùng Cephfs(Shared) >> Trường hợp này không làm do hiệu suất máy ảo phần liên quan đến disk là chậm,kém
+
+>> Phần chủ đích muốn tạo VM disk format qcow2 chưa rõ vấn đề >> Xin giải thích thêm
+
+4. Nói về MTU 9000
+
+5. Nói về quy trình thay disk nếu có cảnh báo bad hoặc cảnh báo hiệu suất kém bởi Ceph hoặc vấn đề crash nào đó khi check Ceph health 
+
+6. Nói về việc thay cả 1 node Ceph trong cụm Ceph nếu OS node đó không boot được
+
+7. Nói về việc dự phòng Node mgr , dự phòng monitor
+
+8. Nói về việc sử dụng proxmox để cài đặt cụm Ceph hay việc cài đặt Ceph trên OS : Ubuntu , Alma , Rocky...
