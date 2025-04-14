@@ -93,7 +93,7 @@ network:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
-#        xmit-hash-policy: layer3+4
+        transmit-hash-policy: layer3+4
       addresses: [172.16.2.181/20]
 
       gateway4: 172.16.10.1
@@ -116,7 +116,7 @@ network:
         mode: 802.3ad
         lacp-rate: fast
         mii-monitor-interval: 100
-#        xmit-hash-policy: layer3+4
+        transmit-hash-policy: layer3+4
       addresses: [10.10.88.134/24]
       mtu: 9000
   version: 2
