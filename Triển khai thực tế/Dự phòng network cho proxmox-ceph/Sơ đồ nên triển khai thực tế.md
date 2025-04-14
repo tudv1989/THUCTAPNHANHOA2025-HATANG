@@ -24,12 +24,12 @@ https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th
 
 #### a. Bonding Interfaces - Các port này để MTU 9000 hay ko phụ thuộc vào các thiết bị trên nó 
 - Management (bond0):
-  - Mode: active-backup (nếu switch không hỗ trợ LACP) hoặc 802.3ad (LACP).
+  - Mode: active-backup (nếu switch không hỗ trợ LACP) hoặc 802.3ad (LACP). >> SW cisco 802.3ad giải quyết tất cả
   - Interfaces: eno1, eno2 (2x10G).
   - IP: Static (172.16.9.0/24).
 
 
-- Corosync/VM/Ceph Public (bond1):
+- Corosync/VM Live migrate trafic (bond1):
   - Mode: 802.3ad (LACP) hoặc balance-alb.
   - Interfaces: enp3s0f0, enp3s0f1 (2x10G).
   - VLANs:
