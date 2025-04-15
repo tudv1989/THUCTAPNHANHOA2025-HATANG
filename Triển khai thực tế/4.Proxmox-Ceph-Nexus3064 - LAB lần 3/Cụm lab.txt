@@ -35,7 +35,7 @@ Máy ảo được tạo và disk format  RAW cũng có thể có disk lớn hơ
 
 4. Nói về MTU 9000
 
-5. Nói về quy trình thay disk nếu có cảnh báo bad hoặc cảnh báo hiệu suất kém bởi Ceph hoặc vấn đề crash nào đó khi check Ceph health 
+5. Nói về quy trình thay disk nếu có cảnh báo bad hoặc cảnh báo hiệu suất kém bởi Ceph hoặc vấn đề crash nào đó khi check Ceph health detail
 
 6. Nói về việc thay cả 1 node Ceph trong cụm Ceph nếu OS node đó không boot được
 
