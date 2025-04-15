@@ -4,7 +4,9 @@ Tham khảo:
 
 https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th%E1%BB%B1c%20h%C3%A0nh/10.Th%E1%BB%B1c%20h%C3%A0nh%20c%E1%BA%A5u%20h%C3%ACnh%20HA%20v%E1%BB%9Bi%20Switch.md
 
-## 2. Sơ đồ mạng 
+## 2. Sơ đồ mạng
+
+Mạng ra internet khi cài đặt dịch vụ của Ceph mình không cho vào 
 
 ```Bash
 [Proxmox Node]
@@ -12,10 +14,10 @@ https://github.com/tudv1989/THUCTAPNHANHOA2025-HATANG/blob/main/Network-Basic/Th
 |-- bond0 (eno1+eno2) (10G): Management + VM Traffic ra Internet (172.16.9.0/24) - Cắm vào cặp sw stack ví dụ Gi1/0/1 + Gi2/0/1
 |-- bond1 (10G): Corosync Cluster (10.10.66.0/24, MTU 9000) enp3s0f0+enp3s0f1 - Cắm vào cặp sw stack ví dụ Gi1/0/2 + Gi2/0/2 - Đường chỉ định cho live migrate máy ảo
     |-- VLAN 666: (10.10.66.0/24)
-|-- bond2 (40G LACP): enp4s0f0 + enp4s0f1 - Cắm vào cặp sw stack ví dụ Gi1/0/3 + Gi2/0/3
+|-- bond2 (40G LACP hoặc bongidng 4 port 10G): enp4s0f0 + enp4s0f1 - Cắm vào cặp sw stack ví dụ Gi1/0/3 + Gi2/0/3
     |-- VLAN 888: Ceph Public (10.10.88.0/24)
 |
-[Switch]
+[Switch10GB]
 |-- Gi1/0/1 + Gi2/0/1: Access 172.16.9.0/24 (Management + VM)
 |-- Gi1/0/2 + Gi2/0/2: Access 10.10.66.0/24 (Corosync)
 |-- Gi1/0/3 + Gi2/0/3: Access Ceph Public (10.10.88.0/24) + Ceph Cluster

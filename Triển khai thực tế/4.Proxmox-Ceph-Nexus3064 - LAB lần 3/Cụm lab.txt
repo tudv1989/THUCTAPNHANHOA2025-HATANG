@@ -2,6 +2,7 @@
 172.16.9.116 nginx proxy proxmox
 172.16.9.201 ubuntu2204
 172.16.9.202 ubuntu2204
+Nexus 3064 admin pass !3CGh4yJj6VSw9A show queuing interface ethernet 1/30
 
 ## Trình bày - Câu hỏi
 
