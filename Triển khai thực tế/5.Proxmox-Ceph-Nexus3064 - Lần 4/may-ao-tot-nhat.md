@@ -3,3 +3,5 @@
   <img src="proxmox-ceph-nexus-images/Screenshot_9.png">
   <img src="proxmox-ceph-nexus-images/Screenshot_10.png">
   <img src="proxmox-ceph-nexus-images/Screenshot_11.png">
+
+curl -Lso- tocdo.net | bash
