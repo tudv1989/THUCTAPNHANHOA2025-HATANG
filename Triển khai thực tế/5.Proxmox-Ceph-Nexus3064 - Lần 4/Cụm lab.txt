@@ -1,4 +1,4 @@
-172.16.9.116 nginx proxy proxmox tên miền : proxmox1.cloud365.vn
+172.16.9.116 cài bên ngoài, nginx proxy proxmox tên miền : proxmox1.cloud365.vn
 
 Nexus 3064 admin pass !3CGh4yJj6VSw9A show queuing interface ethernet 1/30
 
@@ -41,3 +41,22 @@ Máy ảo được tạo và disk format  RAW cũng có thể có disk lớn hơ
 7. Nói về việc dự phòng Node mgr , dự phòng monitor
 
 8. Nói về việc sử dụng proxmox để cài đặt cụm Ceph hay việc cài đặt Ceph trên OS : Ubuntu , Alma , Rocky...
+
+
+Benchmark ghi dữ liệu vào Ceph:
+
+    rados bench -p testpool 60 write --no-cleanup
+
+Benchmark đọc dữ liệu từ Ceph:
+
+    rados bench -p testpool 60 seq
+
+Benchmark đọc ngẫu nhiên:
+
+rados bench -p testpool 60 rand
+
+ssh proxmox131.dinhtu.xyz "rbd create --size 100G --pool ceph-pool-from134-for-131 ceph-pool-from134-for-131-rbd1"
+ssh proxmox131.dinhtu.xyz "rbd create --size 100G --pool ceph-pool-from134-for-131 ceph-pool-from134-for-131-rbd2"
+
+ssh proxmox131.dinhtu.xyz "rbd map ceph-pool-from134-for-131/ceph-pool-from134-for-131-rbd1"
+ssh proxmox131.dinhtu.xyz "rbd map ceph-pool-from134-for-131/ceph-pool-from134-for-131-rbd2"
