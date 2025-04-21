@@ -48,7 +48,7 @@ KVM thuộc loại ảo hóa phần cứng (Hardware Virtualization) với đặ
 
 ---
 
-5. Cách hoạt động của KVMVM**  Kernel Integration:n:**  
+5. Cách hoạt động của KVMVM**  Kernel Integration:**  
    - Khi load module kvm, Linux kernel trở thành hypervisor.  Tạo VM:M:**  
    - QEMU mô phỏng phần cứng (CPU ảo, disk ảo) và sử dụng KVM để tăng tốc.  Hardware Acceleration:n:**  
    - CPU vật lý (Intel VT-x/AMD-V) xử lý trực tiếp lệnh từ VM.  Quản lý tài nguyên:n:**  
@@ -57,7 +57,9 @@ KVM thuộc loại ảo hóa phần cứng (Hardware Virtualization) với đặ
 
 ---
 
-6. Mối quan hệ giữa KVM và OSOS** KVM là một phần của Linux kernelel** (từ phiên bản 2.6.20). Không cần OS host riêngng**: KVM biến Linux kernel thành hypervisor, nhưng vẫn chạy các process Linux thông thường. OS khách (Guest OS)S)**: Chạy độc lập trên VM, không biết mình đang ảo hóa (trừ khi dùng paravirtualization).  
+6. Mối quan hệ giữa KVM và OSOS 
+
+KVM là một phần của Linux kernelel, (từ phiên bản 2.6.20). Không cần OS host riêngng**: KVM biến Linux kernel thành hypervisor, nhưng vẫn chạy các process Linux thông thường. OS khách (Guest OS)S)**: Chạy độc lập trên VM, không biết mình đang ảo hóa (trừ khi dùng paravirtualization).  
 
 ``Bash
 
