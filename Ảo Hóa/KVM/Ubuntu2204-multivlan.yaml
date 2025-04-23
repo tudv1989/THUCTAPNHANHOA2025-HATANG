@@ -1,0 +1,83 @@
+# /etc/netplan/01-multivlan-bridge.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cấu hình card vật lý ens18 (cho br0 và VLAN1)
+    ens18:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+    # Cấu hình card vật lý ens19 (cho VLAN666 và VLAN777)
+    ens19:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+    # Cấu hình card vật lý ens20 (cho VLAN888)
+    ens20:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+  vlans:    
+    # VLAN666 trên ens19
+    vlan666:
+      id: 666
+      link: ens19
+    
+    # VLAN777 trên ens19
+    vlan777:
+      id: 777
+      link: ens19
+    
+    # VLAN888 trên ens20
+    vlan888:
+      id: 888
+      link: ens20
+
+  bridges:
+    # Bridge chính cho VLAN1
+    br0:
+      interfaces: [ens18]
+      dhcp4: no
+      addresses: [172.16.9.137/20]
+      routes:
+        - to: default
+          via: 172.16.10.1
+          metric: 100
+
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN666
+    brvlan66:
+      interfaces: [vlan666]
+      dhcp4: no
+      addresses: [10.10.66.137/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN777
+    brvlan777:
+      interfaces: [vlan777]
+      dhcp4: no
+      addresses: [10.10.77.137/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN888
+    brvlan888:
+      interfaces: [vlan888]
+      dhcp4: no
+      addresses: [10.10.88.137/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+
