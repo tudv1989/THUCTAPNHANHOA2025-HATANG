@@ -12,8 +12,6 @@ Trước tiên giới thiệu mô hình network có dự phòng (Dự phòng net
 
 >> Gây chồng lấn, kém hiệu quả , phức tạp vấn đề
 
->> Chưa tính nếu tạo LVM thì sẽ không có chuyện HA VM, vì tạo LVM sẽ mapping pool LV vào máy tạo LVM >> Khi đó Node này không khác gì Node độc lập , Node off thì VM off
-
 >> LVM đã cố tình chặn các block name tên /dev/rbd* mặc định là có chủ đích
 
 2. Khi đường Cluster Proxmox bị cắt, VM chuyển sang node khác bằng đường nào?:
