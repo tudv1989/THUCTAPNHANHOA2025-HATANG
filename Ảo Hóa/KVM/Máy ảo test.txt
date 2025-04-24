@@ -1,0 +1,13 @@
+KVM node 172.16.9.137
+
+Máy ảo multivlan: ubuntu24.04-vps2-vm1
+
+IP 172.16.9.200
+
+    10.10.66.200 - vlan666
+
+    10.10.77.200 - vlan777
+
+    10.10.88.200 - vlan888
+
+Ping thử đến cụm Ceph 10.10.88.134  - vlan888
