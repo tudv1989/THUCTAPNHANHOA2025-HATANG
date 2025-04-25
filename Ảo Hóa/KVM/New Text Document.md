@@ -1,0 +1,98 @@
+
+```Bash
+
+#!/bin/bash
+
+# Ten may ao can sao luu
+VM_NAME=$(virsh list --all --name)
+
+# Cau hinh
+LOG_FILE="/var/log/kvm_backup.log" # Duong dan file log
+LAST_FULL_BACKUP_DATE_FILE="/tmp/last_full_backup_date" # File luu ngay sao luu day du cuoi cung
+
+# Ham ghi log
+log() {
+    echo "[$($(date +"%Y-%m-%d %H:%M:%S"))] $1" >> $LOG_FILE
+}
+
+# Lay so phut da troi ke tu luc dau
+START_TIME_FILE="/tmp/backup_start_time"
+
+if [ ! -f "$START_TIME_FILE" ]; then
+    date +%s > "$START_TIME_FILE"
+fi
+
+START_TIME=$(cat "$START_TIME_FILE")
+CURRENT_TIME=$(date +%s)
+DIFF_TIME=$((CURRENT_TIME - START_TIME))
+DIFF_MINUTES=$((DIFF_TIME / 60))
+
+# Vong lap for de sao luu tung may ao
+for vm in $VM_NAME; do
+
+    DATE=$(date +"%Y%m%d%H%M%S") # Tao thoi gian sao luu
+    CURRENT_DATE=$(date +"%Y%m%d") # Lay ngay hien tai
+
+    # Cau hinh cho tung VM
+    mkdir -p /mnt/backups/"$vm" # Tao thu muc rieng cho tung VM
+    BACKUP_DIR="/mnt/backups/$vm" # Duong dan luu tru backup cho tung VM
+
+    log "Bat dau sao luu may ao $vm vao $DATE"
+
+    # Thuc hien backup
+    IMAGE_PATH="/var/lib/libvirt/images/${vm}.qcow2" # Duong dan file anh dia
+    CONFIG_PATH="/etc/libvirt/qemu/${vm}.xml" # Duong dan file cau hinh
+
+    if [ -f "$LAST_FULL_BACKUP_DATE_FILE" ]; then
+        LAST_FULL_BACKUP_DATE=$(cat "$LAST_FULL_BACKUP_DATE_FILE")
+    else
+        LAST_FULL_BACKUP_DATE="19700101" # Ngay bat dau neu file khong ton tai
+    fi
+
+    if [ "$DIFF_MINUTES" -lt 1 ] && [ "$CURRENT_DATE" == "$LAST_FULL_BACKUP_DATE" ]; then # 999999 phut - de khong xay ra back up incremental, ko muon backup
+        BACKUP_IMAGE="${BACKUP_DIR}/${vm}_incremental_${DATE}.qcow2"
+        BACKUP_CONFIG="${BACKUP_DIR}/${vm}_config_incremental_${DATE}.xml"
+
+        log "Thuc hien backup incremental"
+
+        # Sao chep file anh dia bang qemu-img
+        qemu-img convert -O qcow2 "$IMAGE_PATH" "$BACKUP_IMAGE"
+        if [ $? -ne 0 ]; then
+            log "Loi: Sao luu incremental bang qemu-img that bai cho $vm"
+            continue # Bo qua VM nay neu loi
+
+fi
+
+        log "Sao chep file cau hinh tu $CONFIG_PATH den $BACKUP_CONFIG"
+        cp "$CONFIG_PATH" "$BACKUP_CONFIG"
+        if [ $? -ne 0 ]; then
+            log "Loi: Sao chep file cau hinh that bai cho $vm"
+            continue # Bo qua VM nay neu loi
+        fi
+    else
+        BACKUP_IMAGE="${BACKUP_DIR}/${vm}_full_${DATE}.qcow2"
+        BACKUP_CONFIG="${BACKUP_DIR}/${vm}_config_full_${DATE}.xml"
+
+        log "Thuc hien backup day du"
+
+        qemu-img convert -O qcow2 "$IMAGE_PATH" "$BACKUP_IMAGE"
+        if [ $? -ne 0 ]; then
+            log "Loi: Sao luu day du bang qemu-img that bai cho $vm"
+            continue # Bo qua VM nay neu loi
+        fi
+
+        log "Sao chep file cau hinh tu $CONFIG_PATH den $BACKUP_CONFIG"
+        cp "$CONFIG_PATH" "$BACKUP_CONFIG"
+        if [ $? -ne 0 ]; then
+            log "Loi: Sao chep file cau hinh that bai cho $vm"
+            continue # Bo qua VM nay neu loi
+        fi
+
+        rm "$START_TIME_FILE"
+        echo "$CURRENT_DATE" > "$LAST_FULL_BACKUP_DATE_FILE" # Cap nhat ngay sao luu day du
+    fi
+
+    log "Hoan tat: Sao luu tai: ${BACKUP_IMAGE}."
+done
+
+```
