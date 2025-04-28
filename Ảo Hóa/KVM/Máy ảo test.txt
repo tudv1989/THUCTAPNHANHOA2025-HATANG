@@ -1,6 +1,8 @@
 KVM node 172.16.9.134
 
-- Máy ảo multivlan: VM1_local_ubuntu22.04 tạo disk local - Prometheus
+- Máy ảo Prometheus multivlan: VM1_local_ubuntu22.04 tạo disk local - Prometheus
+
+Có thể remote desktop
 
     IP 172.16.9.117
 
@@ -18,3 +20,5 @@ Ping thử đến cụm Ceph 10.10.88.134  - vlan888
 
 
 - Máy ảo tên ubuntu22.04-LVM tạo disk type LV
+
+- Máy ảo webvirtcloud 172.16.9.115 chạy trên Proxmox 172.16.9.130
