@@ -1,24 +1,16 @@
-KVM node 172.16.9.137
+KVM node 172.16.9.134
 
-- Máy ảo multivlan: ubuntu24.04-vps2-vm1 tạo trong LV
+- Máy ảo multivlan: VM1_local_ubuntu22.04 tạo disk local - Prometheus
 
-IP 172.16.9.200
+IP 172.16.9.117
 
-    10.10.66.200 - vlan666
-
-    10.10.77.200 - vlan777
-
-    10.10.88.200 - vlan888
+    10.10.66.117 - vlan666
+  
+    10.10.88.117 - vlan888
 
 Ping thử đến cụm Ceph 10.10.88.134  - vlan888
 
-- Máy ảo multivlan: ubuntu22.04-vps2-vm1 tạo trong Ceph
+- Máy ảo Ubuntu22: ubuntu22.04 tạo trong Ceph
 
-IP 172.16.9.201
-
-    10.10.66.201 - vlan666
-
-    10.10.77.201 - vlan777
-
-    10.10.88.201 - vlan888
+IP 172.16.9.118
 
