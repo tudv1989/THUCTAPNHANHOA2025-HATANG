@@ -12,7 +12,9 @@ Ping thử đến cụm Ceph 10.10.88.134  - vlan888
 
 
 
-- Máy ảo Ubuntu22: ubuntu22.04 tạo trong Ceph
+- Máy ảo Ubuntu22: ubuntu22.04 disk tạo trong Ceph
 
     IP 172.16.9.118
 
+
+- Máy ảo tên ubuntu22.04-LVM tạo disk type LV
