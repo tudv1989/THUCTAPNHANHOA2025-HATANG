@@ -1,0 +1,13 @@
+Pfsense
++ Triển khai pfsense -01
++ NAT Local Internet
++ Firewall Rule 
++ DHCP
++ Setup OpenVPN với Pfsense (OpenVPN mode tab, OpenVPN mode Tun)
++ Triển khai VPN Site to site
++ Triển khai Pfsense HA
++ Triển khai kết hợp HA + Site to Site Pfsense
++ Cấu hình cảnh báo telegram khi có kết nối OpenVPN từ client.
++ Tìm hiểu mở rộng: Squid, Snort, Controller, Adguardhome, VPN Site-to-Site giữa pfsense với các thiết bị dòng khác như Mikrotik, Fortigate, draytek (nghiên cứu hướng dẫn về cơ chế + thực hành nếu có điều kiện).
+
+Lưu ý: Làm trên môi trường ảo hóa KVM, có thời gian làm thêm mức cơ bản ở môi trường ảo hóa VMware, Promox.
