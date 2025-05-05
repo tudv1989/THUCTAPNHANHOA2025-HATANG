@@ -1,4 +1,4 @@
-KVM node 172.16.9.134
+KVM node 172.16.9.133
 
 - Máy ảo Prometheus multivlan: VM1_local_ubuntu22.04 tạo disk local - Prometheus
 
@@ -11,7 +11,6 @@ Có thể remote desktop
     10.10.88.117 - vlan888
 
 Ping thử đến cụm Ceph 10.10.88.134  - vlan888
-
 
 
 - Máy ảo Ubuntu22: ubuntu22.04 disk tạo trong Ceph
