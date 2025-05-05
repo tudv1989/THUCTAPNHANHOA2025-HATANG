@@ -1,0 +1,80 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cấu hình card vật lý eno1 (cho br0 và VLAN1)
+    eno1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+    eno2:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+  vlans:    
+    # VLAN137 trên eno1
+    vlan137:
+      id: 137
+      link: eno1
+    
+    # VLAN138 trên eno1
+    vlan138:
+      id: 138
+      link: eno1
+    
+    # VLAN139 trên eno1
+    vlan139:
+      id: 139
+      link: eno1
+
+    vlan666:
+      id: 666
+      link: eno2
+
+
+  bridges:
+    # Bridge chính cho VLAN137
+    brvlan137:
+      interfaces: [vlan137]
+      dhcp4: no
+      addresses: [103.28.37.110/24]
+      routes:
+        - to: default
+          via: 103.28.37.1
+          metric: 100
+
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN138
+    brvlan138:
+      interfaces: [vlan138]
+      dhcp4: no
+      addresses: [103.28.38.180/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN139
+    brvlan139:
+      interfaces: [vlan139]
+      dhcp4: no
+      addresses: [103.28.39.5/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN666
+    brvlan666:
+      interfaces: [vlan666]
+      dhcp4: no
+      addresses: [10.10.66.110/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+  
