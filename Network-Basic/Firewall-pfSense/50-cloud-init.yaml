@@ -1,0 +1,90 @@
+# /etc/netplan/50-cloud-init.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cấu hình card vật lý eno1 (cho br0 và VLAN137-138-139)
+    eno1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    eno2:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    eno3:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    eno4:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    enp65s0f0:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    enp65s0f1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+
+  vlans:    
+    # VLAN666 trên enp65s0f0
+    vlan666:
+      id: 666
+      link: enp65s0f0
+    
+    # VLAN777 trên enp65s0f0
+    vlan777:
+      id: 777
+      link: enp65s0f0
+    
+    # VLAN888 trên enp65s0f1
+    vlan888:
+      id: 888
+      link: enp65s0f1
+
+  bridges:
+    # Bridge chính cho VLAN1
+    brvlan1:
+      interfaces: [eno1]
+      dhcp4: no
+      addresses: [172.16.9.131/20]
+      routes:
+        - to: default
+          via: 172.16.10.1
+          metric: 100
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN666
+    brvlan666:
+      interfaces: [vlan666]
+      dhcp4: no
+      addresses: [10.10.66.131/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    
+    # Bridge cho VLAN777
+    brvlan777:
+      interfaces: [vlan777]
+      dhcp4: no
+      addresses: [10.10.77.131/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    # Bridge cho VLAN888
+    brvlan888:
+      interfaces: [vlan888]
+      dhcp4: no
+      addresses: [10.10.88.131/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+
