@@ -3,7 +3,7 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    # Cấu hình card vật lý eno1 (Eno1 bridge cho VLAN native, ở đây là VLAN 1)
+    # Cấu hình card vật lý eno1 (eno1 bridge cho VLAN native, ở đây là VLAN 1)
     eno1:
       dhcp4: no
       accept-ra: no
