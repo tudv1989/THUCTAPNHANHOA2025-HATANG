@@ -26,6 +26,11 @@ network:
     vlan666:
       id: 666
       link: enp65s0f0
+
+    # VLAN555 trên enp65s0f0
+    vlan555:
+      id: 555
+      link: enp65s0f0
     
     # VLAN777 trên enp65s0f0
     vlan777:
@@ -39,17 +44,25 @@ network:
 
   bridges:
     # Bridge chính cho VLAN1
-    br0:
+    brvlan1:
       interfaces: [eno1]
       dhcp4: no
-      addresses: [172.16.9.137/20]
+      addresses: [172.16.9.133/20]
       routes:
         - to: default
           via: 172.16.10.1
           metric: 100
-
       nameservers:
         addresses: [8.8.8.8, 8.8.4.4]
+      parameters:
+        stp: true
+        forward-delay: 4
+
+    # Bridge cho VLAN555
+    brvlan555:
+      interfaces: [vlan555]
+      dhcp4: no
+      addresses: [10.10.55.133/24]
       parameters:
         stp: true
         forward-delay: 4
@@ -58,7 +71,7 @@ network:
     brvlan666:
       interfaces: [vlan666]
       dhcp4: no
-      addresses: [10.10.66.137/24]
+      addresses: [10.10.66.133/24]
       parameters:
         stp: true
         forward-delay: 4
@@ -67,7 +80,7 @@ network:
     brvlan777:
       interfaces: [vlan777]
       dhcp4: no
-      addresses: [10.10.77.137/24]
+      addresses: [10.10.77.133/24]
       parameters:
         stp: true
         forward-delay: 4
@@ -76,7 +89,7 @@ network:
     brvlan888:
       interfaces: [vlan888]
       dhcp4: no
-      addresses: [10.10.88.137/24]
+      addresses: [10.10.88.133/24]
       parameters:
         stp: true
         forward-delay: 4
