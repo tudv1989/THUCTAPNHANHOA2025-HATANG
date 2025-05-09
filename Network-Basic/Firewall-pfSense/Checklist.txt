@@ -1,5 +1,5 @@
 Pfsense
-+ Triển khai pfsense -01
++ Triển khai pfsense
 + NAT Local Internet
 + Firewall Rule 
 + DHCP
