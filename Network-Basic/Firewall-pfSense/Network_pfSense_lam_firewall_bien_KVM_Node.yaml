@@ -1,11 +1,30 @@
 Dưới đây là cấu hình netplan của KVM node
 
+```Bash
+Internet
+│
+└───[Firewall Public] (Chặn mọi traffic trừ VPN)
+    │
+    └───[VPN Gateway] (OpenVPN/WireGuard)
+        │
+        └───[Mạng Quản Trị Nội Bộ] (10.10.11.0/24)
+            │
+            ├───[KVM Host] (SSH, VNC, Libvirt)
+            └───[Mạng Ảo KVM] (10.10.11.133/24)
+                ├───[VM 1]
+                └───[VM 2]
+```
 Với chức năng được giải thích như sau:
 
 ``eno1`` là card bridge ra internet, nhưng không setIP cho KVM node, mà cho KVM node dùng IP local, kết nối đến KVM node sử dụng OPEN VPN
 
 pfSense được add 2 card WAN là ``brvlan1`` và LAN là ``brvlan111``
 
+   <img src="pFsenseimages/Screenshot_247.png"> 
+   <img src="pFsenseimages/Screenshot_248.png"> 
+   <img src="pFsenseimages/Screenshot_249.png"> 
+   <img src="pFsenseimages/Screenshot_250.png"> 
+   <img src="pFsenseimages/Screenshot_251.png"> 
 
 # /etc/netplan/50-cloud-init.yaml
 network:
