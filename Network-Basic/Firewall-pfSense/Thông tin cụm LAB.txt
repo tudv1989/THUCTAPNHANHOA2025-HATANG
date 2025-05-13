@@ -1,0 +1,5 @@
+Windows test : win9231 trên KVM9131, win9233 trên KVM9133
+- HA IP 179-180 LAN111
+- IPSEC 177-178 - LAN 131<->LAN 133
+- Open VPN 7199 - win9231
+- pfSense phủ ngoài KVM node 133
