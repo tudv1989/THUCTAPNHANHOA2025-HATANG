@@ -1,0 +1,33 @@
+Dear Blackwall Team!
+
+We have a real PoC plan to test your application, so we created 4 virtual machines, 2 of which run GateKeeper and 2 of which run Analysis,All of which run Debian12 OS and CPU include AVX flag.
+To reduce the latency between GateKeeper and Analysis as well as reduce the latency when accessing the website, we have configured an additional Local LAN network so that GateKeeper machines can connect Locally to Analysis.
+I send the server information as follows and include a descriptive image:
+
+I. GateKeeper-01
+IP Public: 103.124.95.109
+IP Private:10.10.10.15
+SSH information
+Username: root
+Password:
+
+II. GateKeeper-02
+IP Public: 103.124.95.212
+IP Private:10.10.10.6
+SSH information
+Username: root
+Password: 
+
+III.  Analysis-Server-01
+IP Public: 103.124.95.191
+IP Private:10.10.10.8
+SSH information
+Username: root
+Password: 
+
+IV.  Analysis-Server-02
+IP Public: 103.124.95.183
+IP Private: 10.10.10.7
+SSH information
+Username: root
+Password: 
