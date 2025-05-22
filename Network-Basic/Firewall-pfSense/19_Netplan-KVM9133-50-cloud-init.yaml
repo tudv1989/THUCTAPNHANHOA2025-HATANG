@@ -1,0 +1,64 @@
+# /etc/netplan/multivlan-bridge.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cấu hình card vật lý eno1 (cho br0 và VLAN1)
+    eno1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+    # Cấu hình card vật lý enp65s0f0 (cho VLAN666 và VLAN777)
+    enp65s0f0:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+    # Cấu hình card vật lý enp65s0f1 (cho VLAN888)
+    enp65s0f1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+  vlans:    
+    vlan133:
+      id: 133
+      link: enp65s0f1
+    vlan211:
+      id: 211
+      link: enp65s0f1
+    vlan212:
+      id: 212
+      link: enp65s0f1
+
+  bridges:
+    # Bridge chính cho VLAN1
+    brvlan1:
+      interfaces: [eno1]
+      dhcp4: no
+      addresses: [172.16.9.133/20]
+      routes:
+        - to: default
+          via: 172.16.10.1
+          metric: 100
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+      parameters:
+        stp: true
+        forward-delay: 4
+    # Bridge cho VLAN203
+    brvlan133:
+      interfaces: [vlan133]
+      dhcp4: no
+      addresses: [10.10.133.133/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    brvlan211:
+      interfaces: [vlan211]
+      dhcp4: no
+    brvlan212:
+      interfaces: [vlan212]
+      dhcp4: no
+

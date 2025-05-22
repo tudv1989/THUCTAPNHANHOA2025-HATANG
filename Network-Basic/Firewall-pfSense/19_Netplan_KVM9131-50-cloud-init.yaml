@@ -1,0 +1,83 @@
+# /etc/netplan/50-cloud-init.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eno1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    eno2:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    eno3:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    eno4:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    enp65s0f0:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+    enp65s0f1:
+      dhcp4: no
+      accept-ra: no
+      optional: true
+
+  vlans:    
+   # VLAN201 trên enp65s0f0
+    vlan201:
+      id: 201
+      link: enp65s0f0
+   # VLAN202 trên enp65s0f0
+    vlan202:
+      id: 202
+      link: enp65s0f0
+   # VLAN131 trên enp65s0f1
+    vlan131:
+      id: 131
+      link: enp65s0f1
+
+  bridges:
+    # Bridge chính cho VLAN1
+    brvlan1:
+      interfaces: [eno1]
+      dhcp4: no
+      addresses: [172.16.9.131/20]
+      routes:
+        - to: default
+          via: 172.16.10.1
+          metric: 100
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+      parameters:
+        stp: true
+        forward-delay: 4
+
+    # Bridge cho VLAN201
+    brvlan201:
+      interfaces: [vlan201]
+      dhcp4: no
+      addresses: [10.10.201.131/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    brvlan202:
+      interfaces: [vlan202]
+      dhcp4: no
+      addresses: [10.10.202.131/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+    brvlan131:
+      interfaces: [vlan131]
+      dhcp4: no
+      addresses: [10.10.131.131/24]
+      parameters:
+        stp: true
+        forward-delay: 4
+
