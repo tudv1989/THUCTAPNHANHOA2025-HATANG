@@ -256,11 +256,11 @@
             <mxPoint x="724.5" y="840" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="aF18rhpXPW_L0XWFLUft-1" value="VIP -&lt;span style=&quot;color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: left; text-wrap-mode: wrap; background-color: rgb(245, 245, 245);&quot;&gt;172.16.9.213&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="570" y="850" width="130" height="30" as="geometry" />
+        <mxCell id="aF18rhpXPW_L0XWFLUft-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;VIP&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;color: rgb(51, 51, 51); font-family: Roboto, sans-serif; text-align: left; text-wrap-mode: wrap; background-color: rgb(245, 245, 245);&quot;&gt;172.16.9.213&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="835" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="aF18rhpXPW_L0XWFLUft-2" value="&lt;span style=&quot;color: rgb(51, 51, 51); font-family: Roboto, sans-serif; font-size: 14px; text-align: left; text-wrap-mode: wrap; background-color: rgb(245, 245, 245);&quot;&gt;VIP -172.16.9.168&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="230" y="850" width="140" height="30" as="geometry" />
+        <mxCell id="aF18rhpXPW_L0XWFLUft-2" value="&lt;span style=&quot;color: rgb(51, 51, 51); font-family: Roboto, sans-serif; text-align: left; text-wrap-mode: wrap; background-color: rgb(245, 245, 245);&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;VIP 172.16.9.168&lt;/font&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="240" y="840" width="130" height="30" as="geometry" />
         </mxCell>
         <mxCell id="aF18rhpXPW_L0XWFLUft-3" value="SYNC 10.10.131.253" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="140" y="785" width="140" height="30" as="geometry" />
